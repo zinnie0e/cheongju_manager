@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+:root {
+	--full-width: 1900px;
+	
+	--side-width: 300px;
+	
+	--top-height: 100px;
+}
+
+body {
+	width: var(--full-width);
+    height: 100%;
+    
+	margin: 0;
+	padding: 0;
+	
+	background-color: #aaaaaa;
+}
+
+#div_side {
+	position:absolute;
+	width: var(--side-width);
+    height: 100%;
+    
+    background-color: #3c3d44;
+}
+
+.div_side {
+	width: var(--side-width);
+    height: 60px;
+    
+    display: block;
+    color: white;
+    font-size: 40px;
+    
+    background-color: #3c3d44;
+}
+
+#div_top {
+	position:absolute;
+	width: calc(var(--full-width) - var(--side-width));
+    height: var(--top-height);
+	left: var(--side-width);
+	
+	background-color: #0062bd;
+}
+
+#div_contents {
+	position:absolute;
+	width: calc(var(--full-width) - var(--side-width));
+    height: 100%;
+    top: var(--top-height);
+    left: var(--side-width);
+}
+
+#div_login {
+	position: absolute;
+	width: 680px;
+    height: 450px;
+	top: 330px;
+	left: 620px;
+	
+	background-color: aqua;
+}
+
+#user_id {
+	position: absolute;
+	width: 440px;
+    height: 60px;
+	top: 140px;
+	left: 120px;
+	
+	size: 40px;
+}
+
+#user_pw {
+	position: absolute;
+	width: 440px;
+    height: 60px;
+	top: 210px;
+	left: 120px;
+	
+	size: 40px;
+}
+
+#btn_next {
+	position: absolute;
+	width: 440px;
+    height: 60px;
+	top: 320px;
+	left: 120px;
+	
+	font-size: 40px;
+}
+
+#div_main {
+	position:absolute;
+	width: var(--full-width);
+    height: 100%;
+}
+
+#a_manager {
+	font-size: 32px;
+}
+
+#btn_logout {
+	font-size: 32px;
+}

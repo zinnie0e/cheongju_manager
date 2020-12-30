@@ -1,142 +1,71 @@
 $(document).ready(function(){
-	sessionCheck();
-	
-	// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
-	var login_info;
-	
-	if(getCookie("login_info") != ""){
-		login_info = JSON.parse(getCookie("login_info"));
-		
-		$('#ID_TAG').val(login_info["id"]);
-		$('#PW_TAG').val(login_info["pw"]);
-		
-		$('#SAVE_TAG').attr('checked', true);
-	}
-	
-	$('#SAVE_TAG').change(function(){ // 체크박스에 변화가 있다면,
-		if($('#SAVE_TAG').is(":checked")){ // ID 저장하기 체크했을 때,
-//			var set_info = {
-//					id : $('#ID_TAG').val(),
-//					pw : $('#PW_TAG').val()
-//			}
-//
-//			setCookie("login_info", JSON.stringify(set_info), 30);
-		} else { // ID 저장하기 체크 해제 시,
-			deleteCookie("login_info");
-		}
-	});
-	
-//	// ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
-//	$('#ID_TAG').keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
-//        if($("#SAVE_TAG").is(":checked") && $('#PW_TAG').val() != ""){ // ID 저장하기를 체크한 상태라면,
-//	    	var set_info = {
-//					id : $('#ID_TAG').val(),
-//					pw : $('#PW_TAG').val()
-//			}
-//	    	
-//            setCookie("login_info", JSON.stringify(set_info), 30); // 7일 동안 쿠키 보관
-//        }
-//    });
-//    
-//    $("input[id='PW_TAG']").keyup(function(){
-//        if($("#SAVE_TAG").is(":checked") && $("input[id='ID_TAG']").val() != ""){
-//        	var set_info = {
-//					id : $('#ID_TAG').val(),
-//					pw : $('#PW_TAG').val()
-//			}
-//	    	
-//            setCookie("login_info", JSON.stringify(set_info), 30); // 7일 동안 쿠키 보관
-//        }
-//    });
+	initAccount();
+	getUser();
 });
 
-function setCookie(cookieName, value, exdays){
-    var exdate = new Date();
-    exdate.setDate(exdate.getDate() + exdays);
-    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
-    document.cookie = cookieName + "=" + cookieValue;
-    console.log(cookieName + "=" + cookieValue);
-}
- 
-function deleteCookie(cookieName){
-    var expireDate = new Date();
-    expireDate.setDate(expireDate.getDate() - 1);
-    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+function initAccount() {
+	$('#btn_account').css('background-color', "#0062bd");
 }
 
-function getCookie(cookieName) {
-    cookieName = cookieName + '=';
-    var cookieData = document.cookie;
-    var start = cookieData.indexOf(cookieName);
-    var cookieValue = '';
-    if(start != -1){
-        start += cookieName.length;
-        var end = cookieData.indexOf(';', start);
-        if(end == -1)end = cookieData.length;
-        cookieValue = cookieData.substring(start, end);
-    }
-    return unescape(cookieValue);
-}
-
-function logoutTest() {
-	$.ajax({
-		url : 'http://192.168.1.76:9090/logout',
-		async : false,
-		type : 'POST',
-		xhrFields: {withCredentials : true}
-	});
-}
-
-function loginTest() {
-	var get_id = $('#ID_TAG').val().trim();
-	var get_pw = $('#PW_TAG').val().trim();
-
-	if (get_id == 0 || get_pw == 0) {
-		alert("empty");
-		return;
-	}
+function getUser(){
+	var html_string = "";
 	
-	var json_data = {
-			id : get_id,
-			pw : get_pw
-		};
-
-	$.ajax({
-		url : 'http://192.168.1.76:9090/login',
-		async : false,
-		type : 'POST',
-		contentType : "application/json; charset=utf-8;",
-		dataType : "json",
-		xhrFields: {withCredentials : true},
-		data : JSON.stringify(json_data),
-		success : function(result) {
-			if ("success" == result["result"] || "login" == result["result"]) {
-				alert(result["result"]);
-				
-				if($('#SAVE_TAG').is(":checked")){
-					setCookie("login_info", JSON.stringify(json_data), 30);
-				}
-			} else {
-				alert(result["result"]);
-				
-				if($('#SAVE_TAG').is(":checked")){
-					deleteCookie("login_info");
-				}
-			}
-			
-//			location.reload();
-		}
-	});
+	for(var i = 0; i < 3; i++){
+		html_string +=
+			'<div name="div_account_item" class="div_account_title">' +
+				'<a class="a_account_num">'+ i +'</a>' +
+				'<input type="text" name="in_account_id" class="in_account_item" value="'+ i +'" disabled>' +
+				'<input type="text" name="in_account_pw" class="in_account_item" value="'+ i +'" disabled>' +
+				'<select name="sel_account_auth" class="in_account_item" disabled>' +
+				    '<option value="0">마스터</option>' +
+				    '<option value="1">원더플레이스</option>' +
+				    '<option value="2">한국공예관</option>' +
+				    '<option value="3">열린도서관</option>' +
+				    '<option value="4">충북시청자미디어센터</option>' +
+				    '<option value="5">국립현대미술관</option>' +
+				    '<option value="6">청주시문화산업재단</option>' +
+				    '<option value="7">동부창고</option>' +
+				    '<option value="8">복합공영주차장</option>' +
+				'</select>' +
+				'<input type="text" name="in_account_name" class="in_account_item" value="'+ i +'" disabled>' +
+				'<input type="button" name="btn_account_e_s" class="div_account_button" value="편집" onclick="javascript:setUser(this.value, '+ i +');">' +
+				'<input type="button" name="btn_account_d_c" class="div_account_button" value="삭제" onclick="javascript:setUser(this.value, '+ i +');">' +
+			'</div>';
+		$('#div_account_contents').html(html_string);
+	}
 }
 
-function sessionCheck() {
-	$.ajax({
-		url : 'http://192.168.1.76:9090/check',
-		async : false,
-		type : 'POST',
-		xhrFields: {withCredentials : true},
-		success : function(result) {
-			alert(result);
-		}
-	});
+function addUser(){
+	
 }
+
+function setUser(value, get_json){
+	logNow(value + "/" + get_json);
+	if(value == "편집"){
+		$('input[name=in_account_id]:eq("' + get_json + '")').attr('disabled', false);
+		$('input[name=in_account_pw]:eq("' + get_json + '")').attr('disabled', false);
+		$('select[name=sel_account_auth]:eq("' + get_json + '")').attr('disabled', false);
+		$('input[name=in_account_name]:eq("' + get_json + '")').attr('disabled', false);
+		
+		$('input[name=btn_account_e_s]:eq("' + get_json + '")').val('저장');
+		$('input[name=btn_account_d_c]:eq("' + get_json + '")').val('취소');
+		$('div[name=div_account_item]:eq("' + get_json + '")').css('background-color', '#e9e9e9');
+	}else if(value == "저장"){
+		//업데이트 ajsx
+		getUser();
+//		$('input[id=in_account_id]:eq("' + get_json + '")').attr('disabled', true);
+//		$('input[id=in_account_pw]:eq("' + get_json + '")').attr('disabled', true);
+//		$('select[id=sel_account_auth]:eq("' + get_json + '")').attr('disabled', true);
+//		$('input[id=in_account_name]:eq("' + get_json + '")').attr('disabled', true);
+//		
+//		$('input[id=btn_account_e_s]:eq("' + get_json + '")').val('편집');
+//		$('input[id=btn_account_d_c]:eq("' + get_json + '")').val('삭제');
+//		$('div[id=div_account_item]:eq("' + get_json + '")').css('background-color', '');
+	}else if(value == "삭제"){
+		//삭제 ajsx
+		getUser();
+	}else if(value == "취소"){
+		getUser();
+	}
+}
+
