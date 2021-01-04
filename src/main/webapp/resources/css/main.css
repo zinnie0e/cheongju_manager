@@ -46,6 +46,12 @@ body {
 	background-color: #0062bd;
 }
 
+#div_top_item {
+	margin-top: calc((var(--top-height) - 50px) / 2);
+	
+	text-align: right;
+}
+
 #div_contents {
 	position:absolute;
 	width: calc(var(--full-width) - var(--side-width));

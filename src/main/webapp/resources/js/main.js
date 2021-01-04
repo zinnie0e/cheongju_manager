@@ -20,3 +20,7 @@ function homePage() {
 function accountPage() {
 	location.href="account";
 }
+
+function noticePage() {
+	location.href="notice";
+}

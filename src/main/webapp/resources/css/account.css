@@ -2,32 +2,51 @@
 
 :root {
 	--div-account-top-width: 1540px;
-	--div-account-top-height: 30px;
 	
-	--side-width: 300px;
-	
-	--top-height: 100px;
+	--account-top-height: 170px;
 	
 	--account-margin-top: 45px;
-	--account-margin: 30px;
+	--account-margin-left: 30px;
 	
-	--account-item-width: 55px;
+	--account-item-height: 55px;
+	
 	--item-height: 45px;
+	--item-margin-left: 25px;
 	
-	--account-item-margin-top: calc((var(--account-item-width) - var(--item-height)) / 2);
+	--account-item-margin-top: calc((var(--account-item-height) - var(--item-height)) / 2);
 }
 
 .div_account {
 	width: var(--div-account-top-width);
 	
-    margin-left: var(--account-margin);
+    margin-left: var(--account-margin-left);
     
     background-color: white;
 }
 #div_account_top {
-    height: 170px;
+    height: var(--account-top-height);
     
     margin-top: var(--account-margin-top);
+}
+
+#a_account_manager {
+	position:absolute;
+	
+	margin-top: 25px;
+	margin-left: var(--item-margin-left);
+	
+	font-size: 48px;
+}
+
+#btn_account_add {
+	position:absolute;
+	width: 130px;
+    height: var(--item-height);
+	left: 1385px;
+    
+    margin-top: 35px;
+    
+    font-size: 28px;
 }
 
 #div_account_title {
@@ -42,16 +61,18 @@
 
 .div_account_title {
 	width: calc(var(--div-account-top-width) - 50px);
-    height: var(--account-item-width);
+    height: var(--account-item-height);
     
-    margin-left: 25px;
+    margin-left: var(--item-margin-left);
 }
 
 .div_account_title_num {
-	width: 80px;
+	width: 60px;
     height: var(--item-height);
     
     margin-top: var(--account-item-margin-top);
+    margin-left: 10px;
+    margin-right: 10px;
     
     float: left;
     
@@ -76,9 +97,11 @@
 }
 
 .a_account_num {
-	width: 80px;
+	width: 60px;
 	
-	margin-top: calc((var(--account-item-width) - 36px) / 2);
+	margin-top: calc((var(--account-item-height) - 36px) / 2);
+    margin-left: 10px;
+    margin-right: 10px;
     
     display: block;
     float: left;

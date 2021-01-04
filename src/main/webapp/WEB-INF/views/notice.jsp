@@ -4,11 +4,11 @@
 <html>
 <head>
 	<link rel="stylesheet" href="./resources/css/main.css" type="text/css" />
-	<link rel="stylesheet" href="./resources/css/account.css" type="text/css" />
+	<link rel="stylesheet" href="./resources/css/notice.css" type="text/css" />
 
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="./resources/js/main.js"></script>
-	<script src="./resources/js/account.js"></script>
+	<script src="./resources/js/notice.js"></script>
 	<title>Home</title>
 </head>
 <body>
@@ -27,19 +27,17 @@
 			</div>
 		</div>
 		<div id="div_contents">
-			<div id="div_account_top" class="div_account">
-				<a id="a_account_manager">계정관리</a>
-				<input type="button" id="btn_account_add" value="추가" onclick="javascript:addUser();">
-				<div id="div_account_title" class="div_account_title">
-					<div class="div_account_title_num">No.</div>
-					<div class="div_account_title_item">ID</div>
-					<div class="div_account_title_item">PW</div>
-					<div class="div_account_title_item">권한</div>
-					<div class="div_account_title_item">이름</div>
+			<div id="div_notice_top" class="div_notice">
+				<a id="a_notice_title">한줄공지</a>
+				<input type="button" id="btn_notice_add" value="추가" onclick="javascript:showAddNotice();">
+				<div id="div_notice_title" class="div_notice_title">
+					<div class="div_notice_title_num">No.</div>
+					<div class="div_notice_title_num">언어</div>
+					<div class="div_notice_title_item">한줄공지</div>
 				</div>
 			</div>
-			<div id="div_account_contents" class="div_account"></div>
-			<div id="div_account_bottom" class="div_account"></div>
+			<div id="div_notice_contents" class="div_notice"></div>
+			<div id="div_notice_bottom" class="div_notice"></div>
 		</div>
 	</div>
 </body>
