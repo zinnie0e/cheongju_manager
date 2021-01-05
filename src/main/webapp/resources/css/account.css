@@ -8,12 +8,16 @@
 	--account-margin-top: 45px;
 	--account-margin-left: 30px;
 	
-	--account-item-height: 55px;
+	--account-item-height: 45px;
 	
-	--item-height: 45px;
 	--item-margin-left: 25px;
 	
-	--account-item-margin-top: calc((var(--account-item-height) - var(--item-height)) / 2);
+	--div-account-title-width: calc(var(--div-account-top-width) - (var(--item-margin-left) * 2));
+	
+	--a-account-title-num-width: 80px;
+	--a-account-title-item-width: 275px;
+	
+	--div-account-button-width: 130px;
 }
 
 .div_account {
@@ -29,7 +33,7 @@
     margin-top: var(--account-margin-top);
 }
 
-#a_account_manager {
+#a_account_title {
 	position:absolute;
 	
 	margin-top: 25px;
@@ -41,7 +45,7 @@
 #btn_account_add {
 	position:absolute;
 	width: 130px;
-    height: var(--item-height);
+    height: var(--account-item-height);
 	left: 1385px;
     
     margin-top: 35px;
@@ -54,26 +58,25 @@
 	
 	top: calc(110px + var(--account-margin-top));
 	
-	margin-bottom: 5px;
-	
 	background-color: #8da4b9;
 }
 
 .div_account_title {
-	width: calc(var(--div-account-top-width) - 50px);
+	width: var(--div-account-title-width);
     height: var(--account-item-height);
     
     margin-left: var(--item-margin-left);
+    
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-.div_account_title_num {
-	width: 60px;
-    height: var(--item-height);
+.a_account_title_num {
+	width: var(--a-account-title-num-width);
+    height: var(--account-item-height);
+    line-height: var(--account-item-height);
     
-    margin-top: var(--account-item-margin-top);
-    margin-left: 10px;
-    margin-right: 10px;
-    
+    display: block;
     float: left;
     
     font-size: 28px;
@@ -82,12 +85,12 @@
     color: white;
 }
 
-.div_account_title_item {
-	width: 275px;
-    height: var(--item-height);
+.a_account_title_item {
+	width: var(--a-account-title-item-width);
+    height: var(--account-item-height);
+    line-height: var(--account-item-height);
     
-    margin-top: var(--account-item-margin-top);
-    
+    display: block;
     float: left;
     
     font-size: 28px;
@@ -97,11 +100,9 @@
 }
 
 .a_account_num {
-	width: 60px;
-	
-	margin-top: calc((var(--account-item-height) - 36px) / 2);
-    margin-left: 10px;
-    margin-right: 10px;
+	width: var(--a-account-title-num-width);
+	height: var(--account-item-height);
+    line-height: var(--account-item-height);
     
     display: block;
     float: left;
@@ -110,14 +111,56 @@
     text-align: center;
 }
 
-.in_account_item {
-	width: 270px;
-    height: var(--item-height);
+.a_account_item {
+	width: calc(var(--a-account-title-item-width) - 15px);
+    height: var(--notice-item-height);
+    line-height: var(--notice-item-height);
     
-    margin-top: var(--account-item-margin-top);
     margin-right: 5px;
     
-    padding-left: 10px;
+    padding-left: 15px;
+    
+    display: block;
+    float: left;
+    
+    font-size: 28px;
+}
+
+.div_account_item_input {
+	width: var(--div-account-title-width);
+    
+    margin-left: var(--item-margin-left);
+    
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+    background-color:#e9e9e9;
+}
+
+.in_account_item {
+	width: var(--a-account-title-item-width);
+    height: var(--account-item-height);
+    line-height: var(--account-item-height);
+    
+    margin-right: 5px;
+    
+    padding-left: 15px;
+    
+    font-size: 28px;
+    
+    color: black;
+    background-color: white;
+}
+
+.in_account_item_select {
+	width: var(--a-account-title-item-width);
+    height: var(--account-item-height);
+    line-height: var(--account-item-height);
+    
+    margin-top: 1px;
+    margin-right: 5px;
+    
+    padding-left: 15px;
     
     font-size: 28px;
     
@@ -126,13 +169,22 @@
 }
 
 .div_account_button {
-	width: 130px;
-    height: var(--item-height);
-    
-    margin-top: var(--account-item-margin-top);
+	width: var(--div-account-button-width);
+    height: var(--notice-item-height);
+    line-height: var(--notice-item-height);
+
     margin-right: 10px;
     
     font-size: 28px;
+}
+
+.div_account_divide_line {
+	width: var(--div-account-title-width);
+    height: 1px;
+    
+    margin-left: var(--item-margin-left);
+    
+    background-color: #e9e9e9;
 }
 
 #div_account_bottom {

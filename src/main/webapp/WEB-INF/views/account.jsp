@@ -28,14 +28,14 @@
 		</div>
 		<div id="div_contents">
 			<div id="div_account_top" class="div_account">
-				<a id="a_account_manager">계정관리</a>
-				<input type="button" id="btn_account_add" value="추가" onclick="javascript:addUser();">
+				<a id="a_account_title">계정관리</a>
+				<input type="button" id="btn_account_add" value="추가" onclick="javascript:showAddUser();">
 				<div id="div_account_title" class="div_account_title">
-					<div class="div_account_title_num">No.</div>
-					<div class="div_account_title_item">ID</div>
-					<div class="div_account_title_item">PW</div>
-					<div class="div_account_title_item">권한</div>
-					<div class="div_account_title_item">이름</div>
+					<a class="a_account_title_num">No.</a>
+					<a class="a_account_title_item">ID</a>
+					<a class="a_account_title_item">PW</a>
+					<a class="a_account_title_item">권한</a>
+					<a class="a_account_title_item">이름</a>
 				</div>
 			</div>
 			<div id="div_account_contents" class="div_account"></div>

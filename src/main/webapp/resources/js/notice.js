@@ -18,10 +18,11 @@ function getNotice(){
 				'<div name="div_notice_item_title" class="div_notice_title">' +
 					'<a class="a_notice_num">'+ i +'</a>' +
 					'<a class="a_notice_num">KR</a>' +
-					'<div class="div_notice_item_title" onclick="javascript:showNotice('+ i +');">'+ i +'</div>' +
+					'<a class="a_notice_item_title" onclick="javascript:showNotice('+ i +');">'+ i +'</a>' +
 					'<input type="button" class="div_notice_button" value="편집" onclick="javascript:editNotice('+ i +');">' +
 					'<input type="button" class="div_notice_button" value="삭제" onclick="javascript:deleteNotice('+ i +');">' +
 				'</div>' +
+				'<div class="div_notice_divide_line"></div>' +
 				'<div name="div_notice_item_input" class="div_notice_item_input">' +
 					'<div name="div_notice_item_kr" class="div_notice_item_lang">' +
 						'<a class="a_notice_num">'+ i +'</a>' +
@@ -62,7 +63,7 @@ function getNotice(){
 				'<a class="a_notice_num"></a>' +
 				'<a class="a_notice_num">KR</a>' +
 				'<input type="text" id="in_notice_kr_add" class="in_notice_item" value="'+ i +'">' +
-				'<input type="button" class="div_notice_button" value="저장" onclick="javascript:addNotice('+ i +');">' +
+				'<input type="button" class="div_notice_button" value="저장" onclick="javascript:addNotice();">' +
 				'<input type="button" class="div_notice_button" value="취소" onclick="javascript:resetNotice();">' +
 			'</div>' +
 			'<div id="div_notice_item_en_add" class="div_notice_item_lang">' +
@@ -164,7 +165,7 @@ function updateNotice(index){
 	$('div[name=div_notice_item_kr_u_c]:eq("' + index + '")').hide();
 }
 
-function addNotice(index){
+function addNotice(){
 	//추가 ajsx
 	getNotice();
 }

@@ -16,7 +16,7 @@
 		<div id="div_side">
 			<input type="button" id="btn_account" class="div_side" value="계정관리" onclick="javascript:accountPage();">
 			<input type="button" id="btn_notice" class="div_side" value="한줄공지 관리" onclick="javascript:noticePage();">
-			<input type="button" id="btn_event" class="div_side" value="행사 관리" onclick="javascript:loginTest();">
+			<input type="button" id="btn_event" class="div_side" value="행사 관리" onclick="javascript:eventPage();">
 			<input type="button" id="btn_company" class="div_side" value="입주기업 관리" onclick="javascript:loginTest();">
 			<input type="button" id="btn_wonder" class="div_side" value="입점상가 관리" onclick="javascript:loginTest();">
 		</div>
@@ -31,9 +31,9 @@
 				<a id="a_notice_title">한줄공지</a>
 				<input type="button" id="btn_notice_add" value="추가" onclick="javascript:showAddNotice();">
 				<div id="div_notice_title" class="div_notice_title">
-					<div class="div_notice_title_num">No.</div>
-					<div class="div_notice_title_num">언어</div>
-					<div class="div_notice_title_item">한줄공지</div>
+					<a class="a_notice_title_num">No.</a>
+					<a class="a_notice_title_num">언어</a>
+					<a class="a_notice_title_item">한줄공지</a>
 				</div>
 			</div>
 			<div id="div_notice_contents" class="div_notice"></div>

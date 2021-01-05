@@ -8,12 +8,16 @@
 	--notice-margin-top: 45px;
 	--notice-margin-left: 30px;
 	
-	--notice-item-height: 55px;
+	--notice-item-height: 45px;
 	
-	--item-height: 45px;
 	--item-margin-left: 25px;
 	
-	--notice-item-margin-top: calc((var(--notice-item-height) - var(--item-height)) / 2);
+	--div-notice-title-width: calc(var(--div-notice-top-width) - (var(--item-margin-left) * 2));
+	
+	--a-notice-title-num-width: 80px;
+	--a-notice-title-item-width: 1000px;
+	
+	--div-notice-button-width: 130px;
 }
 
 .div_notice {
@@ -42,7 +46,7 @@
 #btn_notice_add {
 	position:absolute;
 	width: 130px;
-    height: var(--item-height);
+    height: var(--notice-item-height);
 	left: 1385px;
     
     margin-top: 35px;
@@ -55,26 +59,25 @@
 	
 	top: calc(110px + var(--notice-margin-top));
 	
-	margin-bottom: 5px;
-	
 	background-color: #8da4b9;
 }
 
 .div_notice_title {
-	width: calc(var(--div-notice-top-width) - 50px);
+	width: var(--div-notice-title-width);
     height: var(--notice-item-height);
     
     margin-left: var(--item-margin-left);
+    
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-.div_notice_title_num {
-	width: 60px;
-    height: var(--item-height);
+.a_notice_title_num {
+	width: var(--a-notice-title-num-width);
+	height: var(--notice-item-height);
+    line-height: var(--notice-item-height);
     
-    margin-top: var(--notice-item-margin-top);
-    margin-left: 10px;
-    margin-right: 10px;
-    
+    display: block;
     float: left;
     
     font-size: 28px;
@@ -83,12 +86,12 @@
     color: white;
 }
 
-.div_notice_title_item {
-	width: 1000px;
-    height: var(--item-height);
+.a_notice_title_item {
+	width: var(--a-notice-title-item-width);
+    height: var(--notice-item-height);
+    line-height: var(--notice-item-height);
     
-    margin-top: var(--notice-item-margin-top);
-    
+    display: block;
     float: left;
     
     font-size: 28px;
@@ -98,11 +101,9 @@
 }
 
 .a_notice_num {
-	width: 60px;
-	
-	margin-top: calc((var(--notice-item-height) - 36px) / 2);
-	margin-left: 10px;
-    margin-right: 10px;
+	width: var(--a-notice-title-num-width);
+	height: var(--notice-item-height);
+    line-height: var(--notice-item-height);
     
     display: block;
     float: left;
@@ -111,48 +112,42 @@
     text-align: center;
 }
 
-.div_notice_item_title {
-	width: 985px;
-    height: var(--item-height);
-    line-height: var(--item-height);
+.a_notice_item_title {
+	width: calc(var(--a-notice-title-item-width) - 15px);
+    height: var(--notice-item-height);
+    line-height: var(--notice-item-height);
     
-    margin-top: var(--notice-item-margin-top);
-    margin-right: 5px;
-    
-    padding-left: 10px;
+    padding-left: 15px;
     
     display: block;
     float: left;
     
     font-size: 28px;
-    
-    border: 1px;
-    border-style: solid;
-    
-    color: black;
-    background-color: white;
 }
 
 .div_notice_item_input {
-	width: calc(var(--div-notice-top-width) - 50px);
+	width: var(--div-notice-title-width);
     
     margin-left: var(--item-margin-left);
+    
+    padding-top: 5px;
+    padding-bottom: 5px;
     
     background-color:#e9e9e9;
 }
 
 .div_notice_item_lang {
-    height: var(--notice-item-height);
+    padding-top: 5px;
 }
 
 .in_notice_item {
-	width: 1000px;
-    height: var(--item-height);
+	width: var(--a-notice-title-item-width);
+    height: var(--notice-item-height);
+    line-height: var(--notice-item-height);
     
-    margin-top: var(--notice-item-margin-top);
     margin-right: 5px;
     
-    padding-left: 10px;
+    padding-left: 15px;
     
     font-size: 28px;
     
@@ -161,13 +156,22 @@
 }
 
 .div_notice_button {
-	width: 130px;
-    height: var(--item-height);
+	width: var(--div-notice-button-width);
+    height: var(--notice-item-height);
+    line-height: var(--notice-item-height);
     
-    margin-top: var(--notice-item-margin-top);
     margin-right: 10px;
     
     font-size: 28px;
+}
+
+.div_notice_divide_line {
+	width: var(--div-notice-title-width);
+    height: 1px;
+    
+    margin-left: var(--item-margin-left);
+    
+    background-color: #e9e9e9;
 }
 
 #div_notice_bottom {
