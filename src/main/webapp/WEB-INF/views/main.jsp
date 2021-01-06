@@ -14,7 +14,7 @@
 		<div id="div_side">
 			<input type="button" id="btn_account" class="div_side" value="계정관리" onclick="javascript:accountPage();">
 			<input type="button" id="btn_notice" class="div_side" value="한줄공지 관리" onclick="javascript:noticePage();">
-			<input type="button" id="btn_event" class="div_side" value="행사 관리" onclick="javascript:loginTest();">
+			<input type="button" id="btn_event" class="div_side" value="행사 관리" onclick="javascript:eventPage();">
 			<input type="button" id="btn_company" class="div_side" value="입주기업 관리" onclick="javascript:loginTest();">
 			<input type="button" id="btn_wonder" class="div_side" value="입점상가 관리" onclick="javascript:loginTest();">
 		</div>

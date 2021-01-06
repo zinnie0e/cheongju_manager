@@ -24,3 +24,7 @@ function accountPage() {
 function noticePage() {
 	location.href="notice";
 }
+
+function eventPage() {
+	location.href="event";
+}
