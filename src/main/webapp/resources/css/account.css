@@ -1,32 +1,34 @@
 @charset "UTF-8";
 
 :root {
-	--div-account-top-width: 1540px;
+	--div-account-top-width: 970px;
 	
-	--account-top-height: 170px;
+	--account-top-height: 106px;
 	
 	--account-margin-top: 45px;
 	--account-margin-left: 30px;
 	
-	--account-item-height: 45px;
+	--account-item-height: 35px;
+	--account-item-in-height: 28px;
 	
-	--item-margin-left: 25px;
+	--item-margin-left: 15px;
 	
 	--div-account-title-width: calc(var(--div-account-top-width) - (var(--item-margin-left) * 2));
 	
-	--a-account-title-num-width: 80px;
-	--a-account-title-item-width: 275px;
+	--a-account-title-num-width: 50px;
+	--a-account-title-item-width: 170px;
 	
-	--div-account-button-width: 130px;
+	
 }
 
 .div_account {
 	width: var(--div-account-top-width);
-	
     margin-left: var(--account-margin-left);
-    
     background-color: white;
+    font-size: 20px;
+    
 }
+
 #div_account_top {
     height: var(--account-top-height);
     
@@ -35,29 +37,42 @@
 
 #a_account_title {
 	position:absolute;
+	height: var(--div-account-button-height);
 	
-	margin-top: 25px;
+	margin-top: 20px;
 	margin-left: var(--item-margin-left);
 	
-	font-size: 48px;
+	font-size: 24px;
+	font-weight: 600;
 }
 
 #btn_account_add {
-	position:absolute;
-	width: 130px;
-    height: var(--account-item-height);
-	left: 1385px;
-    
-    margin-top: 35px;
-    
-    font-size: 28px;
+	margin-top: 20px;
+	margin-right: var(--item-margin-left);
+	float: right;
+   
+    background-image: url("../image/btn_admin_추가.png");
+}
+
+#btn_account_del {
+    background-image: url("../image/btn_admin_삭제2.png");
+}
+
+#btn_account_edit {
+    background-image: url("../image/btn_admin_편집.png");
+}
+
+#btn_account_save {
+    background-image: url("../image/btn_추가.png");
+}
+
+#btn_account_cancle {
+    background-image: url("../image/btn_admin_취소.png");
 }
 
 #div_account_title {
 	position: absolute;
-	
-	top: calc(110px + var(--account-margin-top));
-	
+	top: calc(var(--account-margin-top) + 40px + var(--div-button-height));
 	background-color: #8da4b9;
 }
 
@@ -66,9 +81,6 @@
     height: var(--account-item-height);
     
     margin-left: var(--item-margin-left);
-    
-    padding-top: 5px;
-    padding-bottom: 5px;
 }
 
 .a_account_title_num {
@@ -79,7 +91,6 @@
     display: block;
     float: left;
     
-    font-size: 28px;
     text-align: center;
     
     color: white;
@@ -92,91 +103,81 @@
     
     display: block;
     float: left;
-    
-    font-size: 28px;
     text-align: center;
-    
     color: white;
 }
 
 .a_account_num {
 	width: var(--a-account-title-num-width);
-	height: var(--account-item-height);
-    line-height: var(--account-item-height);
+	height: var(--account-item-in-height);
+    line-height: var(--account-item-in-height);
+    
+    margin-top: 3.5px;
     
     display: block;
     float: left;
-    
-    font-size: 28px;
     text-align: center;
 }
 
 .a_account_item {
-	width: calc(var(--a-account-title-item-width) - 15px);
-    height: var(--notice-item-height);
+	width: calc(var(--a-account-title-item-width) - 10px);
+    height: var(--account-item-in-height);
     line-height: var(--notice-item-height);
     
-    margin-right: 5px;
-    
-    padding-left: 15px;
+    margin-top: 3.5px;
+    margin-right: 3px;
+    margin-left: 10px;
     
     display: block;
     float: left;
-    
-    font-size: 28px;
+    /* ... */
+    white-space : nowrap;
+    overflow : hidden;
+    text-overflow : ellipsis;
 }
 
 .div_account_item_input {
 	width: var(--div-account-title-width);
+    height: var(--account-item-height);
     
     margin-left: var(--item-margin-left);
-    
-    padding-top: 5px;
-    padding-bottom: 5px;
-    
     background-color:#e9e9e9;
 }
 
 .in_account_item {
+	
 	width: var(--a-account-title-item-width);
-    height: var(--account-item-height);
-    line-height: var(--account-item-height);
+    height: var(--account-item-in-height);
+    line-height: var(--notice-item-height);
     
-    margin-right: 5px;
+    margin-top: 3.5px;
+    margin-right: 3px;
+    padding-left: 10px;
     
-    padding-left: 15px;
-    
-    font-size: 28px;
-    
-    color: black;
+    display: block;
+    float: left;
+    border: 0px;
+    font-size: 20px;
     background-color: white;
 }
 
 .in_account_item_select {
 	width: var(--a-account-title-item-width);
-    height: var(--account-item-height);
-    line-height: var(--account-item-height);
+    height: var(--account-item-in-height);
+    line-height: var(--notice-item-height);
     
-    margin-top: 1px;
-    margin-right: 5px;
+    margin-top: 3.5px;
+    margin-right: 3px;
+    padding-left: 10px;
     
-    padding-left: 15px;
-    
-    font-size: 28px;
-    
-    color: black;
+    display: block;
+    float: left;
+    border: 0px;
+    font-size: 20px;
     background-color: white;
 }
 
-.div_account_button {
-	width: var(--div-account-button-width);
-    height: var(--notice-item-height);
-    line-height: var(--notice-item-height);
 
-    margin-right: 10px;
-    
-    font-size: 28px;
-}
 
 .div_account_divide_line {
 	width: var(--div-account-title-width);
@@ -188,5 +189,5 @@
 }
 
 #div_account_bottom {
-    height: 70px;
+    height: 55px;
 }

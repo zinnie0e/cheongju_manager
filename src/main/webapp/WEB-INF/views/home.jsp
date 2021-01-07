@@ -3,20 +3,25 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <html>
 <head>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="./resources/css/main.css" type="text/css" />
 
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="./resources/js/main.js"></script>
 	<script src="./resources/js/login.js"></script>
 	<title>Home</title>
 </head>
-<body>
-	<div id="div_login">
-		<p style="size: 40px;">문화제조창C 키오스크 매니저</p>
-		<input type="text" id="user_id"><br>
-		<input type="password" id="user_pw"><br>
-		<button type="button" id="btn_next" onclick="javascript:loginTest();">로그인</button>
+<body class="font_kr">
+	<div id="div_login_contents">
+		<div id="div_login">
+			<div id="div_login_title">문화제조창C 키오스크 매니저</div>
+			<input type="text" id="user_id" placeholder="ID" onkeydown="javascript:enterCheck(0);"><br>
+			<input type="password" id="user_pw" placeholder="password" onkeydown="javascript:enterCheck(0);"><br>
+			<div id="btn_login" onclick="javascript:login();"></div>
+		</div>
+		<div id="div_login_ment">아이디, 비밀번호 분실 시 마스터관리자에게 문의바랍니다.</div>
 	</div>
-
 	<!-- <form id="FILE_FORM" method="post" enctype="multipart/form-data" action="">
 		<input type="file" id="FILE_TAG" name="FILE_TAG">
 		<input type="file" id="FILE_TAG2" name="FILE_TAG2">

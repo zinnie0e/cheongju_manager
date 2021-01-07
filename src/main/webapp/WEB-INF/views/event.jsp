@@ -14,16 +14,28 @@
 <body>
 	<div id="div_main">
 		<div id="div_side">
-			<input type="button" id="btn_account" class="div_side" value="계정관리" onclick="javascript:accountPage();">
-			<input type="button" id="btn_notice" class="div_side" value="한줄공지 관리" onclick="javascript:noticePage();">
-			<input type="button" id="btn_event" class="div_side" value="행사 관리" onclick="javascript:eventPage();">
-			<input type="button" id="btn_company" class="div_side" value="입주기업 관리" onclick="javascript:loginTest();">
-			<input type="button" id="btn_wonder" class="div_side" value="입점상가 관리" onclick="javascript:loginTest();">
+			<div id="div_img_logo"></div>
+			<div id="div_project_name">문화제조창 키오스크</div>
+			<div id="div_side_menu">
+				<div class="div_side_line"></div>
+				<div id="btn_account" class="div_side_menu" onclick="javascript:accountPage();">계정관리</div>
+				<div class="div_side_line"></div>
+				<div id="btn_notice" class="div_side_menu" onclick="javascript:noticePage();">한줄공지 관리</div>
+				<div class="div_side_line"></div>
+				<div id="btn_event" class="div_side_menu" onclick="javascript:eventPage();">행사 관리</div>
+				<div class="div_side_line"></div>
+				<div id="btn_company" class="div_side_menu" onclick="javascript:companyPage();">입주기업 관리</div>
+				<div class="div_side_line"></div>
+				<div id="btn_wonder" class="div_side_menu" onclick="javascript:shopPage();">입점상가 관리</div>
+				<div class="div_side_line"></div>
+			</div>
 		</div>
 		<div id="div_top">
 			<div id="div_top_item">
-				<a id="a_manager" style="font-size: 40px;">관리자</a>
-				<input type="button" id="btn_logout" value="Logout >" onclick="javascript:homePage();">
+				<div id="div_user_icon"></div>
+				<div id="div_user_auth">마스터 관리자</div>
+				<div id="div_user_name">000 님</div>
+				<div id="btn_logout" onclick="javascript:homePage();">Logout ></div>
 			</div>
 		</div>
 		<div id="div_contents">

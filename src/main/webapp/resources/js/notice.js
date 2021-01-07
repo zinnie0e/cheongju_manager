@@ -3,8 +3,6 @@ $(document).ready(function(){
 	getNotice();
 });
 
-var SETTING_URL = "http://localhost:9090";
-
 var lang = ["kr", "en", "ch", "jp"];
 var init_notice_data = new Array();
 function initNotice() {
@@ -177,7 +175,6 @@ function editNotice(index){
 }
 
 function deleteNotice(uid){
-	
 	if(!confirm("삭제하시겠습니까?")) return;
 	for(var i = 0 ; i < lang.length ; i++){
 		var sendData = { language: lang[i], uid: uid }
