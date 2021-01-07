@@ -247,6 +247,7 @@ body {
 #div_btn_set_contain{
 	width: 186px; 
 	height: var(--div-button-height);
+	margin-top: 3.5px;
 	float: right;
 }
 

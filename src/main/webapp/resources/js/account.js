@@ -100,8 +100,10 @@ function getUser(){
 			    '<option value="8">복합공영주차장</option>' +
 			'</select>' +
 			'<input type="text" id="in_account_name_add" class="in_account_item">' +
-			'<div id="btn_account_save" class="div_button" onclick="javascript:addUser();"></div>' + //저장
-			'<div id="btn_account_cancle" class="div_button" onclick="javascript:resetUser();"></div>' + //취소
+			'<div id="div_btn_set_contain">' +
+				'<div id="btn_account_save" class="div_button div_button_set" onclick="javascript:addUser();"></div>' + //저장
+				'<div id="btn_account_cancle" class="div_button div_button_set" onclick="javascript:resetUser();"></div>' + //취소
+			'</div>' + 
 		'</div>';
 	
 	$('#div_account_contents').html(html_string);
