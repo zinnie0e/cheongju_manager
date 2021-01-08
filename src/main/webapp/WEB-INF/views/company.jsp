@@ -41,14 +41,22 @@
 		<div id="div_contents">
 			<div id="div_contents_list">
 				<div id="div_company_list_top" class="div_company_list">
-					<a id="a_company_title">입주기업목록</a>
-					<input type="button" id="btn_company_add" value="추가" onclick="javascript:showAddCompany();">
 					<div id="div_company_list_title" class="div_company_list_title">
+						<a id="a_company_title">입주기업목록</a>
+						<input type="button" id="btn_company_add" value="추가" onclick="javascript:showAddCompany();">
+					</div>
+					<div id="div_company_list_title_search">
+						<input type="text" id="in_company_search">
+						<div id="div_company_search"></div>
+					</div>
+					<div id="div_company_list_item_title" class="div_company_list_title">
 						<a class="a_company_list_title_num">No.</a>
 						<a class="a_company_list_title_item">기업명</a>
 					</div>
 				</div>
-				<div id="div_company_list_contents" class="div_company_list"></div>
+				<div id="div_company_list_title_contents" class="div_company_list">
+				<div id="div_company_list_contents"></div>
+				</div>
 				<div id="div_company_list_bottom" class="div_company_list"></div>
 			</div>
 			<div id="div_contents_detail">
