@@ -7,15 +7,21 @@ function logNow(logContents){
     }
 }
 
+var isAuthCheck;
 $(document).ready(function(){
+	if(getCookie("login_info").auth == 0) isAuthCheck = true;
+	else isAuthCheck = false;
+	
 	initManager();
 });
 
 function initManager() {
+	initUserInfo();
 }
 
-function homePage() {
-	location.href="http://localhost:8080/kiosk/";
+function homePage() { //logout
+	location.href="http://localhost:8080/manager/";
+	deleteCookie("login_info");
 }
 
 function accountPage() {
@@ -44,4 +50,44 @@ function enterCheck(code){
 			login();
 		}
 	}
+}
+
+function initUserInfo(){
+	if(getCookie("login_info").auth == 0){
+		$("#div_user_auth").text("마스터 관리자"); 
+		$('#div_user_icon').css('background-image', 'url(./resources/image/icon_masteruser.png)');
+	} 
+	else{
+		 $("#div_user_auth").text("일반 관리자"); 
+		 $('#div_user_icon').css('background-image', 'url(./resources/image/icon_user.png)');
+	}
+	$("#div_user_name").text(getCookie("login_info").name + " 님"); 
+}
+
+function setCookie(cookieName, value, exdays){
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+    document.cookie = cookieName + "=" + cookieValue;
+    console.log(cookieName + "=" + cookieValue);
+}
+
+function deleteCookie(cookieName){
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() - 1);
+    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+}
+
+function getCookie(cookieName) {
+    cookieName = cookieName + '=';
+    var cookieData = document.cookie;
+    var start = cookieData.indexOf(cookieName);
+    var cookieValue = '';
+    if(start != -1){
+        start += cookieName.length;
+        var end = cookieData.indexOf(';', start);
+        if(end == -1)end = cookieData.length;
+        cookieValue = cookieData.substring(start, end);
+    }
+    return JSON.parse(unescape(cookieValue));
 }

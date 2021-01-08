@@ -50,8 +50,10 @@ function getNotice(){
 					'<a class="a_notice_num">'+ i +'</a>' +
 					'<a class="a_notice_num">KR</a>' +
 					'<a class="a_notice_item_title" onclick="javascript:showNotice('+ i +');">'+ init_notice_data[i][0]["notice"] +'</a>' +
-					'<input type="button" class="div_notice_button" value="편집" onclick="javascript:editNotice('+ i +');">' +
-					'<input type="button" class="div_notice_button" value="삭제" onclick="javascript:deleteNotice('+ init_notice_data[i][0]["uid"] +');">' +
+					'<div id="div_btn_set_contain">' +
+						'<div id="btn_notice_edit" class="div_button div_button_set" onclick="javascript:editNotice('+ i +');"></div>' + //편집
+						'<div id="btn_notice_del" class="div_button div_button_set" onclick="javascript:deleteNotice('+ init_notice_data[i][0]["uid"] +');"></div>' + //삭제
+					'</div>' + 
 				'</div>' +
 				'<div class="div_notice_divide_line"></div>' +
 				'<div name="div_notice_item_input" class="div_notice_item_input">' +
@@ -59,15 +61,19 @@ function getNotice(){
 						'<a class="a_notice_num">'+ i +'</a>' +
 						'<a class="a_notice_num">KR</a>' +
 						'<input type="text" name="in_notice_kr" class="in_notice_item" value="'+ init_notice_data[i][0]["notice"] +'", disabled>' +
-						'<input type="button" class="div_notice_button" value="편집" onclick="javascript:editNotice('+ i +');">' +
-						'<input type="button" class="div_notice_button" value="삭제" onclick="javascript:deleteNotice('+ init_notice_data[i][0]["uid"] +');">' +
+						'<div id="div_btn_set_contain">' +
+							'<div id="btn_notice_edit" class="div_button div_button_set" onclick="javascript:editNotice('+ i +');"></div>' + //편집
+							'<div id="btn_notice_del" class="div_button div_button_set" onclick="javascript:deleteNotice('+ init_notice_data[i][0]["uid"] +');"></div>' + //삭제
+						'</div>' + 
 					'</div>' +
 					'<div name="div_notice_item_kr_u_c" class="div_notice_item_lang">' +
 						'<a class="a_notice_num">'+ i +'</a>' +
 						'<a class="a_notice_num">KR</a>' +
 						'<input type="text" name="in_notice_kr_u" class="in_notice_item" value="">' +
-						'<input type="button" class="div_notice_button" value="저장" onclick="javascript:updateNotice('+ i +', '+ init_notice_data[i][0]["uid"] +');">' +
-						'<input type="button" class="div_notice_button" value="취소" onclick="javascript:resetNotice();">' +
+						'<div id="div_btn_set_contain">' +
+							'<div id="btn_notice_save" class="div_button div_button_set" onclick="javascript:updateNotice('+ i +', '+ init_notice_data[i][0]["uid"] +');"></div>' + //저장
+							'<div id="btn_notice_cancle" class="div_button div_button_set" onclick="javascript:resetNotice();"></div>' + //취소
+						'</div>' + 
 					'</div>' +
 					'<div name="div_notice_item_en" class="div_notice_item_lang">' +
 						'<a class="a_notice_num"></a>' +
@@ -94,8 +100,10 @@ function getNotice(){
 				'<a class="a_notice_num"></a>' +
 				'<a class="a_notice_num">KR</a>' +
 				'<input type="text" id="in_notice_kr_add" class="in_notice_item" value="'+ i +'">' +
-				'<input type="button" class="div_notice_button" value="저장" onclick="javascript:addNotice();">' +
-				'<input type="button" class="div_notice_button" value="취소" onclick="javascript:resetNotice();">' +
+				'<div id="div_btn_set_contain">' +
+					'<div id="btn_notice_save" class="div_button div_button_set" onclick="javascript:addNotice();"></div>' + //저장
+					'<div id="btn_notice_cancle" class="div_button div_button_set" onclick="javascript:resetNotice();"></div>' + //취소
+				'</div>' + 
 			'</div>' +
 			'<div id="div_notice_item_en_add" class="div_notice_item_lang">' +
 				'<a class="a_notice_num"></a>' +

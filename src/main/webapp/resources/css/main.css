@@ -8,6 +8,7 @@
 	--top-height: 60px;
 	
 	--div-button-width: 83px;
+	--div-button-s-width: 70px;
 	--div-button-height: 28px;
 }
 
@@ -259,5 +260,15 @@ body {
 .div_button {
 	width: var(--div-button-width);
     height: var(--div-button-height);
+    
+    cursor: pointer;
+}
+
+.div_button_s {
+	width: var(--div-button-s-width);
+    height: var(--div-button-height);
+    float: left;
+    
+    cursor: pointer;
 }
 

@@ -1,11 +1,5 @@
-var tempCookie = {user_id: "admin", user_auth: 0}; //임시 변수
-//var tempCookie = {user_id: "test", user_auth: 1}; 
-var isAuthCheck;
+
 $(document).ready(function(){
-	//쿠키에 로그인 정보 임시 저장
-	if(tempCookie.user_auth == 0) isAuthCheck = true;
-	else isAuthCheck = false;
-	
 	initAccount();
 	getUser();
 });
@@ -14,7 +8,6 @@ var init_account_data;
 function initAccount() {
 	$('#btn_account').css('background-color', "#0062bd");
 	if(isAuthCheck){ //마스터 관리자
-		logNow("나 마스터");
 		$.ajax({
 			type: "POST",
 			dataType: "json",
@@ -25,8 +18,7 @@ function initAccount() {
 			}
 		});
 	}else{ //일반 관리자
-		logNow("나 일반");
-		var sendData = {user_id: tempCookie.user_id}
+		var sendData = {user_id: getCookie("login_info").id}
 		$.ajax({
 			type: "POST",
 			contentType: "application/json; charset=utf-8;",
@@ -65,14 +57,11 @@ function getUser(){
 				'<input type="text" name="in_account_pw" class="in_account_item" value="'+ init_account_data[i]["user_pw"] +'">' +
 				'<select name="sel_account_auth" class="in_account_item_select">' +
 				    '<option value="0"'; if(init_account_data[i]["user_auth"] == 0) html_string += 'selected'; html_string += '>마스터</option>' +
-				    '<option value="1"'; if(init_account_data[i]["user_auth"] == 1) html_string += 'selected'; html_string += '>원더플레이스</option>' +
-				    '<option value="2"'; if(init_account_data[i]["user_auth"] == 2) html_string += 'selected'; html_string += '>한국공예관</option>' +
-				    '<option value="3"'; if(init_account_data[i]["user_auth"] == 3) html_string += 'selected'; html_string += '>열린도서관</option>' +
-				    '<option value="4"'; if(init_account_data[i]["user_auth"] == 4) html_string += 'selected'; html_string += '>충북시청자미디어센터</option>' +
-				    '<option value="5"'; if(init_account_data[i]["user_auth"] == 5) html_string += 'selected'; html_string += '>국립현대미술관</option>' +
-				    '<option value="6"'; if(init_account_data[i]["user_auth"] == 6) html_string += 'selected'; html_string += '>청주시문화산업재단</option>' +
-				    '<option value="7"'; if(init_account_data[i]["user_auth"] == 7) html_string += 'selected'; html_string += '>동부창고</option>' +
-				    '<option value="8"'; if(init_account_data[i]["user_auth"] == 8) html_string += 'selected'; html_string += '>복합공영주차장</option>' +
+				    '<option value="1"'; if(init_account_data[i]["user_auth"] == 1) html_string += 'selected'; html_string += '>원더아리아</option>' +
+				    '<option value="2"'; if(init_account_data[i]["user_auth"] == 2) html_string += 'selected'; html_string += '>충북시청자미디어센터</option>' +
+				    '<option value="3"'; if(init_account_data[i]["user_auth"] == 3) html_string += 'selected'; html_string += '>국립현대미술관</option>' +
+				    '<option value="4"'; if(init_account_data[i]["user_auth"] == 4) html_string += 'selected'; html_string += '>청주시문화산업진흥재단</option>' +
+				    '<option value="5"'; if(init_account_data[i]["user_auth"] == 5) html_string += 'selected'; html_string += '>청주열린도서관</option>' +
 				'</select>' +
 				'<input type="text" name="in_account_name" class="in_account_item" value="'+ init_account_data[i]["user_name"] +'">' +
 				'<div id="div_btn_set_contain">' +
@@ -90,14 +79,11 @@ function getUser(){
 			'<input type="text" id="in_account_pw_add" class="in_account_item">' +
 			'<select id="sel_account_auth_add" class="in_account_item">' +
 			    '<option value="0">마스터</option>' +
-			    '<option value="1">원더플레이스</option>' +
-			    '<option value="2">한국공예관</option>' +
-			    '<option value="3">열린도서관</option>' +
-			    '<option value="4">충북시청자미디어센터</option>' +
-			    '<option value="5">국립현대미술관</option>' +
-			    '<option value="6">청주시문화산업재단</option>' +
-			    '<option value="7">동부창고</option>' +
-			    '<option value="8">복합공영주차장</option>' +
+			    '<option value="1">원더아리아</option>' +
+			    '<option value="2">충북시청자미디어센터</option>' +
+			    '<option value="3">국립현대미술관</option>' +
+			    '<option value="4">청주시문화산업진흥재단</option>' +
+			    '<option value="5">청주열린도서관</option>' +
 			'</select>' +
 			'<input type="text" id="in_account_name_add" class="in_account_item">' +
 			'<div id="div_btn_set_contain">' +
@@ -111,6 +97,7 @@ function getUser(){
 	if(!isAuthCheck){
 		$('#btn_account_add').hide();
 		$('#btn_account_del').hide();
+		$('select[name=sel_account_auth]').attr('disabled', 'true');
 	}
 	resetUser();
 }

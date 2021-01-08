@@ -33,8 +33,8 @@
 		<div id="div_top">
 			<div id="div_top_item">
 				<div id="div_user_icon"></div>
-				<div id="div_user_auth">마스터 관리자</div>
-				<div id="div_user_name">000 님</div>
+				<div id="div_user_auth"></div>
+				<div id="div_user_name"></div>
 				<div id="btn_logout" onclick="javascript:homePage();">Logout ></div>
 			</div>
 		</div>

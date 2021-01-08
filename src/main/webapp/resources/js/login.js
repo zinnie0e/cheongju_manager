@@ -10,11 +10,15 @@ function login() {
 		return alert("존재하지 않는 아이디입니다.");
 	}
 	
-	if(getPwOfId(get_id) != get_pw){
+	if(getInfoOfId(get_id).pw != get_pw){
 		$('#user_pw').val('');
 		$('#user_pw').focus();
 		return alert("비밀번호가 틀렸습니다.");
 	} 	
+	
+	var json_data = { id : get_id, auth: getInfoOfId(get_id).auth, name: getInfoOfId(get_id).name };
+	setCookie("login_info", JSON.stringify(json_data), 30);
+	
 	location.href="main";
 }
 
@@ -35,8 +39,8 @@ function CheckExistId(get_id){
 	return isCheck;
 }
 
-function getPwOfId(get_id){
-	var isPassword;
+function getInfoOfId(get_id){
+	var isInfo = {pw: "", auth: ""};
 	var sendData = {user_id: get_id}
 	$.ajax({
 		type: "POST",
@@ -46,8 +50,11 @@ function getPwOfId(get_id){
 		url: SETTING_URL + "/user/select_user",
 		data : JSON.stringify(sendData),
 		success: function (result) {
-			isPassword = result[0]["user_pw"];
+			isInfo.pw = result[0]["user_pw"];
+			isInfo.auth = result[0]["user_auth"];
+			isInfo.name = result[0]["user_name"];
 		}
 	});
-	return isPassword;
+	return isInfo;
 }
+

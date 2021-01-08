@@ -33,15 +33,15 @@
 		<div id="div_top">
 			<div id="div_top_item">
 				<div id="div_user_icon"></div>
-				<div id="div_user_auth">마스터 관리자</div>
-				<div id="div_user_name">000 님</div>
+				<div id="div_user_auth"></div>
+				<div id="div_user_name"></div>
 				<div id="btn_logout" onclick="javascript:homePage();">Logout ></div>
 			</div>
 		</div>
 		<div id="div_contents">
 			<div id="div_notice_top" class="div_notice">
 				<a id="a_notice_title">한줄공지</a>
-				<input type="button" id="btn_notice_add" value="추가" onclick="javascript:showAddNotice();">
+				<div id="btn_notice_add" class="div_button" onclick="javascript:showAddNotice();"></div>
 				<div id="div_notice_title" class="div_notice_title">
 					<a class="a_notice_title_num">No.</a>
 					<a class="a_notice_title_num">언어</a>

@@ -33,8 +33,8 @@
 		<div id="div_top">
 			<div id="div_top_item">
 				<div id="div_user_icon"></div>
-				<div id="div_user_auth">마스터 관리자</div>
-				<div id="div_user_name">000 님</div>
+				<div id="div_user_auth"></div>
+				<div id="div_user_name"></div>
 				<div id="btn_logout" onclick="javascript:homePage();">Logout ></div>
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 			<div id="div_contents_list">
 				<div id="div_event_list_top" class="div_event_list">
 					<a id="a_event_title">행사 목록</a>
-					<input type="button" id="btn_event_add" value="추가" onclick="javascript:showAddEvent();">
+					<div id="btn_event_add" class="div_button" onclick="javascript:showAddEvent();"></div>
 					<div id="div_event_list_title" class="div_event_list_title">
 						<a class="a_event_list_title_num">No.</a>
 						<a class="a_event_list_title_item">이벤트명</a>
@@ -53,10 +53,12 @@
 			</div>
 			<div id="div_contents_detail">
 				<div id="div_event_detail_top" class="div_event_detail">
-					<input type="button" name="btn_event_lang" class="btn_event_lang" value="KR" style="margin-left:25px" onclick="javascript:checkLang(0);">
-					<input type="button" name="btn_event_lang" class="btn_event_lang" value="EN" onclick="javascript:checkLang(1);">
-					<input type="button" name="btn_event_lang" class="btn_event_lang" value="CH" onclick="javascript:checkLang(2);">
-					<input type="button" name="btn_event_lang" class="btn_event_lang" value="JP" onclick="javascript:checkLang(3);">
+					<div id="btn_event_lang">
+						<div id="btn_event_kr" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(0);"></div>
+						<div id="btn_event_en" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(1);"></div>
+						<div id="btn_event_ch" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(2);"></div>
+						<div id="btn_event_jp" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(3);"></div>
+					</div>
 					<div id="div_event_detail_title" class="div_event_detail_title">
 						<a class="a_event_detail_title_item">항목명</a>
 						<a class="a_event_detail_title_contents">내용</a>
@@ -64,10 +66,10 @@
 				</div>
 				<div id="div_event_detail_contents"></div>
 				<div id="div_event_detail_bottom" class="div_event_detail">
-					<div style="text-align:center;">
-						<input type="button" id="btn_event_contents_preview" class="btn_event_contents_bottom" value="미리보기" onclick="javascript:showAddEvent();">
-						<input type="button" id="btn_event_contents_insert" class="btn_event_contents_bottom">
-						<input type="button" id="btn_event_contents_cancel" class="btn_event_contents_bottom">
+					<div id="div_btn_bottom_contain">
+						<div id="btn_event_preview" class="div_button div_button_set" onclick="javascript:showAddEvent();"></div>
+						<div id="btn_event_save" class="div_button div_button_set"></div>
+						<div id="btn_event_cancleNdel" class="div_button div_button_set"></div>
 					</div>
 				</div>
 			</div>

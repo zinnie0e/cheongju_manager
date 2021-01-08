@@ -1,64 +1,79 @@
 @charset "UTF-8";
 
 :root {
-	--div-notice-top-width: 1540px;
+	--div-notice-top-width: 970px;
 	
-	--notice-top-height: 170px;
+	--notice-top-height: 106px;
 	
 	--notice-margin-top: 45px;
 	--notice-margin-left: 30px;
 	
-	--notice-item-height: 45px;
+	--notice-item-height: 35px;
+	--notice-item-in-height: 28px;
 	
-	--item-margin-left: 25px;
+	--item-margin-left: 15px;
 	
 	--div-notice-title-width: calc(var(--div-notice-top-width) - (var(--item-margin-left) * 2));
 	
-	--a-notice-title-num-width: 80px;
-	--a-notice-title-item-width: 1000px;
+	--a-notice-title-num-width: 50px;
+	--a-notice-title-item-width: 630px;
 	
 	--div-notice-button-width: 130px;
 }
 
 .div_notice {
 	width: var(--div-notice-top-width);
-	
     margin-left: var(--notice-margin-left);
-    
     background-color: white;
+    font-size: 16px;
 }
 
 #div_notice_top {
     height: var(--notice-top-height);
     
     margin-top: var(--notice-margin-top);
+    
+    border-radius: 20px 20px 0px 0px;
 }
 
 #a_notice_title {
 	position:absolute;
+	height: var(--div-button-height);
 	
-	margin-top: 25px;
+	margin-top: 20px;
 	margin-left: var(--item-margin-left);
 	
-	font-size: 48px;
+	font-size: 24px;
+	font-weight: 600;
 }
 
 #btn_notice_add {
-	position:absolute;
-	width: 130px;
-    height: var(--notice-item-height);
-	left: 1385px;
-    
-    margin-top: 35px;
-    
-    font-size: 28px;
+	margin-top: 20px;
+	margin-right: var(--item-margin-left);
+	float: right;
+   
+    background-image: url("../image/btn_admin_추가.png");
+}
+
+#btn_notice_del {
+    background-image: url("../image/btn_admin_삭제2.png");
+}
+
+#btn_notice_edit {
+    background-image: url("../image/btn_admin_편집.png");
+}
+
+#btn_notice_save {
+    background-image: url("../image/btn_추가.png");
+}
+
+#btn_notice_cancle {
+    background-image: url("../image/btn_admin_취소.png");
 }
 
 #div_notice_title {
 	position: absolute;
-	
-	top: calc(110px + var(--notice-margin-top));
-	
+	top: calc(var(--notice-margin-top) + 40px + var(--div-button-height));
 	background-color: #8da4b9;
 }
 
@@ -67,22 +82,16 @@
     height: var(--notice-item-height);
     
     margin-left: var(--item-margin-left);
-    
-    padding-top: 5px;
-    padding-bottom: 5px;
 }
 
 .a_notice_title_num {
 	width: var(--a-notice-title-num-width);
-	height: var(--notice-item-height);
+    height: var(--notice-item-height);
     line-height: var(--notice-item-height);
     
     display: block;
     float: left;
-    
-    font-size: 28px;
     text-align: center;
-    
     color: white;
 }
 
@@ -94,7 +103,6 @@
     display: block;
     float: left;
     
-    font-size: 28px;
     text-align: center;
     
     color: white;
@@ -108,21 +116,21 @@
     display: block;
     float: left;
     
-    font-size: 28px;
     text-align: center;
 }
 
 .a_notice_item_title {
-	width: calc(var(--a-notice-title-item-width) - 15px);
-    height: var(--notice-item-height);
-    line-height: var(--notice-item-height);
+	width: calc(var(--a-notice-title-item-width) - 10px);
+    height: var(--notice-item-in-height);
+    line-height: var(--notice-item-in-height);
     
-    padding-left: 15px;
+    margin-top: 3.5px;
+    margin-right: 3px;
+    margin-left: 10px;
     
     display: block;
     float: left;
-    
-    font-size: 28px;
+    /* ... */
     white-space : nowrap;
     overflow : hidden;
     text-overflow : ellipsis;
@@ -130,17 +138,14 @@
 
 .div_notice_item_input {
 	width: var(--div-notice-title-width);
-    
     margin-left: var(--item-margin-left);
-    
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
     
     background-color:#e9e9e9;
 }
 
 .div_notice_item_lang {
-    padding-top: 5px;
+   padding-bottom: 3px;
 }
 
 .in_notice_item {
@@ -148,24 +153,11 @@
     height: var(--notice-item-height);
     line-height: var(--notice-item-height);
     
-    margin-right: 5px;
-    
-    padding-left: 15px;
-    
-    font-size: 28px;
-    
-    color: black;
+    margin-right: 3px;
+    padding-left: 10px;
+    border: 0px;
+    font-size: 16px;
     background-color: white;
-}
-
-.div_notice_button {
-	width: var(--div-notice-button-width);
-    height: var(--notice-item-height);
-    line-height: var(--notice-item-height);
-    
-    margin-right: 10px;
-    
-    font-size: 28px;
 }
 
 .div_notice_divide_line {
@@ -178,5 +170,7 @@
 }
 
 #div_notice_bottom {
-    height: 70px;
+    height: 55px;
+    
+    border-radius: 0px 0px 20px 20px;
 }
