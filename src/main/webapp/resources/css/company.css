@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
 :root {
-	--company-top-height: 170px;
+	--company-top-height: 151px;
 	
 	--company-margin-top: 45px;
-	--company-margin-left: 30px;
+	--company-margin-left: 15px;
 	
 	--company-item-height: 45px;
 	
@@ -14,7 +14,7 @@
 	
 	--input-item-height: 35px;
 	
-	--div-company-contents-list-width: 450px;
+	--div-company-contents-list-width: 300px;
 	--div-company-title-top: calc(75px + var(--company-margin-top));
 	
 	--div-company-list-title-width: calc(var(--div-company-contents-list-width) - (var(--item-margin-left) * 2));
@@ -41,6 +41,8 @@
 #div_company_list_top {
 	width: var(--div-company-contents-list-width);
     height: calc((var(--company-list-margin-top) * 3) + (var(--company-item-height) * 3));
+    
+     border-radius: 20px 20px 0px 0px;
 }
 
 #div_company_list_title {

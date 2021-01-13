@@ -4,7 +4,7 @@
 	--event-top-height: 106px;
 	
 	--event-margin-top: 45px;
-	--event-margin-left: 15px;
+	--event-margin-left: 30px;
 	
 	--event-item-height: 35px;
 	--event-item-in-height: 28px;
@@ -21,6 +21,19 @@
 
 	--div-event-detail-title-width: calc(var(--div-event-contents-detail-width) - (var(--item-margin-left) * 2));
 	--a-event-detail-title-item-width: 180px;
+}
+
+#div_event_black{
+	width : 100%;
+	height : 100%;
+	
+	position: absolute;
+	margin-left: var(--side-width);
+	margin-top: var(--top-height);
+	
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 1;
 }
 
 #div_contents_list {
@@ -167,6 +180,77 @@
     margin-left: var(--event-margin-left);
 }
 
+/* 이벤트 미리보기 */
+#div_event_detail{
+	position: absolute;
+	width: 900px;
+	height: 890px;
+	top: 150px;
+	left: 45px;
+	background-image: url("../image/event_detail_미리보기.png");
+	display: none;
+	z-index: 2;
+}
+
+#event_cate_detail{
+	margin-top: 5px;
+	float: left;
+}
+
+#event_title_detail{
+	position: absolute;
+	width: 690px;
+	height: 30px;
+	left: 130px;
+	color: #424f7b;
+	font-weight: 700;
+	font-size: 21px;
+}
+
+#event_poster_detail{
+	position: absolute;
+	width: 278px;
+	height: 395px;
+	top: 145px;
+	left: 40px;
+	border: 2px solid #e2e2e2
+}
+
+#event_poster_detail img{
+	width: 278px;
+	height: 395px;
+	object-fit: cover;
+}
+
+.event_sub_info_detail{
+	margin-bottom: 10px;
+	font-size: 17px;
+	height: 20px;
+}
+
+.event_info_text{
+	font-weight: 700;
+	width: 105px;
+	float: left;
+	color: #3a3a90;
+}
+
+.event_info_text_detail{
+	font-weight: 700;
+	width: 105px;
+	float: left;
+	color: #3a3a90;
+}
+
+.event_info_body_detail{
+	position: absolute;
+	width: 372px;
+	height: 20px;
+	left: 125px;
+}
+
+/* -- */
+
 .div_event_detail {
     background-color: white;
 }
@@ -279,10 +363,10 @@
 }
 
 .div_event_contents_found_cate_img {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
     
-    margin-top: calc((var(--event-item-height) - 30px) / 2);
+    margin-top: calc((var(--event-item-height) - 20px) / 2);
     
     border: 1px;
     border-style: solid;
@@ -358,7 +442,7 @@
 }
 
 .in_event_contents_time {
-	width: 70px;
+	width: 40px;
     height: var(--event-item-in-height);
     
     margin-top: calc((var(--event-item-height) - var(--event-item-in-height)) / 2);
@@ -490,4 +574,22 @@
 }
 
 #btn_event_cancleNdel {
+}
+
+#div_event_preview_con{
+	position: absolute;
+	
+	width : calc(100% - var(--side-width));
+	height : calc(100% - var(--top-height));
+}
+
+#div_event_preview{
+	position: absolute;
+	
+	width: 900px;
+    height: 890px;
+    top: 10px;
+    left: 10px;
+	
+	background-image: url("../image/event_detail_미리보기.png");
 }

@@ -1,0 +1,7 @@
+{
+	"event_categori": ["./resources/image/event_categori_ev_ch.png", 
+						"./resources/image/event_categori_ex_ch.png", 
+						"./resources/image/event_categori_per_ch.png", 
+						"./resources/image/event_categori_edu_ch.png"],
+	"event_info_title": ["期间", "地点", "查询"]
+}

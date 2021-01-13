@@ -67,13 +67,15 @@
 				<div id="div_event_detail_contents"></div>
 				<div id="div_event_detail_bottom" class="div_event_detail">
 					<div id="div_btn_bottom_contain">
-						<div id="btn_event_preview" class="div_button div_button_set" onclick="javascript:showAddEvent();"></div>
+						<div id="btn_event_preview" class="div_button div_button_set" onclick="javascript:showPreview();"></div>
 						<div id="btn_event_save" class="div_button div_button_set"></div>
 						<div id="btn_event_cancleNdel" class="div_button div_button_set"></div>
 					</div>
 				</div>
 			</div>
+			<div id="div_event_detail"></div>
 		</div>
+		<div id="div_event_black"></div>
 	</div>
 </body>
 </html>

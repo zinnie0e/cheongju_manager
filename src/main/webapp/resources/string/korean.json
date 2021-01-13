@@ -1,0 +1,7 @@
+{
+	"event_categori": ["./resources/image/event_categori_ev_ko.png", 
+						"./resources/image/event_categori_ex_ko.png", 
+						"./resources/image/event_categori_per_ko.png", 
+						"./resources/image/event_categori_edu_ko.png"],
+	"event_info_title": ["행사기간", "행사장소", "행사문의"]
+}

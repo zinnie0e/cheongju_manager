@@ -1,0 +1,8 @@
+{
+	"event_categori": ["./resources/image/event_categori_ev_jp.png", 
+						"./resources/image/event_categori_ex_jp.png", 
+						"./resources/image/event_categori_per_jp.png", 
+						"./resources/image/event_categori_edu_jp.png"],
+	"event_info_title": ["デュレーション", "ロケーション", "問い合わせ"],
+	"language": "japanese"
+}
