@@ -35,7 +35,7 @@
 				<div id="div_user_icon"></div>
 				<div id="div_user_auth"></div>
 				<div id="div_user_name"></div>
-				<div id="btn_logout" onclick="javascript:homePage();">Logout ></div>
+				<div id="btn_logout" onclick="javascript:logout();">Logout ></div>
 			</div>
 		</div>
 		<div id="div_contents">

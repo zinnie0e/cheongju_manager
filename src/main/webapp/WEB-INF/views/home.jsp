@@ -8,11 +8,10 @@
 	<link rel="stylesheet" href="./resources/css/main.css" type="text/css" />
 
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="./resources/js/main.js"></script>
 	<script src="./resources/js/login.js"></script>
 	<title>Home</title>
 </head>
-<body class="font_kr">
+<body class="font_kr" onload="blockBack();" onpageshow="if(event.persisted) blockBack" onunload="">
 	<div id="div_login_contents">
 		<div id="div_login">
 			<div id="div_login_title">문화제조창C 키오스크 매니저</div>

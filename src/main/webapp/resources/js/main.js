@@ -7,21 +7,41 @@ function logNow(logContents){
     }
 }
 
-var isAuthCheck;
 $(document).ready(function(){
-	if(getCookie("login_info").auth == 0) isAuthCheck = true;
-	else isAuthCheck = false;
-	
 	initManager();
 });
 
+var isAuthCheck;
 function initManager() {
-	initUserInfo();
+	if("pass" == sessionCheck()){
+		if(getCookie("login_info").auth == 0) isAuthCheck = true;
+		else isAuthCheck = false;
+		
+		initUserInfo();
+		
+		return true;
+	} else {
+		homePage();
+		
+		return false;
+	}
 }
 
-function homePage() { //logout
-	location.href="http://localhost:8080/manager/";
+function logout() {
+	$.ajax({
+		type : 'POST',
+		async : false,
+		url : SETTING_URL + "/logout",
+		xhrFields: {withCredentials : true}
+	});
+	
 	deleteCookie("login_info");
+	
+	homePage();
+}
+
+function homePage() {
+	location.replace("http://localhost:8080/manager/");
 }
 
 function accountPage() {
@@ -44,14 +64,6 @@ function shopPage() {
 	location.href="shop";
 }
 
-function enterCheck(code){
-	if(event.keyCode == 13){ //엔터키
-		if(code == 0){
-			login();
-		}
-	}
-}
-
 function initUserInfo(){
 	if(getCookie("login_info").auth == 0){
 		$("#div_user_auth").text("마스터 관리자"); 
@@ -62,14 +74,6 @@ function initUserInfo(){
 		 $('#div_user_icon').css('background-image', 'url(./resources/image/icon_user.png)');
 	}
 	$("#div_user_name").text(getCookie("login_info").name + " 님"); 
-}
-
-function setCookie(cookieName, value, exdays){
-    var exdate = new Date();
-    exdate.setDate(exdate.getDate() + exdays);
-    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
-    document.cookie = cookieName + "=" + cookieValue;
-    console.log(cookieName + "=" + cookieValue);
 }
 
 function deleteCookie(cookieName){
@@ -90,4 +94,19 @@ function getCookie(cookieName) {
         cookieValue = cookieData.substring(start, end);
     }
     return JSON.parse(unescape(cookieValue));
+}
+
+function sessionCheck() {
+	var set_result = "";
+	$.ajax({
+		type : 'POST',
+		async : false,
+		url : SETTING_URL + "/check",
+		xhrFields: {withCredentials : true},
+		success : function(result) {
+			set_result = result;
+		}
+	});
+	
+	return set_result;
 }
