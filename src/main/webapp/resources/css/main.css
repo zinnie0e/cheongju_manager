@@ -156,17 +156,14 @@ body {
 }
 
 #div_contents {
-	/* width : calc(100% - var(--side-width));
-	height : calc(100% - var(--top-height)); */
-	
-	width : 100%;
-	height : 100%;
+	height : calc(100% - var(--top-height));
+	width : calc(100% - var(--side-width));
 	
 	position: absolute;
 	margin-left: var(--side-width);
 	margin-top: var(--top-height);
 	
-    background-color: #f3f3f3;
+	background-color: #f3f3f3;
 }
 
 #div_login {
@@ -274,5 +271,21 @@ body {
     float: left;
     
     cursor: pointer;
+}
+
+#btn_kr{
+	background-image: url("../image/btn_admin_2_kr.png");
+}
+
+#btn_en{
+	background-image: url("../image/btn_admin_2_en.png");
+}
+
+#btn_ch{
+	background-image: url("../image/btn_admin_2_ch.png");
+}
+
+#btn_jp{
+	background-image: url("../image/btn_admin_2_jp.png");
 }
 

@@ -1,5 +1,7 @@
 const IS_DEBUG = true;
-var SETTING_URL = "http://localhost:9090";
+var MASTER_URL = "http://localhost:9090";
+//var MASTER_URL = "http://guruiot.iptime.org:10000/kioskserver";
+//var SLAVE_URL = "http://guruiot.iptime.org:10001/kioskserver"; 
 
 function logNow(logContents){
     if(IS_DEBUG){
@@ -28,10 +30,11 @@ function initManager() {
 }
 
 function logout() {
+	if(!confirm("로그아웃 하시겠습니까?")) return;
 	$.ajax({
 		type : 'POST',
 		async : false,
-		url : SETTING_URL + "/logout",
+		url : MASTER_URL + "/logout",
 		xhrFields: {withCredentials : true}
 	});
 	
@@ -41,6 +44,7 @@ function logout() {
 }
 
 function homePage() {
+	//location.replace("http://guruiot.iptime.org:10000/manager/");
 	location.replace("http://localhost:8080/manager/");
 }
 
@@ -72,6 +76,14 @@ function initUserInfo(){
 	else{
 		 $("#div_user_auth").text("일반 관리자"); 
 		 $('#div_user_icon').css('background-image', 'url(./resources/image/icon_user.png)');
+		 
+		 $('#btn_notice').hide(); //한줄공지관리 숨기기
+		 $('div[name=div_side_line]:eq("1")').hide();
+		 
+		 if(getCookie("login_info").auth != 4){
+			$('#btn_company').hide(); //입주기업관리 숨기기
+			$('div[name=div_side_line]:eq("3")').hide();
+		}
 	}
 	$("#div_user_name").text(getCookie("login_info").name + " 님"); 
 }
@@ -101,7 +113,7 @@ function sessionCheck() {
 	$.ajax({
 		type : 'POST',
 		async : false,
-		url : SETTING_URL + "/check",
+		url : MASTER_URL + "/check",
 		xhrFields: {withCredentials : true},
 		success : function(result) {
 			set_result = result;
@@ -109,4 +121,12 @@ function sessionCheck() {
 	});
 	
 	return set_result;
+}
+
+function enterCheck(code){
+	if(event.keyCode == 13){ //엔터키
+		if(code == 1){
+			searchCompany();
+		}
+	}
 }

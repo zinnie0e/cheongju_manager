@@ -13,7 +13,7 @@ function initNotice() {
 		type: "POST",
 		dataType: "json",
 		async: false,
-		url: SETTING_URL + "/notice/select_notice_count",
+		url: MASTER_URL + "/notice/select_notice_count",
 		success: function (result) {
 			notice_count = result;
 		}
@@ -26,7 +26,7 @@ function initNotice() {
 			contentType: "application/json; charset=utf-8;",
 			dataType: "json",
 			async: false,
-			url: SETTING_URL + "/notice/select_notice_of_lang",
+			url: MASTER_URL + "/notice/select_notice_of_lang",
 			data : JSON.stringify(sendData),
 			success: function (result) {
 				init_notice_data.push(result);
@@ -39,15 +39,13 @@ function initNotice() {
 function getNotice(){
 	var html_string = "";
 	
-	logNow(init_notice_data);
-	
-	//ajax 전체 데이터 셀렉트, 초기 데이터 전역변수 init_data에 저장
+	var num = 1;
 	//0(한국어), 1(영어), 2(중국어), 3(일어)
 	for(var i = 0; i < init_notice_data.length; i++){
 		html_string +=
 			'<div name="div_notice_item">' +
 				'<div name="div_notice_item_title" class="div_notice_title">' +
-					'<a class="a_notice_num">'+ i +'</a>' +
+					'<a class="a_notice_num">'+ num +'</a>' +
 					'<a class="a_notice_num">KR</a>' +
 					'<a class="a_notice_item_title" onclick="javascript:showNotice('+ i +');">'+ init_notice_data[i][0]["notice"] +'</a>' +
 					'<div id="div_btn_set_contain">' +
@@ -92,10 +90,13 @@ function getNotice(){
 					'</div>' +
 				'</div>' +
 			'</div>';
+		num += 1;
 	}
+	$('#div_notice_contents').html(html_string);
 	
+	html_string = "";
 	html_string +=
-		'<div id="div_notice_item_add" class="div_notice_item_input" style="margin-top:20px;">' +
+		//'<div id="div_notice_item_add" class="div_notice_item_input" style="margin-top:20px;">' +
 			'<div id="div_notice_item_kr_add" class="div_notice_item_lang">' +
 				'<a class="a_notice_num"></a>' +
 				'<a class="a_notice_num">KR</a>' +
@@ -119,10 +120,9 @@ function getNotice(){
 				'<a class="a_notice_num"></a>' +
 				'<a class="a_notice_num">JP</a>' +
 				'<input type="text" id="in_notice_jp_add" class="in_notice_item" value="'+ i +'">' +
-			'</div>' +
-		'</div>';
-	
-	$('#div_notice_contents').html(html_string);
+			'</div>';
+		//'</div>'
+	$('#div_notice_item_add').html(html_string);
 	
 	resetNotice();
 }
@@ -191,7 +191,7 @@ function deleteNotice(uid){
 			type: "POST",
 			contentType: "application/json; charset=utf-8;",
 			dataType: "json",
-			url: SETTING_URL + "/notice/delete_notice_of_lang",
+			url: MASTER_URL + "/notice/delete_notice_of_lang",
 			async: false,
 			data: JSON.stringify(sendData),
 			success: function (result) {
@@ -224,7 +224,7 @@ function updateNotice(index, uid){
 			type: "POST",
 			contentType: "application/json; charset=utf-8;",
 			dataType: "json",
-			url: SETTING_URL + "/notice/update_notice_of_lang",
+			url: MASTER_URL + "/notice/update_notice_of_lang",
 			async: false,
 			data: JSON.stringify(sendData),
 			success: function (result) {
@@ -260,7 +260,7 @@ function addNotice(){
 			type: "POST",
 			contentType: "application/json; charset=utf-8;",
 			dataType: "json",
-			url: SETTING_URL + "/notice/insert_notice_of_lang",
+			url: MASTER_URL + "/notice/insert_notice_of_lang",
 			async: false,
 			data: JSON.stringify(sendData),
 			success: function (result) {

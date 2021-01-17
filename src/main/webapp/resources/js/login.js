@@ -1,22 +1,11 @@
-var SETTING_URL = "http://localhost:9090";
+var MASTER_URL = "http://localhost:9090";
+//var MASTER_URL = "http://guruiot.iptime.org:10000/kioskserver";
 
 function login() {
 	var get_id = $('#user_id').val().trim();
 	var get_pw = $('#user_pw').val().trim();
 	
 	if(get_id == "" || get_pw == "") return alert("아이디, 패스워드를 입력해주세요.");
-//	if(CheckExistId(get_id) == 0){
-//		$('#user_id').val('');
-//		$('#user_pw').val('');
-//		$('#user_id').focus();
-//		return alert("존재하지 않는 아이디입니다.");
-//	}
-//	
-//	if(getInfoOfId(get_id).pw != get_pw){
-//		$('#user_pw').val('');
-//		$('#user_pw').focus();
-//		return alert("비밀번호가 틀렸습니다.");
-//	} 	
 	
 	var json_data = {
 			user_id : get_id,
@@ -28,7 +17,7 @@ function login() {
 		contentType: "application/json; charset=utf-8;",
 		dataType: "json",
 		async: false,
-		url: SETTING_URL + "/login",
+		url: MASTER_URL + "/login",
 		xhrFields: {withCredentials : true},
 		data : JSON.stringify(json_data),
 		success : function(result) {
@@ -82,7 +71,7 @@ function CheckExistId(get_id){
 		contentType: "application/json; charset=utf-8;",
 		dataType: "json",
 		async: false,
-		url: SETTING_URL + "/user/select_check_user",
+		url: MASTER_URL + "/user/select_check_user",
 		data : JSON.stringify(sendData),
 		success: function (result) {
 			isCheck = result;
@@ -99,7 +88,7 @@ function getInfoOfId(get_id){
 		contentType: "application/json; charset=utf-8;",
 		dataType: "json",
 		async: false,
-		url: SETTING_URL + "/user/select_user",
+		url: MASTER_URL + "/user/select_user",
 		data : JSON.stringify(sendData),
 		success: function (result) {
 			isInfo.pw = result[0]["user_pw"];

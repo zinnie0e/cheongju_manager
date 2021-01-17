@@ -19,15 +19,15 @@
 			<div id="div_side_menu">
 				<div class="div_side_line"></div>
 				<div id="btn_account" class="div_side_menu" onclick="javascript:accountPage();">계정관리</div>
-				<div class="div_side_line"></div>
+				<div name="div_side_line" class="div_side_line"></div>
 				<div id="btn_notice" class="div_side_menu" onclick="javascript:noticePage();">한줄공지 관리</div>
-				<div class="div_side_line"></div>
+				<div name="div_side_line" class="div_side_line"></div>
 				<div id="btn_event" class="div_side_menu" onclick="javascript:eventPage();">행사 관리</div>
-				<div class="div_side_line"></div>
+				<div name="div_side_line" class="div_side_line"></div>
 				<div id="btn_company" class="div_side_menu" onclick="javascript:companyPage();">입주기업 관리</div>
-				<div class="div_side_line"></div>
-				<div id="btn_wonder" class="div_side_menu" onclick="javascript:shopPage();">입점상가 관리</div>
-				<div class="div_side_line"></div>
+				<div name="div_side_line" class="div_side_line"></div>
+				<!-- <div id="btn_wonder" class="div_side_menu" onclick="javascript:shopPage();">입점상가 관리</div>
+				<div name="div_side_line" class="div_side_line"></div> -->
 			</div>
 		</div>
 		<div id="div_top">
@@ -35,7 +35,7 @@
 				<div id="div_user_icon"></div>
 				<div id="div_user_auth"></div>
 				<div id="div_user_name"></div>
-				<div id="btn_logout" onclick="javascript:homePage();">Logout ></div>
+				<div id="btn_logout" onclick="javascript:logout();">Logout ></div>
 			</div>
 		</div>
 		<div id="div_contents">
@@ -54,10 +54,10 @@
 			<div id="div_contents_detail">
 				<div id="div_event_detail_top" class="div_event_detail">
 					<div id="btn_event_lang">
-						<div id="btn_event_kr" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(0);"></div>
-						<div id="btn_event_en" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(1);"></div>
-						<div id="btn_event_ch" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(2);"></div>
-						<div id="btn_event_jp" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(3);"></div>
+						<div id="btn_kr" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(0);"></div>
+						<div id="btn_en" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(1);"></div>
+						<div id="btn_ch" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(2);"></div>
+						<div id="btn_jp" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(3);"></div>
 					</div>
 					<div id="div_event_detail_title" class="div_event_detail_title">
 						<a class="a_event_detail_title_item">항목명</a>

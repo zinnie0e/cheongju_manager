@@ -17,15 +17,15 @@
 			<div id="div_side_menu">
 				<div class="div_side_line"></div>
 				<div id="btn_account" class="div_side_menu" onclick="javascript:accountPage();">계정관리</div>
-				<div class="div_side_line"></div>
+				<div name="div_side_line" class="div_side_line"></div>
 				<div id="btn_notice" class="div_side_menu" onclick="javascript:noticePage();">한줄공지 관리</div>
-				<div class="div_side_line"></div>
+				<div name="div_side_line" class="div_side_line"></div>
 				<div id="btn_event" class="div_side_menu" onclick="javascript:eventPage();">행사 관리</div>
-				<div class="div_side_line"></div>
+				<div name="div_side_line" class="div_side_line"></div>
 				<div id="btn_company" class="div_side_menu" onclick="javascript:companyPage();">입주기업 관리</div>
-				<div class="div_side_line"></div>
-				<div id="btn_wonder" class="div_side_menu" onclick="javascript:shopPage();">입점상가 관리</div>
-				<div class="div_side_line"></div>
+				<div name="div_side_line" class="div_side_line"></div>
+				<!-- <div id="btn_wonder" class="div_side_menu" onclick="javascript:shopPage();">입점상가 관리</div>
+				<div name="div_side_line" class="div_side_line"></div> -->
 			</div>
 		</div>
 		<div id="div_top">

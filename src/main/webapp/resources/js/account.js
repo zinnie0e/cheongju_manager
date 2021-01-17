@@ -12,7 +12,7 @@ function initAccount() {
 			type: "POST",
 			dataType: "json",
 			async: false,
-			url: SETTING_URL + "/user/select_all_user",
+			url: MASTER_URL + "/user/select_all_user",
 			success: function (result) {
 				init_account_data = result;
 			}
@@ -24,7 +24,7 @@ function initAccount() {
 			contentType: "application/json; charset=utf-8;",
 			dataType: "json",
 			async: false,
-			url: SETTING_URL + "/user/select_user",
+			url: MASTER_URL + "/user/select_user",
 			data : JSON.stringify(sendData),
 			success: function (result) {
 				init_account_data = result;
@@ -34,14 +34,13 @@ function initAccount() {
 }
 
 function getUser(){
-	logNow(init_account_data);
 	var html_string = "";
 	
-	//ajax 전체 데이터 셀렉트, 초기 데이터 전역변수 init_data에 저장
+	var num = 1;
 	for(var i = 0; i < init_account_data.length; i++){
 		html_string +=
 			'<div name="div_account_item_title" class="div_account_title">' +
-				'<a class="a_account_num">'+ i +'</a>' +
+				'<a class="a_account_num">'+ num +'</a>' +
 				'<a class="a_account_item">'+ init_account_data[i]["user_id"] +'</a>' +
 				'<a class="a_account_item">'+ init_account_data[i]["user_pw"] +'</a>' +
 				'<a class="a_account_item">'+ init_account_data[i]["user_auth"] +'</a>' +
@@ -69,30 +68,31 @@ function getUser(){
 					'<div id="btn_account_cancle" class="div_button div_button_set" onclick="javascript:resetUser();"></div>' + //취소
 				'</div>' + 
 			'</div>' +
-			'<div class="div_account_divide_line"></div>';
+			'<div class="div_account_divide_line"></div>';3
+		num += 1;
 	}
-	
-	html_string +=
-		'<div id="div_account_item_add" class="div_account_item_input" style="margin-top:20px;">' +
-			'<a class="a_account_num"></a>' +
-			'<input type="text" id="in_account_id_add" class="in_account_item">' +
-			'<input type="text" id="in_account_pw_add" class="in_account_item">' +
-			'<select id="sel_account_auth_add" class="in_account_item">' +
-			    '<option value="0">마스터</option>' +
-			    '<option value="1">원더아리아</option>' +
-			    '<option value="2">충북시청자미디어센터</option>' +
-			    '<option value="3">국립현대미술관</option>' +
-			    '<option value="4">청주시문화산업진흥재단</option>' +
-			    '<option value="5">청주열린도서관</option>' +
-			'</select>' +
-			'<input type="text" id="in_account_name_add" class="in_account_item">' +
-			'<div id="div_btn_set_contain">' +
-				'<div id="btn_account_save" class="div_button div_button_set" onclick="javascript:addUser();"></div>' + //저장
-				'<div id="btn_account_cancle" class="div_button div_button_set" onclick="javascript:resetUser();"></div>' + //취소
-			'</div>' + 
-		'</div>';
-	
 	$('#div_account_contents').html(html_string);
+	
+	html_string= "";
+	html_string +=
+		'<a class="a_account_num"></a>' +
+		'<input type="text" id="in_account_id_add" class="in_account_item">' +
+		'<input type="text" id="in_account_pw_add" class="in_account_item">' +
+		'<select id="sel_account_auth_add" class="in_account_item">' +
+		    '<option value="0">마스터</option>' +
+		    '<option value="1">원더아리아</option>' +
+		    '<option value="2">충북시청자미디어센터</option>' +
+		    '<option value="3">국립현대미술관</option>' +
+		    '<option value="4">청주시문화산업진흥재단</option>' +
+		    '<option value="5">청주열린도서관</option>' +
+		'</select>' +
+		'<input type="text" id="in_account_name_add" class="in_account_item">' +
+		'<div id="div_btn_set_contain">' +
+			'<div id="btn_account_save" class="div_button div_button_set" onclick="javascript:addUser();"></div>' + //저장
+			'<div id="btn_account_cancle" class="div_button div_button_set" onclick="javascript:resetUser();"></div>' + //취소
+		'</div>';	
+	$('#div_account_item_add').html(html_string);
+	
 	
 	if(!isAuthCheck){
 		$('#btn_account_add').hide();
@@ -143,7 +143,7 @@ function deleteUser(uid){
 		type: "POST",
 		contentType: "application/json; charset=utf-8;",
 		dataType: "json",
-		url: SETTING_URL + "/user/delete_user",
+		url: MASTER_URL + "/user/delete_user",
 		async: false,
 		data: JSON.stringify(sendData),
 		success: function (result) {
@@ -167,7 +167,7 @@ function updateUser(index, uid){
 		type: "POST",
 		contentType: "application/json; charset=utf-8;",
 		dataType: "json",
-		url: SETTING_URL + "/user/update_user",
+		url: MASTER_URL + "/user/update_user",
 		async: false,
 		data: JSON.stringify(sendData),
 		success: function (result) {
@@ -191,7 +191,7 @@ function addUser(){
 		type: "POST",
 		contentType: "application/json; charset=utf-8;",
 		dataType: "json",
-		url: SETTING_URL + "/user/insert_user",
+		url: MASTER_URL + "/user/insert_user",
 		async: false,
 		data: JSON.stringify(sendData),
 		success: function (result) {

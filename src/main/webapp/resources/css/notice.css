@@ -36,6 +36,25 @@
     border-radius: 20px 20px 0px 0px;
 }
 
+#div_notice_contents{
+	font-size: 14px;
+}
+
+#div_notice_item_add{
+	width: calc(var(--div-notice-top-width) - 15px);
+	
+	margin-right: 15px;
+	margin-left: var(--notice-margin-left); 
+	margin-top: 30px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-right: 15px;
+	
+    font-size: 16px;
+	border-radius: 20px 20px 20px 20px;
+	background-color: #e9e9e9;
+}
+
 #a_notice_title {
 	position:absolute;
 	height: var(--div-button-height);
@@ -156,7 +175,7 @@
     margin-right: 3px;
     padding-left: 10px;
     border: 0px;
-    font-size: 16px;
+    font-size: 14px;
     background-color: white;
 }
 
