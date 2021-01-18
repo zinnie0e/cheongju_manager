@@ -179,7 +179,7 @@ function getEvent(){
 			'<div name="a_event_contents_title_name" class="div_event_detail_title">' +
 				'<a class="a_event_contents_title">* 행사명</a>' +
 				'<div class="div_event_detail_title_contents">' +
-					'<input type="text" name="in_event_contents_title_name" class="inputbox_esnt in_event_contents">' +
+					'<input type="text" name="in_event_contents_title_name" class="inputbox_esnt in_event_contents" maxlength="30">' +
 				'</div>' +
 			'</div>' +
 			'<div class="div_event_detail_divide_line"></div>';
@@ -216,16 +216,16 @@ function getEvent(){
 			'<div name="div_event_contents_title_place" class="div_event_detail_title">' +
 				'<a class="a_event_contents_title">* 행사장소</a>' +
 				'<div class="div_event_detail_title_contents">' +
-					'<input type="text" name="in_event_contents_title_plase" class="inputbox_esnt in_event_contents">' +
+					'<input type="text" name="in_event_contents_title_plase" class="inputbox_esnt in_event_contents" maxlength="20">' +
 				'</div>' +
 			'</div>' +
 			'<div class="div_event_detail_divide_line"></div>' +
 			'<div name="div_event_contents_title_manager" class="div_event_detail_title">' +
 				'<a class="a_event_contents_title">* 행사문의 / 연락처</a>' +
 				'<div class="div_event_detail_title_contents">' +
-					'<input type="text" name="in_event_contents_title_manager" class="inputbox_esnt in_event_contents_manager">' +
+					'<input type="text" name="in_event_contents_title_manager" class="inputbox_esnt in_event_contents_manager" maxlength="20">' +
 					'<a class="a_event_contents_time_separator" style="margin-left:30px;">/</a>' +
-					'<input type="text" name="in_event_contents_title_tel" class="inputbox_esnt in_event_contents_tel">' +
+					'<input type="text" name="in_event_contents_title_tel" class="inputbox_esnt in_event_contents_tel" maxlength="20">' +
 				'</div>' +
 			'</div>' +
 			'<div class="div_event_detail_divide_line"></div>' +
@@ -235,8 +235,8 @@ function getEvent(){
 		for(var k = 0; k < 10; k++){
 			html_string +=
 				'<div name="a_event_contents_add_item'+ k +'" class="div_event_detail_title">' +
-					'<input type="text" name="in_event_contents_add_item'+ k +'_title" class="inputbox in_event_contents_title" placeholder="항목명">' +
-					'<input type="text" name="in_event_contents_add_item'+ k +'_body" class="inputbox in_event_contents" placeholder="상세 내용을 입력해주세요">' +
+					'<input type="text" name="in_event_contents_add_item'+ k +'_title" class="inputbox in_event_contents_title" placeholder="항목명" maxlength="20">' +
+					'<input type="text" name="in_event_contents_add_item'+ k +'_body" class="inputbox in_event_contents" placeholder="상세 내용을 입력해주세요" maxlength="200">' +
 				'</div>' +
 				'<div class="div_event_detail_divide_line"></div>';
 		}
@@ -617,6 +617,9 @@ function setLangJson(value){
 
 //----------데이터 수정, 삽입, 삭제----------//
 function updateContent(uid) { 
+	var exc = "." +($("#a_event_contents_title_poster").text()).split(".")[1];
+	if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.");
+	
 	if(!confirm("수정하시겠습니까?")) return;
 	
 	var isUpdateCheck = false;
@@ -763,6 +766,9 @@ function insertContent() {
 			($('input[name=in_event_contents_title_end_time_h]:eq("0")').val()).length != 2 || 
 			($('input[name=in_event_contents_title_end_time_m]:eq("0")').val()).length != 2) return alert("행사기간과 시간을 양식에 맞춰 입력해주세요.");
 	
+	var exc = "." +($("#a_event_contents_title_poster").text()).split(".")[1];
+	if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.");
+	
 	if(!confirm("저장하시겠습니까?")) return;
 	var isInsertCheck = false;
 	
@@ -883,7 +889,7 @@ var poster_name;
 function uploadPoster(event_cate) {
 	//logNow($('#in_event_contents_title_poster')[0].files[0] + "/" + $('#in_event_contents_title_poster').val());
 	
-	var namecode = getCookie("login_info").auth + '' + event_cate;
+	var namecode = getCookie("login_info").auth + '' + event_cate + '_' + getNow();
 	
 	var formData = new FormData();
 	formData.append("files", $('#in_event_contents_title_poster')[0].files[0]);
@@ -901,7 +907,7 @@ function uploadPoster(event_cate) {
 		}
 	});
 	
-	/*$.ajax({ //슬레이브 주소
+	$.ajax({ //슬레이브 주소
 		url : SLAVE_URL + "/event/upload_poster",
 		processData : false,
 		contentType : false,
@@ -911,5 +917,5 @@ function uploadPoster(event_cate) {
 			if(result == "") alert("이미지 업로드 실패");
 			else logo_name = result;
 		}
-	});*/
+	});
 }

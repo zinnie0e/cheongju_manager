@@ -9,7 +9,7 @@
 
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="./resources/js/login.js"></script>
-	<title>Home</title>
+	<title>문화제조창 키오스크</title>
 </head>
 <body class="font_kr" onload="blockBack();" onpageshow="if(event.persisted) blockBack" onunload="">
 	<div id="div_login_contents">

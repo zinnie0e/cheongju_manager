@@ -58,7 +58,7 @@ function getNotice(){
 					'<div name="div_notice_item_kr" class="div_notice_item_lang">' +
 						'<a class="a_notice_num">'+ i +'</a>' +
 						'<a class="a_notice_num">KR</a>' +
-						'<input type="text" name="in_notice_kr" class="in_notice_item" value="'+ init_notice_data[i][0]["notice"] +'", disabled>' +
+						'<input type="text" name="in_notice_kr" class="in_notice_item" value="'+ init_notice_data[i][0]["notice"] +'", disabled  maxlength="200">' +
 						'<div id="div_btn_set_contain">' +
 							'<div id="btn_notice_edit" class="div_button div_button_set" onclick="javascript:editNotice('+ i +');"></div>' + //편집
 							'<div id="btn_notice_del" class="div_button div_button_set" onclick="javascript:deleteNotice('+ init_notice_data[i][0]["uid"] +');"></div>' + //삭제
@@ -67,7 +67,7 @@ function getNotice(){
 					'<div name="div_notice_item_kr_u_c" class="div_notice_item_lang">' +
 						'<a class="a_notice_num">'+ i +'</a>' +
 						'<a class="a_notice_num">KR</a>' +
-						'<input type="text" name="in_notice_kr_u" class="in_notice_item" value="">' +
+						'<input type="text" name="in_notice_kr_u" class="in_notice_item" value="" maxlength="200">' +
 						'<div id="div_btn_set_contain">' +
 							'<div id="btn_notice_save" class="div_button div_button_set" onclick="javascript:updateNotice('+ i +', '+ init_notice_data[i][0]["uid"] +');"></div>' + //저장
 							'<div id="btn_notice_cancle" class="div_button div_button_set" onclick="javascript:resetNotice();"></div>' + //취소
@@ -76,17 +76,17 @@ function getNotice(){
 					'<div name="div_notice_item_en" class="div_notice_item_lang">' +
 						'<a class="a_notice_num"></a>' +
 						'<a class="a_notice_num">EN</a>' +
-						'<input type="text" name="in_notice_en" class="in_notice_item" value="">' +
+						'<input type="text" name="in_notice_en" class="in_notice_item" value="" maxlength="200">' +
 					'</div>' +
 					'<div name="div_notice_item_ch" class="div_notice_item_lang">' +
 						'<a class="a_notice_num"></a>' +
 						'<a class="a_notice_num">CH</a>' +
-						'<input type="text" name="in_notice_ch" class="in_notice_item" value="">' +
+						'<input type="text" name="in_notice_ch" class="in_notice_item" value="" maxlength="200">' +
 					'</div>' +
 					'<div name="div_notice_item_jp" class="div_notice_item_lang">' +
 						'<a class="a_notice_num"></a>' +
 						'<a class="a_notice_num">JP</a>' +
-						'<input type="text" name="in_notice_jp" class="in_notice_item" value="">' +
+						'<input type="text" name="in_notice_jp" class="in_notice_item" value="" maxlength="200">' +
 					'</div>' +
 				'</div>' +
 			'</div>';
@@ -100,7 +100,7 @@ function getNotice(){
 			'<div id="div_notice_item_kr_add" class="div_notice_item_lang">' +
 				'<a class="a_notice_num"></a>' +
 				'<a class="a_notice_num">KR</a>' +
-				'<input type="text" id="in_notice_kr_add" class="in_notice_item" value="'+ i +'">' +
+				'<input type="text" id="in_notice_kr_add" class="in_notice_item" value="'+ i +'" maxlength="200">' +
 				'<div id="div_btn_set_contain">' +
 					'<div id="btn_notice_save" class="div_button div_button_set" onclick="javascript:addNotice();"></div>' + //저장
 					'<div id="btn_notice_cancle" class="div_button div_button_set" onclick="javascript:resetNotice();"></div>' + //취소
@@ -109,17 +109,17 @@ function getNotice(){
 			'<div id="div_notice_item_en_add" class="div_notice_item_lang">' +
 				'<a class="a_notice_num"></a>' +
 				'<a class="a_notice_num">EN</a>' +
-				'<input type="text" id="in_notice_en_add" class="in_notice_item" value="'+ i +'">' +
+				'<input type="text" id="in_notice_en_add" class="in_notice_item" value="'+ i +'" maxlength="200">' +
 			'</div>' +
 			'<div idname="div_notice_item_ch_add" class="div_notice_item_lang">' +
 				'<a class="a_notice_num"></a>' +
 				'<a class="a_notice_num">CH</a>' +
-				'<input type="text" id="in_notice_ch_add" class="in_notice_item" value="'+ i +'">' +
+				'<input type="text" id="in_notice_ch_add" class="in_notice_item" value="'+ i +'" maxlength="200">' +
 			'</div>' +
 			'<div id="div_notice_item_jp_add" class="div_notice_item_lang">' +
 				'<a class="a_notice_num"></a>' +
 				'<a class="a_notice_num">JP</a>' +
-				'<input type="text" id="in_notice_jp_add" class="in_notice_item" value="'+ i +'">' +
+				'<input type="text" id="in_notice_jp_add" class="in_notice_item" value="'+ i +'" maxlength="200">' +
 			'</div>';
 		//'</div>'
 	$('#div_notice_item_add').html(html_string);

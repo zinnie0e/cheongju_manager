@@ -9,7 +9,7 @@
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="./resources/js/main.js"></script>
 	<script src="./resources/js/company.js"></script>
-	<title>Home</title>
+	<title>문화제조창 키오스크</title>
 </head>
 <body>
 	<div id="div_main">

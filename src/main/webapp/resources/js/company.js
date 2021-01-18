@@ -110,14 +110,14 @@ function getCompany(){
 			'<div name="a_company_contents_title_name" class="div_company_detail_title">' +
 				'<a class="a_company_contents_title">* 기업명</a>' +
 				'<div class="div_company_detail_title_contents">' +
-					'<input type="text" name="in_company_contents_name" class="inputbox_esnt in_company_contents">' +
+					'<input type="text" name="in_company_contents_name" class="inputbox_esnt in_company_contents" maxlength="20">' +
 				'</div>' +
 			'</div>' +
 			'<div class="div_company_detail_divide_line"></div>' +
 			'<div name="a_company_contents_title_room" class="div_company_detail_title">' +
 				'<a class="a_company_contents_title">* 입주호실</a>' +
 				'<div class="div_company_detail_title_contents">' +
-					'<input type="text" name="in_company_contents_room" class="inputbox_esnt in_company_contents">' +
+					'<input type="text" name="in_company_contents_room" class="inputbox_esnt in_company_contents" maxlength="20">' +
 				'</div>' +
 			'</div>' +
 			'<div class="div_company_detail_divide_line"></div>';
@@ -139,46 +139,46 @@ function getCompany(){
 			'<div name="div_company_contents_title_owner" class="div_company_detail_title">' +
 				'<a class="a_company_contents_title">* 대표자</a>' +
 				'<div class="div_company_detail_title_contents">' +
-					'<input type="text" name="in_company_contents_owner" class="inputbox_esnt in_company_contents">' +
+					'<input type="text" name="in_company_contents_owner" class="inputbox_esnt in_company_contents" maxlength="20">' +
 				'</div>' +
 			'</div>' +
 			'<div class="div_company_detail_divide_line"></div>' +
 			'<div name="div_company_contents_title_busi" class="div_company_detail_title">' +
 				'<a class="a_company_contents_title">* 사업분야</a>' +
 				'<div class="div_company_detail_title_contents">' +
-					'<input type="text" name="in_company_contents_busi1" class="inputbox_esnt in_company_contents_busi">' +
-					'<input type="text" name="in_company_contents_busi2" class="in_company_contents_busi">' +
-					'<input type="text" name="in_company_contents_busi3" class="in_company_contents_busi">' +
-					'<input type="text" name="in_company_contents_busi4" class="in_company_contents_busi">' +
-					'<input type="text" name="in_company_contents_busi5" class="in_company_contents_busi">' +
+					'<input type="text" name="in_company_contents_busi1" class="inputbox_esnt in_company_contents_busi" maxlength="35">' +
+					'<input type="text" name="in_company_contents_busi2" class="inputbox in_company_contents_busi" maxlength="35">' +
+					'<input type="text" name="in_company_contents_busi3" class="inputbox in_company_contents_busi" maxlength="35">' +
+					'<input type="text" name="in_company_contents_busi4" class="inputbox in_company_contents_busi" maxlength="35">' +
+					'<input type="text" name="in_company_contents_busi5" class="inputbox in_company_contents_busi" maxlength="35">' +
 				'</div>' +
 			'</div>' +
 			'<div class="div_company_detail_divide_line"></div>' +
 			'<div name="div_company_contents_title_item" class="div_company_detail_title">' +
 				'<a class="a_company_contents_title_option">아이템</a>' +
 				'<div class="div_company_detail_title_contents">' +
-					'<input type="text" name="in_company_contents_item" class="inputbox in_company_contents">' +
+					'<input type="text" name="in_company_contents_item" class="inputbox in_company_contents" maxlength="20">' +
 				'</div>' +
 			'</div>' +
 			'<div class="div_company_detail_divide_line"></div>' +
 			'<div name="div_company_contents_title_tel" class="div_company_detail_title">' +
 				'<a class="a_company_contents_title">* 연락처</a>' +
 				'<div class="div_company_detail_title_contents">' +
-					'<input type="text" name="in_company_contents_tel" class="inputbox_esnt in_company_contents">' +
+					'<input type="text" name="in_company_contents_tel" class="inputbox_esnt in_company_contents" maxlength="20">' +
 				'</div>' +
 			'</div>' +
 			'<div class="div_company_detail_divide_line"></div>' +
 			'<div name="div_company_contents_title_email" class="div_company_detail_title">' +
 				'<a class="a_company_contents_title">* e-mail</a>' +
 				'<div class="div_company_detail_title_contents">' +
-					'<input type="text" name="in_company_contents_email" class="inputbox_esnt in_company_contents">' +
+					'<input type="text" name="in_company_contents_email" class="inputbox_esnt in_company_contents" maxlength="30">' +
 				'</div>' +
 			'</div>' +
 			'<div class="div_company_detail_divide_line"></div>' +
 			'<div name="div_company_contents_title_homepage" class="div_company_detail_title">' +
 				'<a class="a_company_contents_title_option">홈페이지</a>' +
 				'<div class="div_company_detail_title_contents">' +
-					'<input type="text" name="in_company_contents_homepage" class="inputbox in_company_contents">' +
+					'<input type="text" name="in_company_contents_homepage" class="inputbox in_company_contents" maxlength="30">' +
 				'</div>' +
 			'</div>' +
 			'<div class="div_company_detail_divide_line"></div>' +
@@ -493,6 +493,9 @@ function addLogo() {
 }
 
 function updateContent(uid) {
+	var exc = "." +($("#a_company_contents_title_logo").text()).split(".")[1];
+	if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.");
+	
 	if(!confirm("수정하시겠습니까?")) return;
 	
 	for(var i = 0; i < 4; i++) {
@@ -580,6 +583,9 @@ function insertContent() {
 		if(!checkEsnt(i)) return alert("언어별 모든 양식에 데이터가 입력되었는지 확인바랍니다.");
 	}
 	
+	var exc = "." +($("#a_company_contents_title_logo").text()).split(".")[1];
+	if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.");
+	
 	if(!confirm("저장하시겠습니까?")) return;
 	
 	var new_uid;
@@ -653,7 +659,7 @@ var logo_name;
 function uploadLogo(com_cate) {
 	//logNow($('#in_company_contents_title_logo')[0].files[0] + "/" + $('#in_company_contents_title_logo').val());
 	
-	var namecode = getCookie("login_info").auth + '' + com_cate;
+	var namecode = getCookie("login_info").auth + '' + com_cate + '_' + getNow();
 	
 	var formData = new FormData();
 	formData.append("files", $('#in_company_contents_title_logo')[0].files[0]);
@@ -671,7 +677,7 @@ function uploadLogo(com_cate) {
 		}
 	});
 	
-	/*$.ajax({ //슬레이브 주소
+	$.ajax({ //슬레이브 주소
 		url : SLAVE_URL + "/kioskserver/industry/upload_logo",
 		processData : false,
 		contentType : false,
@@ -680,5 +686,5 @@ function uploadLogo(com_cate) {
 		success : function(result) {
 			if(result == "") alert("이미지 업로드 실패");
 		}
-	});*/
+	});
 }

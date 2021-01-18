@@ -9,6 +9,24 @@ function logNow(logContents){
     }
 }
 
+function checkExc(exc){
+	if(exc == ".tiff" || exc == ".pjp" || exc == ".jfif" || exc == ".gif" || exc == ".svg" || exc == ".bmp" || exc == ".png" || exc == ".jpeg" || exc == ".svgz" || exc == ".jpg" || exc == ".webp" || exc == ".ico" || exc == ".xbm" || exc == ".dib" || exc == ".tif" || exc == ".pjpeg" || exc == ".avif"){
+		return true;
+	}else return false;
+}
+
+function getNow(){
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = ("0" + (1 + date.getMonth())).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+    var hour = ("0" + date.getHours()).slice(-2);
+    var min = ("0" + date.getMinutes()).slice(-2);
+    var sec = ("0" + date.getSeconds()).slice(-2);
+
+    return year + month + day + hour + min + sec;
+}
+
 $(document).ready(function(){
 	initManager();
 });

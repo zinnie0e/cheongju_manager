@@ -52,8 +52,8 @@ function getUser(){
 			'</div>' +
 			'<div name="div_account_item_input" class="div_account_item_input">' +
 				'<a class="a_account_num">'+ i +'</a>' +
-				'<input type="text" name="in_account_id" class="in_account_item" value="'+ init_account_data[i]["user_id"] +'">' +
-				'<input type="text" name="in_account_pw" class="in_account_item" value="'+ init_account_data[i]["user_pw"] +'">' +
+				'<input type="text" name="in_account_id" class="in_account_item" value="'+ init_account_data[i]["user_id"] +'" maxlength="20">' +
+				'<input type="text" name="in_account_pw" class="in_account_item" value="'+ init_account_data[i]["user_pw"] +'" maxlength="20">' +
 				'<select name="sel_account_auth" class="in_account_item_select">' +
 				    '<option value="0"'; if(init_account_data[i]["user_auth"] == 0) html_string += 'selected'; html_string += '>마스터</option>' +
 				    '<option value="1"'; if(init_account_data[i]["user_auth"] == 1) html_string += 'selected'; html_string += '>원더아리아</option>' +
@@ -62,7 +62,7 @@ function getUser(){
 				    '<option value="4"'; if(init_account_data[i]["user_auth"] == 4) html_string += 'selected'; html_string += '>청주시문화산업진흥재단</option>' +
 				    '<option value="5"'; if(init_account_data[i]["user_auth"] == 5) html_string += 'selected'; html_string += '>청주열린도서관</option>' +
 				'</select>' +
-				'<input type="text" name="in_account_name" class="in_account_item" value="'+ init_account_data[i]["user_name"] +'">' +
+				'<input type="text" name="in_account_name" class="in_account_item" value="'+ init_account_data[i]["user_name"] +'" maxlength="20">' +
 				'<div id="div_btn_set_contain">' +
 					'<div id="btn_account_save" class="div_button div_button_set" onclick="javascript:updateUser('+ i +', '+ init_account_data[i]["uid"] +');"></div>' + //저장
 					'<div id="btn_account_cancle" class="div_button div_button_set" onclick="javascript:resetUser();"></div>' + //취소
@@ -76,8 +76,8 @@ function getUser(){
 	html_string= "";
 	html_string +=
 		'<a class="a_account_num"></a>' +
-		'<input type="text" id="in_account_id_add" class="in_account_item">' +
-		'<input type="text" id="in_account_pw_add" class="in_account_item">' +
+		'<input type="text" id="in_account_id_add" class="in_account_item" maxlength="20">' +
+		'<input type="text" id="in_account_pw_add" class="in_account_item" maxlength="20">' +
 		'<select id="sel_account_auth_add" class="in_account_item">' +
 		    '<option value="0">마스터</option>' +
 		    '<option value="1">원더아리아</option>' +
@@ -86,7 +86,7 @@ function getUser(){
 		    '<option value="4">청주시문화산업진흥재단</option>' +
 		    '<option value="5">청주열린도서관</option>' +
 		'</select>' +
-		'<input type="text" id="in_account_name_add" class="in_account_item">' +
+		'<input type="text" id="in_account_name_add" class="in_account_item"  maxlength="20">' +
 		'<div id="div_btn_set_contain">' +
 			'<div id="btn_account_save" class="div_button div_button_set" onclick="javascript:addUser();"></div>' + //저장
 			'<div id="btn_account_cancle" class="div_button div_button_set" onclick="javascript:resetUser();"></div>' + //취소
