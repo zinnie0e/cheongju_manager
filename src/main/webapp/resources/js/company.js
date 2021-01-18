@@ -13,7 +13,6 @@ function initCompanyList() {
 		async: false,
 		success: function (result) {
 			init_company_list = result;
-			logNow(init_company_list);
 		}
 	});
 }
@@ -31,7 +30,6 @@ function initCompanySearchList(name) {
 		data : JSON.stringify(from),
 		success: function (result) {
 			init_company_list = result;
-			logNow(init_company_list);
 		}
 	});
 }
@@ -47,7 +45,6 @@ function initCompany(uid){
 		data : JSON.stringify(sendData),
 		success: function (result) {
 			init_company_data = result;
-			logNow(init_company_data);
 		}
 	});
 }
@@ -269,7 +266,10 @@ function setCompany(){
 }
 
 function showAddCompany(){
+	init_company_data = null;
 	resetCompany();
+	
+	init_company_data = null;
 	
 	$('#div_contents_detail').show();
 	
@@ -310,7 +310,7 @@ function checkLoc(){
 	init_loc_data.x = x;
 	init_loc_data.y = y;
 	
-	logNow(x + "//" + y);
+	//logNow(x + "//" + y);
 }
 
 function setLoc(x, y){
@@ -326,32 +326,36 @@ function checkLang(value){
 			return;
 		}
 		
-		if($('#img_company_pin').css('display') == 'none') return alert("지도에 핀을 표시해주세요");
-		
-		makeLangJson(0);
-		
-		if(value == 2 || value == 3){
-			if(!checkEsnt(1)){
-				alert("영어 탭의 양식을 먼저 완성해주세요");
-				return;
-			}else makeLangJson(1);
+		if(init_company_data == null){
+			if($('#img_company_pin').css('display') == 'none') return alert("지도에 핀을 표시해주세요");
+			
+			makeLangJson(0);
+			
+			if(value == 2 || value == 3){
+				if(!checkEsnt(1)){
+					alert("영어 탭의 양식을 먼저 완성해주세요");
+					return;
+				}else makeLangJson(1);
+			}
+			
+			if(!checkEsnt(value)) setLangJson(value);
+			
+			else{
+				if(value == 1){
+					checkCompany(value, ko_json.com_cate);
+					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(ko_json.room); //입주호실
+					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_tel]').val(ko_json.tel); //연락처
+					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_email]').val(ko_json.email); //이메일
+				}else{
+					checkCompany(value, en_json.com_cate);
+					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(en_json.room); //입주호실
+					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_tel]').val(en_json.tel); //연락처
+					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_email]').val(en_json.email); //이메일
+				}
+			}	
 		}
 		
-		if(!checkEsnt(value)) setLangJson(value);
 		
-		else{
-			if(value == 1){
-				checkCompany(value, ko_json.com_cate);
-				$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(ko_json.room); //입주호실
-				$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_tel]').val(ko_json.tel); //연락처
-				$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_email]').val(ko_json.email); //이메일
-			}else{
-				checkCompany(value, en_json.com_cate);
-				$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(en_json.room); //입주호실
-				$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_tel]').val(en_json.tel); //연락처
-				$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_email]').val(en_json.email); //이메일
-			}
-		}	
 		
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") .div_company_contents_com_cate').attr('onclick','').unbind('click'); //한국 외 언어에서 행사분류 클릭x
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').attr('disabled', true);
@@ -525,7 +529,6 @@ function updateContent(uid) {
 				image_y: init_loc_data.y,
 				uid: uid
 			}
-			logNow(sendData);
 			
 			$.ajax({
 				type: "POST",
@@ -554,7 +557,6 @@ function deleteContent(uid) {
 	var lang = ["kr", "en", "ch", "jp"];
 	for(var i = 0; i < lang.length ; i++){
 		var sendData = { language: lang[i], uid: uid };
-		logNow(sendData);
 		
 		$.ajax({
 			type: "POST",
@@ -649,7 +651,6 @@ function insertContent() {
 
 var logo_name;
 function uploadLogo(com_cate) {
-	//logNow($('#in_company_contents_title_logo').val());
 	//logNow($('#in_company_contents_title_logo')[0].files[0] + "/" + $('#in_company_contents_title_logo').val());
 	
 	var namecode = getCookie("login_info").auth + '' + com_cate;

@@ -162,7 +162,6 @@ function updateUser(index, uid){
 	
 	if(!confirm("저장하시겠습니까?")) return;
 	var sendData = { user_id: id_data, user_pw: pw_data, user_auth: auth_data, user_name: name_data, uid: uid }
-	logNow(sendData);
 	$.ajax({
 		type: "POST",
 		contentType: "application/json; charset=utf-8;",

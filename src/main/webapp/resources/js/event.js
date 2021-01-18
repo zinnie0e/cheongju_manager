@@ -51,7 +51,6 @@ function initEventList(found_val) {
 		data : JSON.stringify(sendData),
 		success: function (result) {
 			init_event_list = result;
-			logNow(init_event_list);
 		}
 	});
 }
@@ -88,7 +87,6 @@ function initEventDetail(lang, uid){
 	}
 	
 	var sendData = {language: lang_code, event_uid: uid};
-	logNow(sendData);
 	$.ajax({
 		type: "POST",
 		contentType: "application/json; charset=utf-8;",
@@ -300,7 +298,6 @@ function setEvent(){
 		
 		initEventDetail(index, init_event_data[index]["uid"]);
 		
-		logNow(init_event_detail_data);
 		for(var i = 0; i < init_event_detail_data.length ; i++){
 			$('input[name=in_event_contents_add_item'+ i +'_title]:eq("' + index + '")').val(init_event_detail_data[i]["detail_title"]); //제목
 			$('input[name=in_event_contents_add_item'+ i +'_body]:eq("' + index + '")').val(init_event_detail_data[i]["detail_body"]); //내용
@@ -650,7 +647,6 @@ function updateContent(uid) {
 				poster: poster_name,
 				uid: uid
 			}
-			logNow(sendData);
 			
 			$.ajax({
 				type: "POST",
@@ -885,7 +881,6 @@ function showPosterPreview() {
 
 var poster_name;
 function uploadPoster(event_cate) {
-	//logNow($('#in_event_contents_title_poster').val());
 	//logNow($('#in_event_contents_title_poster')[0].files[0] + "/" + $('#in_event_contents_title_poster').val());
 	
 	var namecode = getCookie("login_info").auth + '' + event_cate;

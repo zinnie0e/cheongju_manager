@@ -186,7 +186,6 @@ function deleteNotice(uid){
 	if(!confirm("삭제하시겠습니까?")) return;
 	for(var i = 0 ; i < lang.length ; i++){
 		var sendData = { language: lang[i], uid: uid }
-		logNow(sendData);
 		$.ajax({
 			type: "POST",
 			contentType: "application/json; charset=utf-8;",
