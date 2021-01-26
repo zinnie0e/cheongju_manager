@@ -107,10 +107,49 @@ function getCompany(){
 				'</div>' +
 			'</div>' +
 			'<div class="div_company_detail_divide_line"></div>' +
-			'<div name="a_company_contents_title_name" class="div_company_detail_title">' +
+			'<div name="a_company_contents_title_name" class="div_company_detail_title_ex">' +
 				'<a class="a_company_contents_title">* 기업명</a>' +
 				'<div class="div_company_detail_title_contents">' +
-					'<input type="text" name="in_company_contents_name" class="inputbox_esnt in_company_contents" maxlength="20">' +
+					//'<input type="text" name="in_company_contents_name" class="inputbox_esnt in_company_contents_ex" maxlength="20">' +
+					'<textarea name="in_company_contents_name" class="inputbox_esnt in_company_contents_ex" onchange="javascript:changeComName('+ i +')" rows="3" onkeydown="return limitLines(this, event)" maxlength="27"></textarea>' +
+					'<div class="txt_comname">글자크기</div>' + 
+					'<select name="sel_company_contents_name_size" class="sel_company_contents_name" onchange="javascript:changeComNameFont('+ i +')">' +
+					    '<option value="16px">16px</option>' +
+					    '<option value="17px">17px</option>' +
+					    '<option value="18px">18px</option>' +
+					    '<option value="19px">19px</option>' +
+					    '<option value="20px">20px</option>' +
+					    '<option value="21px">21px</option>' +
+					    '<option value="22px">22px</option>' +
+					    '<option value="23px">23px</option>' +
+					    '<option value="24px" selected>24px</option>' +
+					'</select>'+
+					'<div id="comname_midline"></div>' +
+					'<div class="txt_comname">기업명분류</div>';
+			if(i == 0){
+				html_string += 
+					'<select name="sel_company_contents_name_sort" class="sel_company_contents_name">' +
+						'<option value="ㄱㄴ">ㄱㄴ</option>' +
+						'<option value="ㄷㄹ">ㄷㄹ</option>' +
+						'<option value="ㅁㅂ">ㅁㅂ</option>' +
+						'<option value="ㅅㅇ">ㅅㅇ</option>' +
+						'<option value="ㅈㅊ">ㅈㅊ</option>' +
+						'<option value="ㅋㅌ">ㅋㅌ</option>' +
+						'<option value="ㅍㅎ">ㅍㅎ</option>' +
+						'<option value="etc">1~0 / A~Z</option>' +
+					'</select>';
+			}else{
+				html_string += 
+					'<select name="sel_company_contents_name_sort" class="sel_company_contents_name">' +
+						'<option value="ABC">ABC</option>' +
+						'<option value="DEFG">DEFG</option>' +
+						'<option value="HIJK">HIJK</option>' +
+						'<option value="LMNO">LMNO</option>' +
+						'<option value="PQRS">PQRS</option>' +
+						'<option value="TUV">TUV</option>' +
+						'<option value="WXYZ">WXYZ</option>' +
+					'</select>';
+			}html_string += 
 				'</div>' +
 			'</div>' +
 			'<div class="div_company_detail_divide_line"></div>' +
@@ -190,6 +229,91 @@ function getCompany(){
 	resetCompany();
 }
 
+function limitLines(obj, e){
+	var numberOfLines = (obj.value.match(/\n/g) || []).length + 1;
+	var maxRows = obj.rows;
+	if(e.which == 13 && numberOfLines == maxRows){
+		return false;
+	}
+}
+
+function changeComName(index){
+	if(index == 2 || index == 3){
+		$('div[name=div_company_detail_contents]:eq("'+ index +'") select[name=sel_company_contents_name_sort]').val($('div[name=div_company_detail_contents]:eq("1") select[name=sel_company_contents_name_sort]').val());
+		return;
+	}
+	var com_name = $('textarea[name=in_company_contents_name]:eq("' + index + '")').val(); //기업명
+	
+	while(1){
+		if(com_name.indexOf('(',0) == 0) com_name = com_name.substring(com_name.indexOf(')',0) + 1);
+		
+		var regExp = /[\{\}\[\]\/?.,;:|*~`!^\-+<>@\#$%&\\\=\'\"\㈜]/gi;
+		if(regExp.test(com_name)) com_name = com_name.replace(regExp, "?");
+		if(com_name.indexOf('?',0) == 0) com_name = com_name.substring(com_name.indexOf('?',0) + 1);
+		
+		if(com_name.indexOf('?',0) != 0 && com_name.indexOf('(',0) != 0) break;
+	}
+	
+	if(!isAlphabet(com_name)){ //한글일때
+		var pattern_num = /[0-9]/;	// 숫자 
+		if(pattern_num.test(com_name)) com_name = com_name.replace(pattern_num, "?");
+		if(com_name.indexOf('?',0) == 0) $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("etc");
+		else{
+			const f = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+			
+			const ga = 44032;
+			var uni = com_name.charCodeAt(0);
+			uni = uni - ga;
+			var fn = parseInt(uni / 588);
+			
+			logNow(com_name);
+			logNow(f[fn]);
+			
+			if(f[fn] == undefined){
+				isComnameCheck = false;
+				return alert("기업명을 확인해주세요.");
+			}else isComnameCheck = true;
+			
+			if(index == 0){
+				if(f[fn] == 'ㄱ' || f[fn] == 'ㄲ' || f[fn] == 'ㄴ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㄱㄴ");
+				else if(f[fn] == 'ㄷ' || f[fn] == 'ㄸ' || f[fn] == 'ㄹ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㄷㄹ");
+				else if(f[fn] == 'ㅁ' || f[fn] == 'ㅂ' || f[fn] == 'ㅃ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㅁㅂ");
+				else if(f[fn] == 'ㅅ' || f[fn] == 'ㅆ' || f[fn] == 'ㅇ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㅅㅇ");
+				else if(f[fn] == 'ㅈ' || f[fn] == 'ㅉ' || f[fn] == 'ㅊ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㅈㅊ");
+				else if(f[fn] == 'ㅋ' || f[fn] == 'ㅌ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㅋㅌ");
+				else if(f[fn] == 'ㅍ' || f[fn] == 'ㅎ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㅍㅎ");
+			}else $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("wxyz");
+			
+			
+		}
+	}else{
+		isComnameCheck = true;
+		var fn = com_name.charAt(0).toLowerCase();
+		
+		if(index == 0) $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("etc");
+		else{
+			if(fn == 'a' || fn == 'b' || fn == 'c') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ABC");
+			else if(fn == 'd' || fn == 'e' || fn == 'f' || fn == 'g') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("DEFG");
+			else if(fn == 'h' || fn == 'i' || fn == 'j' || fn == 'k') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("HIJK");
+			else if(fn == 'l' || fn == 'm' || fn == 'n' || fn == 'o') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("LMNO");
+			else if(fn == 'p' || fn == 'q' || fn == 'r' || fn == 's') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("PQRS");
+			else if(fn == 't' || fn == 'u' || fn == 'v') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("TUV");
+			else if(fn == 'w' || fn == 'x' || fn == 'y' || fn == 'z') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("WXYZ");
+		}
+	}
+}
+
+function isAlphabet(ch) {
+    var numUnicode = ch.charCodeAt(0);
+    if ( 65 <= numUnicode && numUnicode <= 90 ) return true; //대문자
+    if ( 97 <= numUnicode && numUnicode <= 122 ) return true; //소문자
+    return false;
+}
+
+function changeComNameFont(index){
+	$('div[name=div_company_detail_contents]:eq("'+ index +'") textarea[name=in_company_contents_name]').css('font-size', $('div[name=div_company_detail_contents]:eq("'+ index +'") select[name=sel_company_contents_name_size]').val()); 
+}
+
 function resetCompany(){
 	$('div[name=div_company_item]').each(function(index){//리스트 목록 초기화
 		$('div[name=div_company_item]:eq("' + index + '")').css('background-color', '');
@@ -247,9 +371,13 @@ function showCompany(index, uid){
 }
 
 function setCompany(){
+	logNow(init_company_data);
 	$('div[name=div_company_detail_contents]').each(function(index){ 
 		checkCompany(index, init_company_data[index]["com_cate"])//시설분류
-		$('input[name=in_company_contents_name]:eq("' + index + '")').val(init_company_data[index]["name"]); //기업명
+		//$('input[name=in_company_contents_name]:eq("' + index + '")').val(init_company_data[index]["name"]); //기업명
+		$('textarea[name=in_company_contents_name]:eq("' + index + '")').val(init_company_data[index]["name"]); //기업명
+		$('select[name=sel_company_contents_name_size]:eq("' + index + '")').val(init_company_data[index]["name_size"]); 
+		$('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val(init_company_data[index]["name_sort"]); 
 		$('input[name=in_company_contents_room]:eq("' + index + '")').val(init_company_data[index]["room"]); //입주호실
 		$('#a_company_contents_title_logo').html(init_company_data[index]["logo"]);//로고
 		$('input[name=in_company_contents_owner]:eq("' + index + '")').val(init_company_data[index]["owner"]); //대표자
@@ -321,10 +449,10 @@ function setLoc(x, y){
 
 function checkLang(value){
 	if(value != 0){ //ko가 아닌 다른 언어로 탭 변경시
-		if(!checkEsnt(0)){
-			alert("필수 사항을 모두 입력해주세요.");
-			return;
-		}
+		if(!checkEsnt(0)) return alert("필수 사항을 모두 입력해주세요.");
+		
+		if(isComnameCheck == false) return alert("기업명을 확인해주세요.1");
+		
 		
 		if(init_company_data == null){
 			if($('#img_company_pin').css('display') == 'none') return alert("지도에 핀을 표시해주세요");
@@ -338,9 +466,11 @@ function checkLang(value){
 				}else makeLangJson(1);
 			}
 			
-			if(!checkEsnt(value)) setLangJson(value);
-			
-			else{
+			if(!checkEsnt(value)){
+				setLangJson(value);
+				changeComName(value);
+				changeComNameFont(value)
+			}else{
 				if(value == 1){
 					checkCompany(value, ko_json.com_cate);
 					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(ko_json.room); //입주호실
@@ -355,7 +485,9 @@ function checkLang(value){
 			}	
 		}
 		
-		
+		if(value == 2 || value == 3){
+			$('div[name=div_company_detail_contents]:eq("'+ value +'") select[name=sel_company_contents_name_sort]').attr('disabled', true);
+		}
 		
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") .div_company_contents_com_cate').attr('onclick','').unbind('click'); //한국 외 언어에서 행사분류 클릭x
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').attr('disabled', true);
@@ -380,6 +512,8 @@ function checkLang(value){
 	$('div[name=div_company_detail_contents]:eq("' + value + '")').show();
 }
 
+
+var isComnameCheck;
 function checkEsnt(val){ //빈 데이터 있음 false, 모두 입력 true
 	var isCompanyCheck;
 	for(var i = 0; i < 4; i++) {
@@ -424,7 +558,10 @@ function makeLangJson(value){ //0 //1
 			break;
 		}
 	}	
-	lang_json.name = $('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_name]').val(); //기업명
+	//lang_json.name = $('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_name]').val(); //기업명
+	lang_json.name = $('div[name=div_company_detail_contents]:eq("'+ value +'") textarea[name=in_company_contents_name]').val(); //기업명
+	lang_json.name_size = $('div[name=div_company_detail_contents]:eq("'+ value +'") select[name=sel_company_contents_name_size]').val(); 
+	lang_json.name_sort = $('div[name=div_company_detail_contents]:eq("'+ value +'") select[name=sel_company_contents_name_sort]').val(); 
 	lang_json.room = $('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(); //입주호실
 	lang_json.logo = $('div[name=div_company_detail_contents]:eq("'+ value +'") #a_company_contents_title_logo').text(); //로고
 	lang_json.owner = $('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_owner]').val(); //대표자
@@ -447,7 +584,10 @@ function makeLangJson(value){ //0 //1
 function setLangJson(value){ 
 	if(value == 1){ //1 ko_json 
 		checkCompany(value, ko_json.com_cate);//행사분류
-		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_name]').val(ko_json.name); //기업명
+		//$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_name]').val(ko_json.name); //기업명
+		$('div[name=div_company_detail_contents]:eq("'+ value +'") textarea[name=in_company_contents_name]').val(ko_json.name); //기업명
+		$('div[name=div_company_detail_contents]:eq("'+ value +'") select[name=sel_company_contents_name_size]').val(ko_json.name_size); 
+		$('div[name=div_company_detail_contents]:eq("'+ value +'") select[name=sel_company_contents_name_sort]').val(ko_json.name_sort); 
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(ko_json.room); //입주호실
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_owner]').val(ko_json.owner); //대표자
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_busi1]').val(ko_json.busi1); //사업분야 1~5
@@ -461,7 +601,10 @@ function setLangJson(value){
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_homepage]').val(ko_json.homepage); //홈페이지
 	}else{ //2,3 en_json
 		checkCompany(value, en_json.com_cate);//행사분류
-		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_name]').val(en_json.name); //기업명
+		//$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_name]').val(en_json.name); //기업명
+		$('div[name=div_company_detail_contents]:eq("'+ value +'") textarea[name=in_company_contents_name]').val(en_json.name); //기업명
+		$('div[name=div_company_detail_contents]:eq("'+ value +'") select[name=sel_company_contents_name_size]').val(en_json.name_size); 
+		$('div[name=div_company_detail_contents]:eq("'+ value +'") select[name=sel_company_contents_name_sort]').val(en_json.name_sort); 
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(en_json.room); //입주호실
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_owner]').val(en_json.owner); //대표자
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_busi1]').val(en_json.busi1); //사업분야 1~5
@@ -493,10 +636,20 @@ function addLogo() {
 }
 
 function updateContent(uid) {
-	var exc = "." +($("#a_company_contents_title_logo").text()).split(".")[1];
-	if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.");
+	if($("#a_company_contents_title_logo").text() != ''){
+		var exc = ($("#a_company_contents_title_logo").text()).split(".");
+		if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.\n[ jpg, jepg, bmp, png, tiff, tif, gif ]");
+	}
+	
+	if($('#a_company_contents_title_logo').text() != ''){
+		if($('#in_company_contents_title_logo')[0].files[0] != null){
+			if(uploadLogo(com_cate) == false) return alert('10MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round($('#in_company_contents_title_logo')[0].files[0].size / 1024 / 1024 * 100) / 100) + 'MB');
+		} 
+	}else logo_name = $('#a_company_contents_title_logo').text();
 	
 	if(!confirm("수정하시겠습니까?")) return;
+	
+	$('#div_loading').show();
 	
 	for(var i = 0; i < 4; i++) {
 		if($('div[name=div_company_contents_com_cate0]:eq("'+ i +'")').css('background-color') == "rgb(127, 200, 59)"){
@@ -505,9 +658,7 @@ function updateContent(uid) {
 		}
 	}
 	
-	if($('#a_company_contents_title_logo').text() != ''){
-		if($('#in_company_contents_title_logo')[0].files[0] != null) uploadLogo(com_cate);
-	}else logo_name = $('#a_company_contents_title_logo').text();
+	
 	
 	setTimeout(function(){
 		var lang = ["kr", "en", "ch", "jp"];
@@ -515,7 +666,10 @@ function updateContent(uid) {
 			var sendData = {
 				language: lang[index],
 				com_cate: com_cate,
-				name: $('input[name=in_company_contents_name]:eq("' + index + '")').val(),
+				//name: $('input[name=in_company_contents_name]:eq("' + index + '")').val(),
+				name: $('textarea[name=in_company_contents_name]:eq("' + index + '")').val(),
+				name_size: $('select[name=sel_company_contents_name_size]:eq("' + index + '")').val(),
+				name_sort: $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val(),
 				owner: $('input[name=in_company_contents_owner]:eq("' + index + '")').val(),
 				tel: $('input[name=in_company_contents_tel]:eq("0")').val(),
 				email: $('input[name=in_company_contents_email]:eq("0")').val(),
@@ -550,6 +704,7 @@ function updateContent(uid) {
 	},1000);
 	
 	setTimeout(function(){
+		$('#div_loading').hide();
 		window.location.reload();
 	},1000);
 }
@@ -583,10 +738,14 @@ function insertContent() {
 		if(!checkEsnt(i)) return alert("언어별 모든 양식에 데이터가 입력되었는지 확인바랍니다.");
 	}
 	
-	var exc = "." +($("#a_company_contents_title_logo").text()).split(".")[1];
-	if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.");
+	if($("#a_company_contents_title_logo").text() != ''){
+		var exc = ($("#a_company_contents_title_logo").text()).split(".");
+		if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.\n[ jpg, jepg, bmp, png, tiff, tif, gif ]");
+	}
 	
 	if(!confirm("저장하시겠습니까?")) return;
+	
+	$('#div_loading').show();
 	
 	var new_uid;
 	$.ajax({
@@ -607,14 +766,20 @@ function insertContent() {
 		}
 	}	
 	
-	if($('#a_company_contents_title_logo').text() != '') uploadLogo(com_cate);
+	if($('#a_company_contents_title_logo').text() != '') {
+		if(uploadLogo(com_cate) == false) return alert('10MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round($('#in_company_contents_title_logo')[0].files[0].size / 1024 / 1024 * 100) / 100) + 'MB');
+	}
+	
 	setTimeout(function(){
 		var lang = ["kr", "en", "ch", "jp"];
 		$('div[name=div_company_detail_contents]').each(function(index){ 
 			var sendData = {
 				language: lang[index],
 				com_cate: com_cate,
-				name: $('input[name=in_company_contents_name]:eq("' + index + '")').val(),
+				//name: $('input[name=in_company_contents_name]:eq("' + index + '")').val(),
+				name: $('textarea[name=in_company_contents_name]:eq("' + index + '")').val(),
+				name_size: $('select[name=sel_company_contents_name_size]:eq("' + index + '")').val(),
+				name_sort: $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val(),
 				owner: $('input[name=in_company_contents_owner]:eq("' + index + '")').val(),
 				tel: $('input[name=in_company_contents_tel]:eq("0")').val(),
 				email: $('input[name=in_company_contents_email]:eq("0")').val(),
@@ -632,6 +797,7 @@ function insertContent() {
 				image_y: init_loc_data.y,
 	 			uid: new_uid
 			}
+			logNow(sendData);
 			
 			$.ajax({
 				type: "POST",
@@ -650,6 +816,7 @@ function insertContent() {
 	},1000);
 	
 	setTimeout(function(){
+		$('#div_loading').hide();
 		window.location.reload();
 	},1000);
 }
@@ -658,6 +825,8 @@ function insertContent() {
 var logo_name;
 function uploadLogo(com_cate) {
 	//logNow($('#in_company_contents_title_logo')[0].files[0] + "/" + $('#in_company_contents_title_logo').val());
+	
+	if($('#in_event_contents_title_poster')[0].files[0].size > 1024 * 1024 * 5) return false; // 용량 초과
 	
 	var namecode = getCookie("login_info").auth + '' + com_cate + '_' + getNow();
 	
@@ -669,6 +838,7 @@ function uploadLogo(com_cate) {
 		url : MASTER_URL + "/industry/upload_logo",
 		processData : false,
 		contentType : false,
+		async: false,
 		data : formData,
 		type : 'POST',
 		success : function(result) {
@@ -677,14 +847,15 @@ function uploadLogo(com_cate) {
 		}
 	});
 	
-	$.ajax({ //슬레이브 주소
+	/*$.ajax({ //슬레이브 주소
 		url : SLAVE_URL + "/kioskserver/industry/upload_logo",
 		processData : false,
 		contentType : false,
+		async: false,
 		data : formData,
 		type : 'POST',
 		success : function(result) {
 			if(result == "") alert("이미지 업로드 실패");
 		}
-	});
+	});*/
 }

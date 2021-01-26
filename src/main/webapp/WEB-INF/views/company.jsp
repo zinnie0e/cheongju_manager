@@ -60,6 +60,10 @@
 				</div>
 			</div>
 			<div id="div_contents_detail">
+				<div id="div_loading">
+					<div id="img_loading"></div>
+					<div id="txt_loading">잠시만 기다려주세요...</div>
+				</div>
 				<div id="div_company_detail_map" class="div_company_detail">
 					<div id="div_company_flow_btn">
 						<div id="btn_company_flow1" name="btn_company_flow" class="div_button_s" onclick="javascript:checkFlow(0);"></div>

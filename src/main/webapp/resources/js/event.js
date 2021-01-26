@@ -617,12 +617,9 @@ function setLangJson(value){
 
 //----------데이터 수정, 삽입, 삭제----------//
 function updateContent(uid) { 
-	var exc = "." +($("#a_event_contents_title_poster").text()).split(".")[1];
-	if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.");
+	var exc = ($("#a_event_contents_title_poster").text()).split(".");
+	if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.\n[ jpg, jepg, bmp, png, tiff, tif, gif ]");
 	
-	if(!confirm("수정하시겠습니까?")) return;
-	
-	var isUpdateCheck = false;
 	for(var i = 0; i < 4; i++) {
 		if($('div[name=div_event_contents_found_cate0]:eq("'+ i +'")').css('background-color') == "rgb(127, 200, 59)"){
 			var event_cate = i; //행사분류
@@ -630,9 +627,15 @@ function updateContent(uid) {
 		}
 	}
 	
-	if($('#in_event_contents_title_poster')[0].files[0] != null) uploadPoster(event_cate);
-	else poster_name = $('#a_event_contents_title_poster').text();
+	if($('#in_event_contents_title_poster')[0].files[0] != null){
+		if(uploadPoster(event_cate) == false) return alert('10MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round($('#in_event_contents_title_poster')[0].files[0].size / 1024 / 1024 * 100) / 100) + 'MB');
+	}else poster_name = $('#a_event_contents_title_poster').text();
 	
+	if(!confirm("수정하시겠습니까?")) return;
+	
+	$('#div_loading').show();
+	
+	var isUpdateCheck = false;
 	setTimeout(function(){
 		var lang = ["kr", "en", "ch", "jp"];
 		$('div[name=div_event_detail_contents]').each(function(index){ 
@@ -650,6 +653,7 @@ function updateContent(uid) {
 				poster: poster_name,
 				uid: uid
 			}
+			logNow(sendData);
 			
 			$.ajax({
 				type: "POST",
@@ -712,6 +716,7 @@ function updateContent(uid) {
 	},1000);
 	
 	setTimeout(function(){
+		$('#div_loading').hide();
 		window.location.reload();
 	},1000);
 	
@@ -766,10 +771,13 @@ function insertContent() {
 			($('input[name=in_event_contents_title_end_time_h]:eq("0")').val()).length != 2 || 
 			($('input[name=in_event_contents_title_end_time_m]:eq("0")').val()).length != 2) return alert("행사기간과 시간을 양식에 맞춰 입력해주세요.");
 	
-	var exc = "." +($("#a_event_contents_title_poster").text()).split(".")[1];
-	if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.");
+	var exc = ($("#a_event_contents_title_poster").text()).split(".");
+	if(checkExc(exc) == false) alert("이미지 확장자를 확인해주세요.\n[ jpg, jepg, bmp, png, tiff, tif, gif ]");
 	
 	if(!confirm("저장하시겠습니까?")) return;
+	
+	$('#div_loading').show();
+	
 	var isInsertCheck = false;
 	
 	var new_uid;
@@ -791,7 +799,8 @@ function insertContent() {
 		}
 	}	
 		
-	uploadPoster(event_cate);
+	if(uploadPoster(event_cate) == false) return alert('10MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round($('#in_event_contents_title_poster')[0].files[0].size / 1024 / 1024 * 100) / 100) + 'MB');
+	
 	setTimeout(function(){
 		var lang = ["kr", "en", "ch", "jp"];
 		$('div[name=div_event_detail_contents]').each(function(index){ 
@@ -860,6 +869,7 @@ function insertContent() {
 	},1000);
 	
 	setTimeout(function(){
+		$('#div_loading').hide();
 		window.location.reload();
 	},1000);
 }
@@ -889,16 +899,22 @@ var poster_name;
 function uploadPoster(event_cate) {
 	//logNow($('#in_event_contents_title_poster')[0].files[0] + "/" + $('#in_event_contents_title_poster').val());
 	
+	if($('#in_event_contents_title_poster')[0].files[0].size > 1024 * 1024 * 5) return false; // 용량 초과
+	
 	var namecode = getCookie("login_info").auth + '' + event_cate + '_' + getNow();
 	
 	var formData = new FormData();
 	formData.append("files", $('#in_event_contents_title_poster')[0].files[0]);
 	formData.append("namecode", namecode);
+	
+	//var exc = $('#in_event_contents_title_poster')[0].files[0].name.split('.');
+	//poster_name = namecode + '.' + exc[exc.length-1];
 
 	$.ajax({ //마스터 주소
 		url : MASTER_URL + "/event/upload_poster",
 		processData : false,
 		contentType : false,
+		async: false,
 		data : formData,
 		type : 'POST',
 		success : function(result) {
@@ -907,15 +923,16 @@ function uploadPoster(event_cate) {
 		}
 	});
 	
-	$.ajax({ //슬레이브 주소
+	/*$.ajax({ //슬레이브 주소
 		url : SLAVE_URL + "/event/upload_poster",
 		processData : false,
 		contentType : false,
+		async: false,
 		data : formData,
 		type : 'POST',
 		success : function(result) {
 			if(result == "") alert("이미지 업로드 실패");
 			else logo_name = result;
 		}
-	});
+	});*/
 }

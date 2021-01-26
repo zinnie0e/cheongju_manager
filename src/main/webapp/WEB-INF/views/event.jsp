@@ -52,6 +52,10 @@
 				<div id="div_event_list_bottom" class="div_event_list"></div>
 			</div>
 			<div id="div_contents_detail">
+				<div id="div_loading">
+					<div id="img_loading"></div>
+					<div id="txt_loading">잠시만 기다려주세요...</div>
+				</div>
 				<div id="div_event_detail_top" class="div_event_detail">
 					<div id="btn_event_lang">
 						<div id="btn_kr" name="btn_event_lang" class="div_button_s" onclick="javascript:checkLang(0);"></div>

@@ -10,7 +10,8 @@ function logNow(logContents){
 }
 
 function checkExc(exc){
-	if(exc == ".tiff" || exc == ".pjp" || exc == ".jfif" || exc == ".gif" || exc == ".svg" || exc == ".bmp" || exc == ".png" || exc == ".jpeg" || exc == ".svgz" || exc == ".jpg" || exc == ".webp" || exc == ".ico" || exc == ".xbm" || exc == ".dib" || exc == ".tif" || exc == ".pjpeg" || exc == ".avif"){
+	exc = exc[exc.length-1].toLowerCase();
+	if(exc == "jpg" || exc == "jepg" || exc == "bmp" || exc == "png" || exc == "tiff" || exc == "tif" || exc == "gif"){
 		return true;
 	}else return false;
 }
