@@ -111,7 +111,7 @@ function getCompany(){
 				'<a class="a_company_contents_title">* 기업명</a>' +
 				'<div class="div_company_detail_title_contents">' +
 					//'<input type="text" name="in_company_contents_name" class="inputbox_esnt in_company_contents_ex" maxlength="20">' +
-					'<textarea name="in_company_contents_name" class="inputbox_esnt in_company_contents_ex" onchange="javascript:changeComName('+ i +')" rows="3" onkeydown="return limitLines(this, event)" maxlength="27"></textarea>' +
+					'<textarea name="in_company_contents_name" class="inputbox_esnt in_company_contents_ex" onchange="javascript:changeComName('+ i +')" wrap="hard" cols="6" rows="3" onkeydown="return limitLines(this, event)" maxlength="20"></textarea>' +
 					'<div class="txt_comname">글자크기</div>' + 
 					'<select name="sel_company_contents_name_size" class="sel_company_contents_name" onchange="javascript:changeComNameFont('+ i +')">' +
 					    '<option value="16px">16px</option>' +
@@ -163,7 +163,7 @@ function getCompany(){
 			
 			if(i == 0){
 				html_string +=
-					'<div name="div_company_contents_title_logo" class="div_company_detail_title">' +
+					'<div name="div_company_contents_title_logo" class="div_company_detail_title_logo">' +
 						'<a class="a_company_contents_title_option">기업로고</a>' +
 						'<div class="div_company_detail_title_contents">' +
 							'<a id="a_company_contents_title_logo" class="a_company_contents_title_logo"></a>' +
@@ -274,6 +274,8 @@ function changeComName(index){
 				return alert("기업명을 확인해주세요.");
 			}else isComnameCheck = true;
 			
+			logNow(index);
+			
 			if(index == 0){
 				if(f[fn] == 'ㄱ' || f[fn] == 'ㄲ' || f[fn] == 'ㄴ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㄱㄴ");
 				else if(f[fn] == 'ㄷ' || f[fn] == 'ㄸ' || f[fn] == 'ㄹ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㄷㄹ");
@@ -282,7 +284,7 @@ function changeComName(index){
 				else if(f[fn] == 'ㅈ' || f[fn] == 'ㅉ' || f[fn] == 'ㅊ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㅈㅊ");
 				else if(f[fn] == 'ㅋ' || f[fn] == 'ㅌ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㅋㅌ");
 				else if(f[fn] == 'ㅍ' || f[fn] == 'ㅎ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㅍㅎ");
-			}else $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("wxyz");
+			}else $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("WXYZ");
 			
 			
 		}
@@ -376,6 +378,7 @@ function setCompany(){
 		checkCompany(index, init_company_data[index]["com_cate"])//시설분류
 		//$('input[name=in_company_contents_name]:eq("' + index + '")').val(init_company_data[index]["name"]); //기업명
 		$('textarea[name=in_company_contents_name]:eq("' + index + '")').val(init_company_data[index]["name"]); //기업명
+		$('textarea[name=in_company_contents_name]:eq("' + index + '")').css('font-size', init_company_data[index]["name_size"]); 
 		$('select[name=sel_company_contents_name_size]:eq("' + index + '")').val(init_company_data[index]["name_size"]); 
 		$('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val(init_company_data[index]["name_sort"]); 
 		$('input[name=in_company_contents_room]:eq("' + index + '")').val(init_company_data[index]["room"]); //입주호실
@@ -454,6 +457,7 @@ function checkLang(value){
 		if(isComnameCheck == false) return alert("기업명을 확인해주세요.1");
 		
 		
+		
 		if(init_company_data == null){
 			if($('#img_company_pin').css('display') == 'none') return alert("지도에 핀을 표시해주세요");
 			
@@ -468,8 +472,7 @@ function checkLang(value){
 			
 			if(!checkEsnt(value)){
 				setLangJson(value);
-				changeComName(value);
-				changeComNameFont(value)
+				
 			}else{
 				if(value == 1){
 					checkCompany(value, ko_json.com_cate);
@@ -495,6 +498,9 @@ function checkLang(value){
 		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_email]').attr('disabled', true);
 		$('#img_company_map').css('pointer-events', 'none');
 		$('#div_company_flow_btn').css('pointer-events', 'none');
+		
+		changeComName(value);
+		changeComNameFont(value);
 	}else{
 		$('#img_company_map').css('pointer-events', '');
 		$('#div_company_flow_btn').css('pointer-events', '');
@@ -658,8 +664,6 @@ function updateContent(uid) {
 		}
 	}
 	
-	
-	
 	setTimeout(function(){
 		var lang = ["kr", "en", "ch", "jp"];
 		$('div[name=div_company_detail_contents]').each(function(index){ 
@@ -680,13 +684,14 @@ function updateContent(uid) {
 				busi3: $('input[name=in_company_contents_busi3]:eq("' + index + '")').val(),
 				busi4: $('input[name=in_company_contents_busi4]:eq("' + index + '")').val(),
 				busi5: $('input[name=in_company_contents_busi5]:eq("' + index + '")').val(),
+				item: $('input[name=in_company_contents_item]:eq("' + index + '")').val(),
 				logo: logo_name,
 				homepage: $('input[name=in_company_contents_homepage]:eq("' + index + '")').val(),
 				image_x: init_loc_data.x,
 				image_y: init_loc_data.y,
 				uid: uid
 			}
-			
+			logNow(sendData);
 			$.ajax({
 				type: "POST",
 				contentType: "application/json; charset=utf-8;",
@@ -705,7 +710,7 @@ function updateContent(uid) {
 	
 	setTimeout(function(){
 		$('#div_loading').hide();
-		window.location.reload();
+		//window.location.reload();
 	},1000);
 }
 

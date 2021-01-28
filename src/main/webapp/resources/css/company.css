@@ -41,7 +41,7 @@
 }
 
 #div_contents {
-	height : 1315px;
+	height : 1350px;
 }
 
 #div_contents_list {
@@ -240,7 +240,7 @@
 
 .div_company_detail {
     background-color: white;
-    height: 442px;
+    height: 477px;
 }
 
 #div_company_detail_map {
@@ -325,6 +325,13 @@
 .div_company_detail_title_ex{
 	width: var(--div-company-detail-title-width);
    	height: 107px;
+    
+    margin-left: var(--item-margin-left);
+}
+
+.div_company_detail_title_logo{
+	width: var(--div-company-detail-title-width);
+   	height: 70px;
     
     margin-left: var(--item-margin-left);
 }
@@ -440,6 +447,9 @@
     margin-right: 25px;
     
     font-size: 24px;
+  /*   overflow: hidden;  */
+   white-space: nowrap;
+ /*    text-overflow: clip; */
     
     padding-left: 15px;
     
@@ -588,7 +598,7 @@
 
 #div_company_detail_bottom {
 	width: var(--div-company-contents-detail-width);
-    height: 123px;
+    height: 158px;
     
     border-radius: 0px 0px 20px 20px;
     font-size: 14px;
