@@ -186,13 +186,14 @@ function getEvent(){
 			
 		if(i == 0){
 			html_string +=
-				'<div name="div_event_contents_title_poster" class="div_event_detail_title">' +
+				'<div name="div_event_contents_title_poster" class="div_event_detail_title_poster">' +
 					'<a class="a_event_contents_title">* 이미지</a>' +
 					'<div class="div_event_detail_title_contents">' +
 						'<a id="a_event_contents_title_poster" class="a_event_contents_title_poster"></a>' +
 						'<input type="file" accept="image/*" id="in_event_contents_title_poster" style="display:none" onchange="javascript:addPoster(this);">' +
 						'<label id="btn_event_contents_title_poster" for="in_event_contents_title_poster">찾아보기</label>' +
 					'</div>' +
+					'<a class="a_event_poster_size">* 포스터 이미지 사이즈 : 1080*1528</a>' +
 				'</div>' +
 				'<div class="div_event_detail_divide_line"></div>';
 		}
@@ -435,7 +436,6 @@ function getEventPeriod(per_date, per_time){
 
 //----------언어변경----------//
 function checkLang(value){
-	
 	if(value != 0){ //ko가 아닌 다른 언어로 탭 변경시
 		if(!checkEsnt(0)){
 			alert("필수 사항을 모두 입력해주세요.");
@@ -617,6 +617,10 @@ function setLangJson(value){
 
 //----------데이터 수정, 삽입, 삭제----------//
 function updateContent(uid) { 
+	for(var i = 0; i < 4; i++){
+		if(!checkEsnt(i)) return alert("언어별 모든 양식에 필수 항목이 입력되었는지 확인바랍니다.");
+	}
+	
 	var exc = ($("#a_event_contents_title_poster").text()).split(".");
 	if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.\n[ jpg, jepg, bmp, png, tiff, tif, gif ]");
 	
@@ -639,79 +643,132 @@ function updateContent(uid) {
 	setTimeout(function(){
 		var lang = ["kr", "en", "ch", "jp"];
 		$('div[name=div_event_detail_contents]').each(function(index){ 
-			var sendData = {
-				language: lang[index],
-				event_cate: event_cate,
-				title: $('input[name=in_event_contents_title_name]:eq("' + index + '")').val(),
-				start_date: $('input[name=in_event_contents_title_start_day]:eq("' + index + '")').val(),
-				end_date: $('input[name=in_event_contents_title_end_day]:eq("' + index + '")').val(),
-				start_time: $('input[name=in_event_contents_title_start_time_h]:eq("' + index + '")').val() + $('input[name=in_event_contents_title_start_time_m]:eq("' + index + '")').val(),
-				end_time: $('input[name=in_event_contents_title_end_time_h]:eq("' + index + '")').val() + $('input[name=in_event_contents_title_end_time_m]:eq("' + index + '")').val(),
-				place: $('input[name=in_event_contents_title_plase]:eq("' + index + '")').val(),
-				manager: $('input[name=in_event_contents_title_manager]:eq("' + index + '")').val(),
-				tel: $('input[name=in_event_contents_title_tel]:eq("' + index + '")').val(),
-				poster: poster_name,
-				uid: uid
-			}
-			logNow(sendData);
-			
 			$.ajax({
 				type: "POST",
-				contentType: "application/json; charset=utf-8;",
 				dataType: "json",
-				url: MASTER_URL + "/event/update_event",
+				url: SLAVE_URL + "/network/select_network_count",
 				async: false,
-				data: JSON.stringify(sendData),
 				success: function (result) {
-					isUpdateCheck = result;
-					if(isUpdateCheck == false) alert("데이터 수정 실패");
-				},
-				error: function () {
-				}
-			});
-			
-			var detail_json = new Array();
-			for(var i = 0; i < 10; i++){
-				var detail_title = $('div[name=div_event_detail_contents]:eq("'+ index +'") input[name=in_event_contents_add_item'+ i +'_title]').val();
-				var detail_body = $('div[name=div_event_detail_contents]:eq("'+ index +'") input[name=in_event_contents_add_item'+ i +'_body]').val();
-				
-				if(detail_title != "" && detail_body != "") detail_json.push([detail_title, detail_body]);
-			}
-			
-			var sendData = { language: lang[index], event_uid: uid }
-			$.ajax({
-				type: "POST",
-				contentType: "application/json; charset=utf-8;",
-				dataType: "json",
-				url: MASTER_URL + "/event/delete_event_detail",
-				async: false,
-				data: JSON.stringify(sendData),
-				success: function (result) {
-				},
-				error: function () {
-				}
-			});
-			
-			for(var i = 0; i < detail_json.length ; i++){
-				var sendData = {
-					language: lang[index],
-					detail_title: detail_json[i][0],
-					detail_body: detail_json[i][1],
-					event_uid: uid
-				}
-				$.ajax({
-					type: "POST",
-					contentType: "application/json; charset=utf-8;",
-					dataType: "json",
-					url: MASTER_URL + "/event/insert_event_detail",
-					async: false,
-					data: JSON.stringify(sendData),
-					success: function (result) {
-					},
-					error: function () {
+					var sendData = {
+						language: lang[index],
+						event_cate: event_cate,
+						title: $('input[name=in_event_contents_title_name]:eq("' + index + '")').val(),
+						start_date: $('input[name=in_event_contents_title_start_day]:eq("' + index + '")').val(),
+						end_date: $('input[name=in_event_contents_title_end_day]:eq("' + index + '")').val(),
+						start_time: $('input[name=in_event_contents_title_start_time_h]:eq("' + index + '")').val() + $('input[name=in_event_contents_title_start_time_m]:eq("' + index + '")').val(),
+						end_time: $('input[name=in_event_contents_title_end_time_h]:eq("' + index + '")').val() + $('input[name=in_event_contents_title_end_time_m]:eq("' + index + '")').val(),
+						place: $('input[name=in_event_contents_title_plase]:eq("' + index + '")').val(),
+						manager: $('input[name=in_event_contents_title_manager]:eq("' + index + '")').val(),
+						tel: $('input[name=in_event_contents_title_tel]:eq("' + index + '")').val(),
+						poster: poster_name,
+						uid: uid
 					}
-				});
-			}
+						
+					$.ajax({//마스터
+						type: "POST",
+						contentType: "application/json; charset=utf-8;",
+						dataType: "json",
+						url: MASTER_URL + "/event/update_event",
+						async: false,
+						data: JSON.stringify(sendData),
+						success: function (result) {
+							isUpdateCheck = result;
+							if(isUpdateCheck == false) alert("저장에 실패했습니다. /DB 오류/");
+						},
+						error: function () {
+							alert("저장에 실패했습니다. /DB 오류/");
+						}
+					});
+					$.ajax({//슬래이브
+						type: "POST",
+						contentType: "application/json; charset=utf-8;",
+						dataType: "json",
+						url: SLAVE_URL + "/event/update_event",
+						async: false,
+						data: JSON.stringify(sendData),
+						success: function (result) {
+							isUpdateCheck = result;
+							if(isUpdateCheck == false) alert("저장에 실패했습니다. /DB 오류/");
+						},
+						error: function () {
+							alert("저장에 실패했습니다. /DB 오류/");
+						}
+					});
+						
+					var detail_json = new Array();
+					for(var i = 0; i < 10; i++){
+						var detail_title = $('div[name=div_event_detail_contents]:eq("'+ index +'") input[name=in_event_contents_add_item'+ i +'_title]').val();
+						var detail_body = $('div[name=div_event_detail_contents]:eq("'+ index +'") input[name=in_event_contents_add_item'+ i +'_body]').val();
+						
+						if(detail_title != "" && detail_body != "") detail_json.push([detail_title, detail_body]);
+					}
+						
+					var sendData = { language: lang[index], event_uid: uid }
+					$.ajax({//마스터
+						type: "POST",
+						contentType: "application/json; charset=utf-8;",
+						dataType: "json",
+						url: MASTER_URL + "/event/delete_event_detail",
+						async: false,
+						data: JSON.stringify(sendData),
+						success: function (result) {
+						},
+						error: function () {
+							alert("저장중 데이터 삭제에 실패했습니다. /DB 오류/");
+						}
+					});
+					$.ajax({//슬래이브
+						type: "POST",
+						contentType: "application/json; charset=utf-8;",
+						dataType: "json",
+						url: SLAVE_URL + "/event/delete_event_detail",
+						async: false,
+						data: JSON.stringify(sendData),
+						success: function (result) {
+						},
+						error: function () {
+							alert("저장중 데이터 삭제에 실패했습니다. /DB 오류/");
+						}
+					});
+						
+					for(var i = 0; i < detail_json.length ; i++){
+						var sendData = {
+							language: lang[index],
+							detail_title: detail_json[i][0],
+							detail_body: detail_json[i][1],
+							event_uid: uid
+						}
+						$.ajax({//마스터
+							type: "POST",
+							contentType: "application/json; charset=utf-8;",
+							dataType: "json",
+							url: MASTER_URL + "/event/insert_event_detail",
+							async: false,
+							data: JSON.stringify(sendData),
+							success: function (result) {
+							},
+							error: function () {
+								alert("저장에 실패했습니다. /DB 오류/");
+							}
+						});
+						$.ajax({//슬래이브
+							type: "POST",
+							contentType: "application/json; charset=utf-8;",
+							dataType: "json",
+							url: SLAVE_URL + "/event/insert_event_detail",
+							async: false,
+							data: JSON.stringify(sendData),
+							success: function (result) {
+							},
+							error: function () {
+								alert("저장에 실패했습니다. /DB 오류/");
+							}
+						});
+					}
+				},error: function (){
+					alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
+				}
+			});
 		});
 	},1000);
 	
@@ -728,32 +785,70 @@ function deleteContent(uid) {
 	var isDeleteCheck = false;
 	var lang = ["kr", "en", "ch", "jp"];
 	for(var i = 0; i < lang.length ; i++){
-		var sendData = { language: lang[i], uid: uid }
 		$.ajax({
 			type: "POST",
-			contentType: "application/json; charset=utf-8;",
 			dataType: "json",
-			url: MASTER_URL + "/event/delete_event",
+			url: SLAVE_URL + "/network/select_network_count",
 			async: false,
-			data: JSON.stringify(sendData),
 			success: function (result) {
-			},
-			error: function () {
-			}
-		});	
-		
-		var sendData = { language: lang[i], event_uid: uid }
-		$.ajax({
-			type: "POST",
-			contentType: "application/json; charset=utf-8;",
-			dataType: "json",
-			url: MASTER_URL + "/event/delete_event_detail",
-			async: false,
-			data: JSON.stringify(sendData),
-			success: function (result) {
+				var sendData = { language: lang[i], uid: uid };
+				$.ajax({//마스터
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: MASTER_URL + "/event/delete_event",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("삭제에 실패했습니다. /DB 오류/");
+					}
+				});	
+				$.ajax({//슬래이브
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: SLAVE_URL + "/event/delete_event",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("삭제에 실패했습니다. /DB 오류/");
+					}
+				});	
+				
+				var sendData = { language: lang[i], event_uid: uid };
+				$.ajax({//마스터
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: MASTER_URL + "/event/delete_event_detail",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("삭제에 실패했습니다. /DB 오류/");
+					}
+				});
+				$.ajax({//슬래이브
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: SLAVE_URL + "/event/delete_event_detail",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("삭제에 실패했습니다. /DB 오류/");
+					}
+				});
 				window.location.reload();
-			},
-			error: function () {
+			},error: function (){
+				alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 			}
 		});
 	}
@@ -761,7 +856,7 @@ function deleteContent(uid) {
 
 function insertContent() { 
 	for(var i = 0; i < 4; i++){
-		if(!checkEsnt(i)) return alert("언어별 모든 양식에 데이터가 입력되었는지 확인바랍니다.");
+		if(!checkEsnt(i)) return alert("언어별 모든 양식에 필수 항목이 입력되었는지 확인바랍니다.");
 	}
 	
 	if(($('input[name=in_event_contents_title_start_day]:eq("0")').val()).length != 8 || 
@@ -803,68 +898,110 @@ function insertContent() {
 	
 	setTimeout(function(){
 		var lang = ["kr", "en", "ch", "jp"];
-		$('div[name=div_event_detail_contents]').each(function(index){ 
-			var sendData = {
-				language: lang[index],
-				found_cate: getCookie("login_info").auth,
-				event_cate: event_cate,
-				title: $('input[name=in_event_contents_title_name]:eq("' + index + '")').val(),
-				start_date: $('input[name=in_event_contents_title_start_day]:eq("0")').val(),
-				end_date: $('input[name=in_event_contents_title_end_day]:eq("0")').val(),
-				start_time: $('input[name=in_event_contents_title_start_time_h]:eq("0")').val() + $('input[name=in_event_contents_title_start_time_m]:eq("0")').val(),
-				end_time: $('input[name=in_event_contents_title_end_time_h]:eq("0")').val() + $('input[name=in_event_contents_title_end_time_m]:eq("0")').val(),
-				place: $('input[name=in_event_contents_title_plase]:eq("' + index + '")').val(),
-				manager: $('input[name=in_event_contents_title_manager]:eq("' + index + '")').val(),
-				tel: $('input[name=in_event_contents_title_tel]:eq("' + index + '")').val(),
-				poster: poster_name,
-				uid: new_uid
-			}
-			
+		$('div[name=div_event_detail_contents]').each(function(index){
 			$.ajax({
 				type: "POST",
-				contentType: "application/json; charset=utf-8;",
 				dataType: "json",
-				url: MASTER_URL + "/event/insert_event",
+				url: SLAVE_URL + "/network/select_network_count",
 				async: false,
-				data: JSON.stringify(sendData),
 				success: function (result) {
-					isInsertCheck = result;
-					if(!isInsertCheck) alert("데이터 입력 실패");
-				},
-				error: function () {
+					var sendData = {
+						language: lang[index],
+						found_cate: getCookie("login_info").auth,
+						event_cate: event_cate,
+						title: $('input[name=in_event_contents_title_name]:eq("' + index + '")').val(),
+						start_date: $('input[name=in_event_contents_title_start_day]:eq("0")').val(),
+						end_date: $('input[name=in_event_contents_title_end_day]:eq("0")').val(),
+						start_time: $('input[name=in_event_contents_title_start_time_h]:eq("0")').val() + $('input[name=in_event_contents_title_start_time_m]:eq("0")').val(),
+						end_time: $('input[name=in_event_contents_title_end_time_h]:eq("0")').val() + $('input[name=in_event_contents_title_end_time_m]:eq("0")').val(),
+						place: $('input[name=in_event_contents_title_plase]:eq("' + index + '")').val(),
+						manager: $('input[name=in_event_contents_title_manager]:eq("' + index + '")').val(),
+						tel: $('input[name=in_event_contents_title_tel]:eq("' + index + '")').val(),
+						poster: poster_name,
+						uid: new_uid
+					};
+					
+					$.ajax({//마스터
+						type: "POST",
+						contentType: "application/json; charset=utf-8;",
+						dataType: "json",
+						url: MASTER_URL + "/event/insert_event",
+						async: false,
+						data: JSON.stringify(sendData),
+						success: function (result) {
+							isInsertCheck = result;
+							if(!isInsertCheck) alert("저장에 실패했습니다. /DB 오류/");
+						},
+						error: function () {
+							alert("저장에 실패했습니다. /DB 오류/");
+						}
+					});
+					$.ajax({//슬래이브
+						type: "POST",
+						contentType: "application/json; charset=utf-8;",
+						dataType: "json",
+						url: SLAVE_URL + "/event/insert_event",
+						async: false,
+						data: JSON.stringify(sendData),
+						success: function (result) {
+							isInsertCheck = result;
+							if(!isInsertCheck) alert("저장에 실패했습니다. /DB 오류/");
+						},
+						error: function () {
+							alert("저장에 실패했습니다. /DB 오류/");
+						}
+					});
+					
+					var detail_json = new Array();
+					for(var i = 0; i < 10; i++){
+						var detail_title = $('div[name=div_event_detail_contents]:eq("'+ index +'") input[name=in_event_contents_add_item'+ i +'_title]').val();
+						var detail_body = $('div[name=div_event_detail_contents]:eq("'+ index +'") input[name=in_event_contents_add_item'+ i +'_body]').val();
+						
+						if(detail_title != "" && detail_body != "") detail_json.push([detail_title, detail_body]);
+					}
+					
+					for(var i = 0; i < detail_json.length ; i++){
+						var sendData = {
+							language: lang[index],
+							detail_title: detail_json[i][0],
+							detail_body: detail_json[i][1],
+							event_uid: new_uid
+						}
+						$.ajax({//마스터
+							type: "POST",
+							contentType: "application/json; charset=utf-8;",
+							dataType: "json",
+							url: MASTER_URL + "/event/insert_event_detail",
+							async: false,
+							data: JSON.stringify(sendData),
+							success: function (result) {
+								isInsertCheck = result;
+								if(!isInsertCheck) alert("저장에 실패했습니다. /DB 오류/");
+							},
+							error: function () {
+								alert("저장에 실패했습니다. /DB 오류/");
+							}
+						});
+						$.ajax({//슬래이브
+							type: "POST",
+							contentType: "application/json; charset=utf-8;",
+							dataType: "json",
+							url: SLAVE_URL + "/event/insert_event_detail",
+							async: false,
+							data: JSON.stringify(sendData),
+							success: function (result) {
+								isInsertCheck = result;
+								if(!isInsertCheck) alert("저장에 실패했습니다. /DB 오류/");
+							},
+							error: function () {
+								alert("저장에 실패했습니다. /DB 오류/");
+							}
+						});
+					}
+				},error: function (){
+					alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 				}
 			});
-			
-			var detail_json = new Array();
-			for(var i = 0; i < 10; i++){
-				var detail_title = $('div[name=div_event_detail_contents]:eq("'+ index +'") input[name=in_event_contents_add_item'+ i +'_title]').val();
-				var detail_body = $('div[name=div_event_detail_contents]:eq("'+ index +'") input[name=in_event_contents_add_item'+ i +'_body]').val();
-				
-				if(detail_title != "" && detail_body != "") detail_json.push([detail_title, detail_body]);
-			}
-			
-			for(var i = 0; i < detail_json.length ; i++){
-				var sendData = {
-					language: lang[index],
-					detail_title: detail_json[i][0],
-					detail_body: detail_json[i][1],
-					event_uid: new_uid
-				}
-				$.ajax({
-					type: "POST",
-					contentType: "application/json; charset=utf-8;",
-					dataType: "json",
-					url: MASTER_URL + "/event/insert_event_detail",
-					async: false,
-					data: JSON.stringify(sendData),
-					success: function (result) {
-						isInsertCheck = result;
-						if(!isInsertCheck) alert("데이터 입력 실패");
-					},
-					error: function () {
-					}
-				});
-			}
 		});
 	},1000);
 	
@@ -910,29 +1047,39 @@ function uploadPoster(event_cate) {
 	//var exc = $('#in_event_contents_title_poster')[0].files[0].name.split('.');
 	//poster_name = namecode + '.' + exc[exc.length-1];
 
-	$.ajax({ //마스터 주소
-		url : MASTER_URL + "/event/upload_poster",
-		processData : false,
-		contentType : false,
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		url: SLAVE_URL + "/network/select_network_count",
 		async: false,
-		data : formData,
-		type : 'POST',
-		success : function(result) {
-			if(result == "") alert("이미지 업로드 실패");
-			else poster_name = result;
+		success: function (result) {
+			$.ajax({ //마스터 주소
+				url : MASTER_URL + "/event/upload_poster",
+				processData : false,
+				contentType : false,
+				async: false,
+				data : formData,
+				type : 'POST',
+				success : function(result) {
+					if(result == "") alert("이미지 업로드 실패");
+					else poster_name = result;
+				}
+			});
+			
+			$.ajax({ //슬레이브 주소
+				url : SLAVE_URL + "/event/upload_poster",
+				processData : false,
+				contentType : false,
+				async: false,
+				data : formData,
+				type : 'POST',
+				success : function(result) {
+					if(result == "") alert("이미지 업로드 실패");
+					else poster_name = result;
+				}
+			});
+		},error: function (){
+			alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 		}
 	});
-	
-	/*$.ajax({ //슬레이브 주소
-		url : SLAVE_URL + "/event/upload_poster",
-		processData : false,
-		contentType : false,
-		async: false,
-		data : formData,
-		type : 'POST',
-		success : function(result) {
-			if(result == "") alert("이미지 업로드 실패");
-			else logo_name = result;
-		}
-	});*/
 }

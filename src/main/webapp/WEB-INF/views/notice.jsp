@@ -28,6 +28,8 @@
 				<div name="div_side_line" class="div_side_line"></div>
 				<!-- <div id="btn_wonder" class="div_side_menu" onclick="javascript:shopPage();">입점상가 관리</div>
 				<div name="div_side_line" class="div_side_line"></div> -->
+				<div id="btn_usage" class="div_side_menu" onclick="javascript:usagePage();">이용통계 관리</div>
+				<div name="div_side_line" class="div_side_line"></div>
 			</div>
 		</div>
 		<div id="div_top">

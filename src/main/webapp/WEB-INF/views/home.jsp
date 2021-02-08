@@ -20,6 +20,7 @@
 			<div id="btn_login" onclick="javascript:login();"></div>
 		</div>
 		<div id="div_login_ment">아이디, 비밀번호 분실 시 마스터관리자에게 문의바랍니다.</div>
+		<div id="img_guru"></div>
 	</div>
 	<!-- <form id="FILE_FORM" method="post" enctype="multipart/form-data" action="">
 		<input type="file" id="FILE_TAG" name="FILE_TAG">

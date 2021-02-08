@@ -1,0 +1,57 @@
+#div_chart{
+	position: absolute;
+	width : 1565px;
+	height: 645px;
+	margin-top: 45px;
+    margin-left: 15px;
+    background-color: white;
+    border-radius: 20px 20px 20px 20px;
+}
+
+.chart{
+	position: absolute;
+	width: 750px;
+	height: 400px;
+	
+	margin-top: 200px;
+	float: left;
+}
+
+#dayChart{
+	margin-left: 15px;
+}
+
+#allChart{
+	margin-left: 800px;
+}
+
+#div_sel_date{
+	position: absolute;
+	top: 102px;
+	right: 135px;
+}
+
+.selectbox{
+	width: 60px;
+	height: 25px;
+}
+
+#btn_excel{
+	position: absolute;
+	width: 100px;
+	height: 28px;
+	top: 100px;
+	right: 15px;
+	background-image: url("../image/btn_admin_down.png");
+}
+
+#a_usage_title {
+    position: absolute;
+    width: 275px;
+    height: 28px;
+    margin-top: 20px;
+    margin-left: 645px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+}

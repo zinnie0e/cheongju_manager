@@ -4,11 +4,17 @@
 <html>
 <head>
 	<link rel="stylesheet" href="./resources/css/main.css" type="text/css" />
-	<link rel="stylesheet" href="./resources/css/account.css" type="text/css" />
+	<link rel="stylesheet" href="./resources/css/usage.css" type="text/css" />
 
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	
 	<script src="./resources/js/main.js"></script>
-	<script src="./resources/js/account.js"></script>
+	<script src="./resources/js/usage.js"></script>
+	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+	
 	<title>문화제조창 키오스크</title>
 </head>
 <body>
@@ -41,20 +47,13 @@
 			</div>
 		</div>
 		<div id="div_contents">
-			<div id="div_account_top" class="div_account">
-				<a id="a_account_title">계정관리</a>
-				<div id="btn_account_add" class="div_button" onclick="javascript:showAddUser();"></div>
-				<div id="div_account_title" class="div_account_title">
-					<a class="a_account_title_num">No.</a>
-					<a class="a_account_title_item">ID</a>
-					<a class="a_account_title_item">PW</a>
-					<a class="a_account_title_item">권한</a>
-					<a class="a_account_title_item">이름</a>
-				</div>
+			<div id="div_chart">
+				<a id="a_usage_title">키오스크 이용 통계 현황</a>
+				<div id="div_sel_date"></div>
+				<div id="btn_excel" onclick="javascript:exportExcel();"></div>
+				<canvas id="dayChart" class="chart"></canvas>
+				<canvas id="allChart" class="chart"></canvas>
 			</div>
-			<div id="div_account_contents" class="div_account"></div>
-			<div id="div_account_bottom" class="div_account"></div>
-			<div id="div_account_item_add"></div>
 		</div>
 	</div>
 </body>

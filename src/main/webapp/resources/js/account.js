@@ -51,7 +51,7 @@ function getUser(){
 				'</div>' + 
 			'</div>' +
 			'<div name="div_account_item_input" class="div_account_item_input">' +
-				'<a class="a_account_num">'+ i +'</a>' +
+				'<a class="a_account_num">'+ num +'</a>' +
 				'<input type="text" name="in_account_id" class="in_account_item" value="'+ init_account_data[i]["user_id"] +'" maxlength="20">' +
 				'<input type="text" name="in_account_pw" class="in_account_item" value="'+ init_account_data[i]["user_pw"] +'" maxlength="20">' +
 				'<select name="sel_account_auth" class="in_account_item_select">' +
@@ -138,20 +138,45 @@ function editUser(index){
 
 function deleteUser(uid){
 	if(!confirm("삭제하시겠습니까?")) return;
-	var sendData = { uid: uid }
 	$.ajax({
 		type: "POST",
-		contentType: "application/json; charset=utf-8;",
 		dataType: "json",
-		url: MASTER_URL + "/user/delete_user",
+		url: SLAVE_URL + "/network/select_network_count",
 		async: false,
-		data: JSON.stringify(sendData),
 		success: function (result) {
+			var sendData = { uid: uid }
+			$.ajax({//마스터
+				type: "POST",
+				contentType: "application/json; charset=utf-8;",
+				dataType: "json",
+				url: MASTER_URL + "/user/delete_user",
+				async: false,
+				data: JSON.stringify(sendData),
+				success: function (result) {
+				},
+				error: function () {
+					alert("삭제에 실패했습니다. /DB 오류/");
+				}
+			});	
+			var sendData = { uid: uid }
+			$.ajax({//슬래이브
+				type: "POST",
+				contentType: "application/json; charset=utf-8;",
+				dataType: "json",
+				url: SLAVE_URL + "/user/delete_user",
+				async: false,
+				data: JSON.stringify(sendData),
+				success: function (result) {
+				},
+				error: function () {
+					alert("삭제에 실패했습니다. /DB 오류/");
+				}
+			});	
 			window.location.reload();
-		},
-		error: function () {
+		},error: function (){
+			alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 		}
-	});	
+	});
 }
 
 function updateUser(index, uid){
@@ -161,20 +186,48 @@ function updateUser(index, uid){
 	var name_data = $('input[name=in_account_name]:eq("' + index + '")').val();
 	
 	if(!confirm("저장하시겠습니까?")) return;
-	var sendData = { user_id: id_data, user_pw: pw_data, user_auth: auth_data, user_name: name_data, uid: uid }
+	
 	$.ajax({
 		type: "POST",
-		contentType: "application/json; charset=utf-8;",
 		dataType: "json",
-		url: MASTER_URL + "/user/update_user",
+		url: SLAVE_URL + "/network/select_network_count",
 		async: false,
-		data: JSON.stringify(sendData),
 		success: function (result) {
+			var sendData = { user_id: id_data, user_pw: pw_data, user_auth: auth_data, user_name: name_data, uid: uid };
+			$.ajax({//마스터
+				type: "POST",
+				contentType: "application/json; charset=utf-8;",
+				dataType: "json",
+				url: MASTER_URL + "/user/update_user",
+				async: false,
+				data: JSON.stringify(sendData),
+				success: function (result) {
+				},
+				error: function () {
+					alert("저장에 실패했습니다. /DB 오류/");
+				}
+			});
+			$.ajax({//슬래이브
+				type: "POST",
+				contentType: "application/json; charset=utf-8;",
+				dataType: "json",
+				url: SLAVE_URL + "/user/update_user",
+				async: false,
+				data: JSON.stringify(sendData),
+				success: function (result) {
+				},
+				error: function () {
+					alert("저장에 실패했습니다. /DB 오류/");
+				}
+			});
 			window.location.reload();
-		},
-		error: function () {
+		},error: function (){
+			alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 		}
 	});
+
+	
+	
 }
 
 function addUser(){
@@ -184,19 +237,44 @@ function addUser(){
 	var name_data = $('#in_account_name_add').val();
 	
 	if(id_data == "" || pw_data == "" || auth_data == "" || name_data == "") return alert("데이터를 모두 입력해주세요.");
+	if(!confirm("저장하시겠습니까?")) return;
 	
-	var sendData = { user_id: id_data, user_pw: pw_data, user_auth: auth_data, user_name: name_data }
 	$.ajax({
 		type: "POST",
-		contentType: "application/json; charset=utf-8;",
 		dataType: "json",
-		url: MASTER_URL + "/user/insert_user",
+		url: SLAVE_URL + "/network/select_network_count",
 		async: false,
-		data: JSON.stringify(sendData),
 		success: function (result) {
+			var sendData = { user_id: id_data, user_pw: pw_data, user_auth: auth_data, user_name: name_data }
+			$.ajax({
+				type: "POST",
+				contentType: "application/json; charset=utf-8;",
+				dataType: "json",
+				url: MASTER_URL + "/user/insert_user",
+				async: false,
+				data: JSON.stringify(sendData),
+				success: function (result) {
+				},
+				error: function () {
+					alert("저장에 실패했습니다. /DB 오류/");
+				}
+			});
+			$.ajax({
+				type: "POST",
+				contentType: "application/json; charset=utf-8;",
+				dataType: "json",
+				url: SLAVE_URL + "/user/insert_user",
+				async: false,
+				data: JSON.stringify(sendData),
+				success: function (result) {
+				},
+				error: function () {
+					alert("저장에 실패했습니다. /DB 오류/");
+				}
+			});
 			window.location.reload();
-		},
-		error: function () {
+		},error: function (){
+			alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 		}
 	});
 }

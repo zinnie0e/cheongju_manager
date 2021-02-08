@@ -1,7 +1,7 @@
 const IS_DEBUG = true;
 var MASTER_URL = "http://localhost:9090";
-//var MASTER_URL = "http://guruiot.iptime.org:10000/kioskserver";
-//var SLAVE_URL = "http://guruiot.iptime.org:10001/kioskserver"; 
+//var MASTER_URL = "http://cheongjukiosk.iptime.org:10000/kioskserver";
+//var SLAVE_URL = "http://cheongjukiosk.iptime.org:11000/kioskserver"; 
 
 function logNow(logContents){
     if(IS_DEBUG){
@@ -63,7 +63,7 @@ function logout() {
 }
 
 function homePage() {
-	//location.replace("http://guruiot.iptime.org:10000/manager/");
+	//location.replace("http://cheongjukiosk.iptime.org:10000/manager/");
 	location.replace("http://localhost:8080/manager/");
 }
 
@@ -87,6 +87,10 @@ function shopPage() {
 	location.href="shop";
 }
 
+function usagePage() {
+	location.href="usage";
+}
+
 function initUserInfo(){
 	if(getCookie("login_info").auth == 0){
 		$("#div_user_auth").text("마스터 관리자"); 
@@ -98,6 +102,9 @@ function initUserInfo(){
 		 
 		 $('#btn_notice').hide(); //한줄공지관리 숨기기
 		 $('div[name=div_side_line]:eq("1")').hide();
+		 
+		 $('#btn_usage').hide(); //한줄공지관리 숨기기
+		 $('div[name=div_side_line]:eq("4")').hide();
 		 
 		 if(getCookie("login_info").auth != 4){
 			$('#btn_company').hide(); //입주기업관리 숨기기

@@ -1,5 +1,5 @@
 var MASTER_URL = "http://localhost:9090";
-//var MASTER_URL = "http://guruiot.iptime.org:10000/kioskserver";
+//var MASTER_URL = "http://cheongjukiosk.iptime.org:10000/kioskserver";
 
 function login() {
 	var get_id = $('#user_id').val().trim();

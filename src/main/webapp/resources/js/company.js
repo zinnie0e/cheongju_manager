@@ -151,6 +151,8 @@ function getCompany(){
 					'</select>';
 			}html_string += 
 				'</div>' +
+				'<a class="a_company_name_noti" style="top:10px">* 텍스트 박스를 벗어나지 않게 입력해주세요.</a>' +
+				'<a class="a_company_name_noti">(스크롤바가 생기면 영역 밖으로 벗어나게 됩니다.)</a>' +
 			'</div>' +
 			'<div class="div_company_detail_divide_line"></div>' +
 			'<div name="a_company_contents_title_room" class="div_company_detail_title">' +
@@ -170,6 +172,7 @@ function getCompany(){
 							'<input type="file" accept="image/*" id="in_company_contents_title_logo" style="display:none" onchange="javascript:addLogo();">' +
 							'<label id="btn_company_contents_title_logo" for="in_company_contents_title_logo">찾아보기</label>' +
 						'</div>' +
+						'<a class="a_company_logo_size">* 로고 이미지 사이즈 : 200*60</a>' +
 					'</div>' +
 					'<div class="div_company_detail_divide_line"></div>';
 			}
@@ -257,8 +260,10 @@ function changeComName(index){
 	if(!isAlphabet(com_name)){ //한글일때
 		var pattern_num = /[0-9]/;	// 숫자 
 		if(pattern_num.test(com_name)) com_name = com_name.replace(pattern_num, "?");
-		if(com_name.indexOf('?',0) == 0) $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("etc");
-		else{
+		if(com_name.indexOf('?',0) == 0){
+			if(index == 0) $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("etc");
+			else $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("WXYZ");
+		}else{
 			const f = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
 			
 			const ga = 44032;
@@ -266,15 +271,10 @@ function changeComName(index){
 			uni = uni - ga;
 			var fn = parseInt(uni / 588);
 			
-			logNow(com_name);
-			logNow(f[fn]);
-			
 			if(f[fn] == undefined){
 				isComnameCheck = false;
 				return alert("기업명을 확인해주세요.");
 			}else isComnameCheck = true;
-			
-			logNow(index);
 			
 			if(index == 0){
 				if(f[fn] == 'ㄱ' || f[fn] == 'ㄲ' || f[fn] == 'ㄴ') $('select[name=sel_company_contents_name_sort]:eq("' + index + '")').val("ㄱㄴ");
@@ -373,7 +373,6 @@ function showCompany(index, uid){
 }
 
 function setCompany(){
-	logNow(init_company_data);
 	$('div[name=div_company_detail_contents]').each(function(index){ 
 		checkCompany(index, init_company_data[index]["com_cate"])//시설분류
 		//$('input[name=in_company_contents_name]:eq("' + index + '")').val(init_company_data[index]["name"]); //기업명
@@ -456,7 +455,10 @@ function checkLang(value){
 		
 		if(isComnameCheck == false) return alert("기업명을 확인해주세요.1");
 		
-		
+		$('div[name=div_company_detail_contents]:eq("'+ value +'") textarea[name=in_company_contents_name]').attr('maxlength', '55');
+		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val($('div[name=div_company_detail_contents]:eq("0") input[name=in_company_contents_room]').val()); //입주호실
+		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_tel]').val($('div[name=div_company_detail_contents]:eq("0") input[name=in_company_contents_tel]').val()); //연락처
+		$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_email]').val($('div[name=div_company_detail_contents]:eq("0") input[name=in_company_contents_email]').val()); //이메일
 		
 		if(init_company_data == null){
 			if($('#img_company_pin').css('display') == 'none') return alert("지도에 핀을 표시해주세요");
@@ -472,19 +474,18 @@ function checkLang(value){
 			
 			if(!checkEsnt(value)){
 				setLangJson(value);
-				
 			}else{
 				if(value == 1){
 					checkCompany(value, ko_json.com_cate);
-					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(ko_json.room); //입주호실
+					/*$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(ko_json.room); //입주호실
 					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_tel]').val(ko_json.tel); //연락처
 					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_email]').val(ko_json.email); //이메일
-				}else{
+*/				}else{
 					checkCompany(value, en_json.com_cate);
-					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(en_json.room); //입주호실
+					/*$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_room]').val(en_json.room); //입주호실
 					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_tel]').val(en_json.tel); //연락처
 					$('div[name=div_company_detail_contents]:eq("'+ value +'") input[name=in_company_contents_email]').val(en_json.email); //이메일
-				}
+*/				}
 			}	
 		}
 		
@@ -642,6 +643,10 @@ function addLogo() {
 }
 
 function updateContent(uid) {
+	for(var i = 0; i < 4; i++){
+		if(!checkEsnt(i)) return alert("언어별 모든 양식에 필수 항목이 입력되었는지 확인바랍니다.");
+	}
+	
 	if($("#a_company_contents_title_logo").text() != ''){
 		var exc = ($("#a_company_contents_title_logo").text()).split(".");
 		if(checkExc(exc) == false) return alert("이미지 확장자를 확인해주세요.\n[ jpg, jepg, bmp, png, tiff, tif, gif ]");
@@ -691,26 +696,50 @@ function updateContent(uid) {
 				image_y: init_loc_data.y,
 				uid: uid
 			}
-			logNow(sendData);
 			$.ajax({
 				type: "POST",
-				contentType: "application/json; charset=utf-8;",
 				dataType: "json",
-				url: MASTER_URL + "/industry/update_company",
+				url: SLAVE_URL + "/network/select_network_count",
 				async: false,
-				data: JSON.stringify(sendData),
 				success: function (result) {
-				},
-				error: function () {
-					alert("데이터 수정 실패");
+					$.ajax({//마스터
+						type: "POST",
+						contentType: "application/json; charset=utf-8;",
+						dataType: "json",
+						url: MASTER_URL + "/industry/update_company",
+						async: false,
+						data: JSON.stringify(sendData),
+						success: function (result) {
+						},
+						error: function () {
+							alert("저장에 실패했습니다. /DB 오류/");
+						}
+					});
+					$.ajax({//슬래이브
+						type: "POST",
+						contentType: "application/json; charset=utf-8;",
+						dataType: "json",
+						url: SLAVE_URL + "/industry/update_company",
+						async: false,
+						data: JSON.stringify(sendData),
+						success: function (result) {
+						},
+						error: function () {
+							alert("저장에 실패했습니다. /DB 오류/");
+						}
+					});
+				},error: function (){
+					alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 				}
 			});
+
+			
 		});
 	},1000);
 	
 	setTimeout(function(){
 		$('#div_loading').hide();
-		//window.location.reload();
+		window.location.reload();
 	},1000);
 }
 
@@ -723,24 +752,47 @@ function deleteContent(uid) {
 		
 		$.ajax({
 			type: "POST",
-			contentType: "application/json; charset=utf-8;",
 			dataType: "json",
-			url: MASTER_URL + "/industry/delete_company",
+			url: SLAVE_URL + "/network/select_network_count",
 			async: false,
-			data: JSON.stringify(sendData),
 			success: function (result) {
-			},
-			error: function () {
-				alert("데이터 삭제 실패");
+				$.ajax({//마스터
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: MASTER_URL + "/industry/delete_company",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("삭제에 실패했습니다. /DB 오류/");
+					}
+				});	
+				$.ajax({//슬래이브
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: SLAVE_URL + "/industry/delete_company",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("삭제에 실패했습니다. /DB 오류/");
+					}
+				});	
+			},error: function (){
+				alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 			}
-		});	
+		});
 	}
 	window.location.reload();
 }
 
 function insertContent() {
 	for(var i = 0; i < 4; i++){
-		if(!checkEsnt(i)) return alert("언어별 모든 양식에 데이터가 입력되었는지 확인바랍니다.");
+		if(!checkEsnt(i)) return alert("언어별 모든 양식에 필수 항목이 입력되었는지 확인바랍니다.");
 	}
 	
 	if($("#a_company_contents_title_logo").text() != ''){
@@ -802,19 +854,41 @@ function insertContent() {
 				image_y: init_loc_data.y,
 	 			uid: new_uid
 			}
-			logNow(sendData);
 			
 			$.ajax({
 				type: "POST",
-				contentType: "application/json; charset=utf-8;",
 				dataType: "json",
-				url: MASTER_URL + "/industry/insert_company",
+				url: SLAVE_URL + "/network/select_network_count",
 				async: false,
-				data: JSON.stringify(sendData),
 				success: function (result) {
-				},
-				error: function () {
-					alert("데이터 입력 실패");
+					$.ajax({//마스터
+						type: "POST",
+						contentType: "application/json; charset=utf-8;",
+						dataType: "json",
+						url: MASTER_URL + "/industry/insert_company",
+						async: false,
+						data: JSON.stringify(sendData),
+						success: function (result) {
+						},
+						error: function () {
+							alert("저장에 실패했습니다. /DB 오류/");
+						}
+					});
+					$.ajax({//슬래이브
+						type: "POST",
+						contentType: "application/json; charset=utf-8;",
+						dataType: "json",
+						url: SLAVE_URL + "/industry/insert_company",
+						async: false,
+						data: JSON.stringify(sendData),
+						success: function (result) {
+						},
+						error: function () {
+							alert("저장에 실패했습니다. /DB 오류/");
+						}
+					});
+				},error: function (){
+					alert("네트워크 문제로 저장에 실패했습니다. 잠시후 다시 시도해주세요.");
 				}
 			});
 		});
@@ -838,29 +912,39 @@ function uploadLogo(com_cate) {
 	var formData = new FormData();
 	formData.append("files", $('#in_company_contents_title_logo')[0].files[0]);
 	formData.append("namecode", namecode);
-
-	$.ajax({ //마스터 주소
-		url : MASTER_URL + "/industry/upload_logo",
-		processData : false,
-		contentType : false,
+	
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		url: SLAVE_URL + "/network/select_network_count",
 		async: false,
-		data : formData,
-		type : 'POST',
-		success : function(result) {
-			if(result == "") alert("이미지 업로드 실패");
-			else logo_name = result;
+		success: function (result) {
+			$.ajax({ //마스터
+				url : MASTER_URL + "/industry/upload_logo",
+				processData : false,
+				contentType : false,
+				async: false,
+				data : formData,
+				type : 'POST',
+				success : function(result) {
+					if(result == "") alert("이미지 업로드 실패");
+					else logo_name = result;
+				}
+			});
+			$.ajax({ //슬레이브
+				url : SLAVE_URL + "/kioskserver/industry/upload_logo",
+				processData : false,
+				contentType : false,
+				async: false,
+				data : formData,
+				type : 'POST',
+				success : function(result) {
+					if(result == "") alert("이미지 업로드 실패");
+					else logo_name = result;
+				}
+			});
+		},error: function (){
+			alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 		}
 	});
-	
-	/*$.ajax({ //슬레이브 주소
-		url : SLAVE_URL + "/kioskserver/industry/upload_logo",
-		processData : false,
-		contentType : false,
-		async: false,
-		data : formData,
-		type : 'POST',
-		success : function(result) {
-			if(result == "") alert("이미지 업로드 실패");
-		}
-	});*/
 }

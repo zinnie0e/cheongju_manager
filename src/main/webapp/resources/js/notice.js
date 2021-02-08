@@ -19,6 +19,8 @@ function initNotice() {
 		}
 	});
 	
+	if(notice_count.length >= 10) $('#btn_notice_add').hide();
+	
 	for(var i = 0; i < notice_count.length; i++){
 		var sendData = {uid: notice_count[i]["uid"]}
 		$.ajax({
@@ -65,7 +67,7 @@ function getNotice(){
 						'</div>' + 
 					'</div>' +
 					'<div name="div_notice_item_kr_u_c" class="div_notice_item_lang">' +
-						'<a class="a_notice_num">'+ i +'</a>' +
+						'<a class="a_notice_num">'+ num +'</a>' +
 						'<a class="a_notice_num">KR</a>' +
 						'<input type="text" name="in_notice_kr_u" class="in_notice_item" value="" maxlength="200">' +
 						'<div id="div_btn_set_contain">' +
@@ -185,18 +187,42 @@ function editNotice(index){
 function deleteNotice(uid){
 	if(!confirm("삭제하시겠습니까?")) return;
 	for(var i = 0 ; i < lang.length ; i++){
-		var sendData = { language: lang[i], uid: uid }
 		$.ajax({
 			type: "POST",
-			contentType: "application/json; charset=utf-8;",
 			dataType: "json",
-			url: MASTER_URL + "/notice/delete_notice_of_lang",
+			url: SLAVE_URL + "/network/select_network_count",
 			async: false,
-			data: JSON.stringify(sendData),
 			success: function (result) {
+				var sendData = { language: lang[i], uid: uid }
+				$.ajax({//마스터
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: MASTER_URL + "/notice/delete_notice_of_lang",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("삭제에 실패했습니다. /DB 오류/");
+					}
+				});
+				$.ajax({//슬래이브
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: SLAVE_URL + "/notice/delete_notice_of_lang",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("삭제에 실패했습니다. /DB 오류/");
+					}
+				});
 				window.location.reload();
-			},
-			error: function () {
+			},error: function (){
+				alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 			}
 		});
 	}
@@ -218,18 +244,42 @@ function updateNotice(index, uid){
 	
 	if(!confirm("저장하시겠습니까?")) return;
 	for(var i = 0 ; i < lang.length ; i++){
-		var sendData = { language: lang[i], notice: up_notice_data[i], uid: uid }
 		$.ajax({
 			type: "POST",
-			contentType: "application/json; charset=utf-8;",
 			dataType: "json",
-			url: MASTER_URL + "/notice/update_notice_of_lang",
+			url: SLAVE_URL + "/network/select_network_count",
 			async: false,
-			data: JSON.stringify(sendData),
 			success: function (result) {
+				var sendData = { language: lang[i], notice: up_notice_data[i], uid: uid }
+				$.ajax({//마스터
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: MASTER_URL + "/notice/update_notice_of_lang",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("저장에 실패했습니다. /DB 오류/");
+					}
+				});
+				$.ajax({//슬래이브
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: SLAVE_URL + "/notice/update_notice_of_lang",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("저장에 실패했습니다. /DB 오류/");
+					}
+				});
 				window.location.reload();
-			},
-			error: function () {
+			},error: function (){
+				alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 			}
 		});
 	}
@@ -254,18 +304,42 @@ function addNotice(){
 	add_notice_data.push(jp_data);
 	
 	for(var i = 0 ; i < lang.length ; i++){
-		var sendData = { language: lang[i], notice: add_notice_data[i] }
 		$.ajax({
 			type: "POST",
-			contentType: "application/json; charset=utf-8;",
 			dataType: "json",
-			url: MASTER_URL + "/notice/insert_notice_of_lang",
+			url: SLAVE_URL + "/network/select_network_count",
 			async: false,
-			data: JSON.stringify(sendData),
 			success: function (result) {
+				var sendData = { language: lang[i], notice: add_notice_data[i] }
+				$.ajax({//마스터
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: MASTER_URL + "/notice/insert_notice_of_lang",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("저장에 실패했습니다. /DB 오류/");
+					}
+				});
+				$.ajax({//슬래이브
+					type: "POST",
+					contentType: "application/json; charset=utf-8;",
+					dataType: "json",
+					url: SLAVE_URL + "/notice/insert_notice_of_lang",
+					async: false,
+					data: JSON.stringify(sendData),
+					success: function (result) {
+					},
+					error: function () {
+						alert("저장에 실패했습니다. /DB 오류/");
+					}
+				});
 				window.location.reload();
-			},
-			error: function () {
+			},error: function (){
+				alert("네트워크 문제로 실패했습니다. 잠시후 다시 시도해주세요.");
 			}
 		});
 	}

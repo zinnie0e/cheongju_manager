@@ -370,6 +370,7 @@
     
     display: block;
     float: left;
+    font-weight: 600;
     
     color: #ff5012;
 }
@@ -383,7 +384,7 @@
     
     display: block;
     float: left;
-    
+    font-weight: 600;
 }
 
 .div_company_detail_title_contents {
@@ -391,6 +392,31 @@
     height: var(--company-item-height);
     
     float: left;
+}
+
+.a_company_logo_size{
+	color : #888888;
+	width: calc(var(--div-company-detail-title-width) - var(--a-company-detail-title-item-width));
+    height: 20px;
+    line-height: 30px;
+    
+    margin-top: 5px;
+    margin-left: 180px;
+    
+    text-align: right;
+}
+
+.a_company_name_noti{
+	color : #888888;
+	width: calc(var(--div-company-detail-title-width) - var(--a-company-detail-title-item-width));
+    height: 20px;
+    line-height: 30px;
+    
+    margin-top: 5px;
+    margin-left: 370px;
+    position: relative;
+    
+    text-align: right;
 }
 
 .div_company_contents_com_cate {
@@ -466,7 +492,7 @@
 
 #comname_midline{
 	width: 1px;
-	height: 100px;
+	height: 30px;
 	margin-right: 25px;
 	margin-left: 25px;
 	margin-top: calc((var(--company-item-height) - var(--company-item-in-height)) / 2);
@@ -494,6 +520,7 @@
     
     display: block;
     float: left;
+   
     
     background-color: #ebebeb;
 }
@@ -567,7 +594,6 @@
     margin-left: var(--item-margin-left);
     background-color: #8da4b9;
     
-    
 }
 
 #btn_company_contents_insert {
@@ -598,7 +624,7 @@
 
 #div_company_detail_bottom {
 	width: var(--div-company-contents-detail-width);
-    height: 158px;
+    height: 123px;
     
     border-radius: 0px 0px 20px 20px;
     font-size: 14px;

@@ -307,3 +307,12 @@ body {
 	position: absolute;
 }
 
+#img_guru{
+	width: 255px;
+	height: 20px;
+	top: 469px;
+	position: absolute;
+	background-image: url("../image/guru.png");
+	left: 116px;
+}
+
