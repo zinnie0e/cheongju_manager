@@ -28,7 +28,7 @@ function initDayUsage(date){
 		contentType: "application/json; charset=utf-8;",
 		dataType: "json",
 		async: false,
-		url: MASTER_URL + "/usage/select_day_usage", //SLAVE_URL
+		url: SLAVE_URL + "/usage/select_day_usage", //SLAVE_URL
 		data : JSON.stringify(from),
 		success: function (result) {
 			daySlaveJson = result;
@@ -51,7 +51,7 @@ function initAllDayUsage(){
 	$.ajax({
 		type: "POST",
 		dataType: "json",
-		url: MASTER_URL + "/usage/select_all_count_usage", //SLAVE_URL
+		url: SLAVE_URL + "/usage/select_all_count_usage", //SLAVE_URL
 		async: false,
 		success: function (result) {
 			allSlaveJson = result;
@@ -70,21 +70,21 @@ function setDayChart(){
 	
 	var ctx = document.getElementById('dayChart');
 	var barData = {
-			labels: ['진행중 이벤트', '첨단문화산업단지', '원더아리아', '한국공예관', '청주열린도서관', '층북시청자미디어센터', '문화산업진흥재단', '국립현대미술관', '동부창고', '복합공영주차장', '운영시간'],
-			datasets: [{
-				label: '#내부키오스크',
-				data: [dayMasterJson.event_cnt, dayMasterJson.industry_cnt, dayMasterJson.wonder_cnt, dayMasterJson.craft_cnt, dayMasterJson.library_cnt, dayMasterJson.media_cnt, dayMasterJson.foundation_cnt, dayMasterJson.museum_cnt, dayMasterJson.dongbu_cnt, dayMasterJson.parking_cnt, dayMasterJson.hours_cnt],
-				backgroundColor: 'rgba(255, 99, 132, 0.8)',
-				borderColor: 'rgba(255, 99, 132, 0.8)',
-				borderWidth: 1
-			}, {
-				label: '#외부키오스크',
-				backgroundColor: 'rgba(54, 162, 235, 0.8)',
-				borderColor: 'rgba(54, 162, 235, 0.8)',
-				borderWidth: 1,
-				data: [daySlaveJson.event_cnt, daySlaveJson.industry_cnt, daySlaveJson.wonder_cnt, daySlaveJson.craft_cnt, daySlaveJson.library_cnt, daySlaveJson.media_cnt, daySlaveJson.foundation_cnt, daySlaveJson.museum_cnt, daySlaveJson.dongbu_cnt, daySlaveJson.parking_cnt, daySlaveJson.hours_cnt],
-			}]
-		};
+		labels: ['진행중 이벤트', '청주 관광지', '첨단문화산업단지', '원더아리아', '한국공예관', '청주열린도서관', '층북시청자미디어센터', '문화산업진흥재단', '국립현대미술관', '동부창고', '복합공영주차장', '운영시간'],
+		datasets: [{
+			label: '#내부키오스크',
+			data: [dayMasterJson.event_cnt, dayMasterJson.tour_cnt, dayMasterJson.industry_cnt, dayMasterJson.wonder_cnt, dayMasterJson.craft_cnt, dayMasterJson.library_cnt, dayMasterJson.media_cnt, dayMasterJson.foundation_cnt, dayMasterJson.museum_cnt, dayMasterJson.dongbu_cnt, dayMasterJson.parking_cnt, dayMasterJson.hours_cnt],
+			backgroundColor: 'rgba(255, 99, 132, 0.8)',
+			borderColor: 'rgba(255, 99, 132, 0.8)',
+			borderWidth: 1
+		}, {
+			label: '#외부키오스크',
+			backgroundColor: 'rgba(54, 162, 235, 0.8)',
+			borderColor: 'rgba(54, 162, 235, 0.8)',
+			borderWidth: 1,
+			data: [daySlaveJson.event_cnt, daySlaveJson.tour_cnt, daySlaveJson.industry_cnt, daySlaveJson.wonder_cnt, daySlaveJson.craft_cnt, daySlaveJson.library_cnt, daySlaveJson.media_cnt, daySlaveJson.foundation_cnt, daySlaveJson.museum_cnt, daySlaveJson.dongbu_cnt, daySlaveJson.parking_cnt, daySlaveJson.hours_cnt],
+		}]
+	};
 	var barOption = {
 			responsive: false,
 			scales: {
@@ -120,21 +120,21 @@ function setAllChart(){
 	
 	var ctx = document.getElementById('allChart');
 	var barData = {
-			labels: ['진행중 이벤트', '첨단문화산업단지', '원더아리아', '한국공예관', '청주열린도서관', '층북시청자미디어센터', '문화산업진흥재단', '국립현대미술관', '동부창고', '복합공영주차장', '운영시간'],
-			datasets: [{
-				label: '#내부키오스크',
-				data: [allMasterJson.event_cnt, allMasterJson.industry_cnt, allMasterJson.wonder_cnt, allMasterJson.craft_cnt, allMasterJson.library_cnt, allMasterJson.media_cnt, allMasterJson.foundation_cnt, allMasterJson.museum_cnt, allMasterJson.dongbu_cnt, allMasterJson.parking_cnt, allMasterJson.hours_cnt],
-				backgroundColor: 'rgba(255, 99, 132, 0.8)',
-				borderColor: 'rgba(255, 99, 132, 0.8)',
-				borderWidth: 1
-			}, {
-				label: '#외부키오스크',
-				backgroundColor: 'rgba(54, 162, 235, 0.8)',
-				borderColor: 'rgba(54, 162, 235, 0.8)',
-				borderWidth: 1,
-				data: [allSlaveJson.event_cnt, allSlaveJson.industry_cnt, allSlaveJson.wonder_cnt, allSlaveJson.craft_cnt, allSlaveJson.library_cnt, allSlaveJson.media_cnt, allSlaveJson.foundation_cnt, allSlaveJson.museum_cnt, allSlaveJson.dongbu_cnt, allSlaveJson.parking_cnt, allSlaveJson.hours_cnt],
-			}]
-		};
+		labels: ['진행중 이벤트', '청주 관광지', '첨단문화산업단지', '원더아리아', '한국공예관', '청주열린도서관', '층북시청자미디어센터', '문화산업진흥재단', '국립현대미술관', '동부창고', '복합공영주차장', '운영시간'],
+		datasets: [{
+			label: '#내부키오스크',
+			data: [allMasterJson.event_cnt, allMasterJson.tour_cnt, allMasterJson.industry_cnt, allMasterJson.wonder_cnt, allMasterJson.craft_cnt, allMasterJson.library_cnt, allMasterJson.media_cnt, allMasterJson.foundation_cnt, allMasterJson.museum_cnt, allMasterJson.dongbu_cnt, allMasterJson.parking_cnt, allMasterJson.hours_cnt],
+			backgroundColor: 'rgba(255, 99, 132, 0.8)',
+			borderColor: 'rgba(255, 99, 132, 0.8)',
+			borderWidth: 1
+		}, {
+			label: '#외부키오스크',
+			backgroundColor: 'rgba(54, 162, 235, 0.8)',
+			borderColor: 'rgba(54, 162, 235, 0.8)',
+			borderWidth: 1,
+			data: [allSlaveJson.event_cnt, allSlaveJson.tour_cnt, allSlaveJson.industry_cnt, allSlaveJson.wonder_cnt, allSlaveJson.craft_cnt, allSlaveJson.library_cnt, allSlaveJson.media_cnt, allSlaveJson.foundation_cnt, allSlaveJson.museum_cnt, allSlaveJson.dongbu_cnt, allSlaveJson.parking_cnt, allSlaveJson.hours_cnt],
+		}]
+	};
 	
 	var barOption = {
 			responsive: false,
@@ -249,6 +249,7 @@ function initExcelData(){
 	var mapping = {
 			date: '날짜',
 			event_cnt: '진행중 이벤트',
+			tour_cnt: '청주 관광지',
 			industry_cnt: '첨단문화산업단지',
 			wonder_cnt: '원더아리아',
 			craft_cnt: '한국공예관',
@@ -280,7 +281,7 @@ function initExcelData(){
 	$.ajax({
 		type: "POST",
 		dataType: "json",
-		url: MASTER_URL + "/usage/select_all_usage", //SLAVE_URL
+		url: SLAVE_URL + "/usage/select_all_usage", //SLAVE_URL
 		async: false,
 		success: function (result) {
 			totSlaveJson = renameKeys(mapping, result);

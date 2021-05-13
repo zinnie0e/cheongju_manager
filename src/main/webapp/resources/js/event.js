@@ -1036,7 +1036,7 @@ var poster_name;
 function uploadPoster(event_cate) {
 	//logNow($('#in_event_contents_title_poster')[0].files[0] + "/" + $('#in_event_contents_title_poster').val());
 	
-	if($('#in_event_contents_title_poster')[0].files[0].size > 1024 * 1024 * 5) return false; // 용량 초과
+	if($('#in_event_contents_title_poster')[0].files[0].size > 1024 * 1024 * 30) return false; // 용량 초과 10MB
 	
 	var namecode = getCookie("login_info").auth + '' + event_cate + '_' + getNow();
 	

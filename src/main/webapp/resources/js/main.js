@@ -1,7 +1,7 @@
 const IS_DEBUG = true;
 var MASTER_URL = "http://localhost:9090";
 //var MASTER_URL = "http://cheongjukiosk.iptime.org:10000/kioskserver";
-//var SLAVE_URL = "http://cheongjukiosk.iptime.org:11000/kioskserver"; 
+var SLAVE_URL = "http://cheongjukiosk.iptime.org:11000/kioskserver"; 
 
 function logNow(logContents){
     if(IS_DEBUG){

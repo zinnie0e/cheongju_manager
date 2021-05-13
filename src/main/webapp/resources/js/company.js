@@ -905,7 +905,7 @@ var logo_name;
 function uploadLogo(com_cate) {
 	//logNow($('#in_company_contents_title_logo')[0].files[0] + "/" + $('#in_company_contents_title_logo').val());
 	
-	if($('#in_event_contents_title_poster')[0].files[0].size > 1024 * 1024 * 5) return false; // 용량 초과
+	if($('#in_event_contents_title_poster')[0].files[0].size > 1024 * 1024 * 30) return false; // 용량 초과 10MB
 	
 	var namecode = getCookie("login_info").auth + '' + com_cate + '_' + getNow();
 	
